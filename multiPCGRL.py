@@ -17,6 +17,7 @@ from gym_pcgrl import wrappers
 
 
 if torch.cuda.is_available():
+    print('gpu found')
     device = torch.device("cuda:0")
 else:
     device = torch.device("cpu")
