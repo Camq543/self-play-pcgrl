@@ -214,23 +214,23 @@ class Model(nn.Module):
 
 
     def forward(self, obs: np.ndarray):
-        print('runnin forward')
+        # print('runnin forward')
         h: torch.Tensor
 
         h = F.relu(self.conv1(obs))
-        print(h.shape)
+        # print(h.shape)
         h = F.relu(self.conv2(h))
-        print(h.shape)
+        # print(h.shape)
         h = F.relu(self.conv3(h))
-        print(h.shape)
+        # print(h.shape)
         h = h.reshape((-1, 28 * 28 * 64))
-        print(h.shape)
+        # print(h.shape)
 
         h = F.relu(self.lin(h))
-        print(h.shape)
+        # print(h.shape)
 
-        print(h)
-        print('logits',self.pi_logits(h))
+        # print(h)
+        # print('logits',self.pi_logits(h))
         pi = Categorical(logits=self.pi_logits(h))
         value = self.value(h).reshape(-1)
 
@@ -239,11 +239,11 @@ class Model(nn.Module):
 
 
 def obs_to_torch(obs: np.ndarray) -> torch.Tensor:
-    print("before",obs.shape)
+    # print("before",obs.shape)
     obs = np.swapaxes(obs, 1, 3)
-    print("after first",obs.shape)
+    # print("after first",obs.shape)
     obs = np.swapaxes(obs, 3, 2)
-    print("after second",obs.shape)
+    # print("after second",obs.shape)
 
 
 
@@ -396,16 +396,16 @@ class Main(object):
             obs[:, t] = self.obs
 
             temp = obs_to_torch(self.obs)
-            print(temp.shape)
+            # print(temp.shape)
             pi, v = self.model(temp)
-            print(v)
+            # print(v)
             values[:, t] = v.cpu().data.numpy()
             a = pi.sample()
-            print(a)
+            # print(a)
             actions[:, t] = a.cpu().data.numpy()
             neg_log_pis[:, t] = -pi.log_prob(a).cpu().data.numpy()
 
-            print("actions",actions)
+            # print("actions",actions)
 
 
             for w, worker in enumerate(self.workers):
@@ -492,7 +492,8 @@ class Main(object):
 
                 train_info.append(res)
 
-
+        print(np.mean(train_info, axis=0))
+              
         return np.mean(train_info, axis=0)
 
 

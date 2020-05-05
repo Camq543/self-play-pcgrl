@@ -16,7 +16,7 @@ Return a Box instead of dictionary by stacking different similar objects
 Can be stacked as Last Layer
 """
 class ToImage(gym.Wrapper):
-    def __init__(self, game, names, **kwargs):
+    def __init__(self, game, names, n_agents, **kwargs):
         if isinstance(game, str):
             self.env = gym.make(game)
         else:
@@ -24,6 +24,7 @@ class ToImage(gym.Wrapper):
         get_pcgrl_env(self.env).adjust_param(**kwargs)
         gym.Wrapper.__init__(self, self.env)
         self.shape = None
+        self.n_agents = n_agents
         depth=0
         max_value = 0
         for n in names:
@@ -39,16 +40,24 @@ class ToImage(gym.Wrapper):
 
         self.observation_space = gym.spaces.Box(low=0, high=max_value,shape=(self.shape[0], self.shape[1], depth))
 
-    def step(self, action):
-        action = get_action(action)
-        obs, reward, done, info = self.env.step(action)
-        obs = self.transform(obs)
-        return obs, reward, done, info
+    def step(self, actions):
+        for i in range(self.n_agents):
+            actions[i] = get_action(actions[i])
+
+        obs, reward, done, info = self.env.step(actions)
+
+        for i in range(self.n_agents):
+            obs[i] = self.transform(obs[i])
+
+        return np.array(obs), reward, done, info
 
     def reset(self):
         obs = self.env.reset()
-        obs = self.transform(obs)
-        return obs
+
+        for i in range(self.n_agents):
+            obs[i] = self.transform(obs[i])
+
+        return np.array(obs)
 
     def transform(self, obs):
         final = np.empty([])
@@ -161,7 +170,7 @@ This wrapper only works on games with a position coordinate
 can be stacked
 """
 class Cropped(gym.Wrapper):
-    def __init__(self, game, crop_size, pad_value, name, **kwargs):
+    def __init__(self, game, crop_size, pad_value, name, n_agents, **kwargs):
         if isinstance(game, str):
             self.env = gym.make(game)
         else:
@@ -173,6 +182,7 @@ class Cropped(gym.Wrapper):
         assert name in self.env.observation_space.spaces.keys(), 'This wrapper only works if you have a {} key'.format(name)
         assert len(self.env.observation_space.spaces[name].shape) == 2, "This wrapper only works on 2D arrays."
         self.name = name
+        self.n_agents = n_agents
         self.size = crop_size
         self.pad = crop_size//2
         self.pad_value = pad_value
@@ -183,15 +193,23 @@ class Cropped(gym.Wrapper):
         high_value = self.observation_space[self.name].high.max()
         self.observation_space.spaces[self.name] = gym.spaces.Box(low=0, high=high_value, shape=(crop_size, crop_size), dtype=np.uint8)
 
-    def step(self, action):
-        action = get_action(action)
-        obs, reward, done, info = self.env.step(action)
-        obs = self.transform(obs)
+    def step(self, actions):
+        for i in range(self.n_agents):
+            actions[i] = get_action(actions[i])
+
+        obs, reward, done, info = self.env.step(actions)
+
+        for i in range(self.n_agents):
+            obs[i] = self.transform(obs[i])
+
         return obs, reward, done, info
 
     def reset(self):
         obs = self.env.reset()
-        obs = self.transform(obs)
+
+        for i in range(self.n_agents):
+            obs[i] = self.transform(obs[i])
+
         return obs
 
     def transform(self, obs):
@@ -213,23 +231,24 @@ class Cropped(gym.Wrapper):
 The wrappers we use for narrow and turtle experiments
 """
 class CroppedImagePCGRLWrapper(gym.Wrapper):
-    def __init__(self, game, crop_size, **kwargs):
+    def __init__(self, game, crop_size, n_agents, **kwargs):
     # def __init__(self, env_config):
     #     game = env_config['game']
     #     crop_size = env_config['crop_size']
     #     kwargs = env_config['kwargs']
+        self.n_agents = n_agents
         self.pcgrl_env = gym.make(game)
         self.pcgrl_env.adjust_param(**kwargs)
         # Cropping the map to the correct crop_size
-        env = Cropped(self.pcgrl_env, crop_size, self.pcgrl_env.get_border_tile(), 'map')
+        env = Cropped(self.pcgrl_env, crop_size, self.pcgrl_env.get_border_tile(), 'map', self.n_agents)
         # Transform to one hot encoding if not binary
         if 'binary' not in game:
             env = OneHotEncoding(env, 'map')
         # Indices for flatting
         flat_indices = ['map']
         # Final Wrapper has to be ToImage or ToFlat
-        self.env = ToImage(env, flat_indices)
-        gym.Wrapper.__init__(self, self.env)
+        self.env = ToImage(env, flat_indices, self.n_agents)
+        gym.Wrapper.__init__(self, self.env,)
 
 """
 Similar to the previous wrapper but the input now is the index in a 3D map (height, width, num_tiles) of the highest value

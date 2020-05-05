@@ -214,16 +214,16 @@ class Model(nn.Module):
         h: torch.Tensor
 
         h = F.relu(self.conv1(obs))
-        print(h.shape)
+        # print(h.shape)
         h = F.relu(self.conv2(h))
-        print(h.shape)
+        # print(h.shape)
         h = F.relu(self.conv3(h))
-        print(h.shape)
+        # print(h.shape)
         h = h.reshape((-1, 7 * 7 * 64))
-        print(h.shape)
+        # print(h.shape)
 
         h = F.relu(self.lin(h))
-        print(h.shape)
+        # print(h.shape)
 
         pi = Categorical(logits=self.pi_logits(h))
         value = self.value(h).reshape(-1)
@@ -234,11 +234,11 @@ class Model(nn.Module):
 
 def obs_to_torch(obs: np.ndarray) -> torch.Tensor:
 
-    print("before",obs.shape)
+    # print("before",obs.shape)
     obs = np.swapaxes(obs, 1, 3)
-    print("after first",obs.shape)
+    # print("after first",obs.shape)
     obs = np.swapaxes(obs, 3, 2)
-    print("after second",obs.shape)
+    # print("after second",obs.shape)
 
 
 
@@ -345,7 +345,7 @@ class Main(object):
 
         self.workers = [Worker(47 + i) for i in range(self.n_workers)]
 
-        print(self.workers)
+        # print(self.workers)
 
         self.obs = np.zeros((self.n_workers, 84, 84, 4), dtype=np.uint8)
         for worker in self.workers:
@@ -374,9 +374,9 @@ class Main(object):
             obs[:, t] = self.obs
 
             temp = obs_to_torch(self.obs)
-            print(temp.shape)
+            # print(temp.shape)
             pi, v = self.model(temp)
-            print(v)
+            # print(v)
             values[:, t] = v.cpu().data.numpy()
             a = pi.sample()
             actions[:, t] = a.cpu().data.numpy()
