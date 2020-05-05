@@ -206,7 +206,7 @@ class Model(nn.Module):
 
         self.pi_logits = nn.Linear(in_features=512,
                                    out_features=3)
-        nn.init.orthogonal_(self.pi_logits.weight, np.sqrt(2))
+        nn.init.orthogonal_(self.pi_logits.weight, np.sqrt(.01))
 
         self.value = nn.Linear(in_features=512,
                                  out_features=1)
@@ -492,8 +492,7 @@ class Main(object):
 
                 train_info.append(res)
 
-        print(np.mean(train_info, axis=0))
-              
+
         return np.mean(train_info, axis=0)
 
 
