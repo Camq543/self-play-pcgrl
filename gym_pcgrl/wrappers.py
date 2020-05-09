@@ -74,11 +74,12 @@ Transform any object in the dictionary to one hot encoding
 can be stacked
 """
 class OneHotEncoding(gym.Wrapper):
-    def __init__(self, game, name, **kwargs):
+    def __init__(self, game, name, n_agents, **kwargs):
         if isinstance(game, str):
             self.env = gym.make(game)
         else:
             self.env = game
+        self.n_agents = n_agents
         get_pcgrl_env(self.env).adjust_param(**kwargs)
         gym.Wrapper.__init__(self, self.env)
 
@@ -96,9 +97,10 @@ class OneHotEncoding(gym.Wrapper):
         new_shape.append(self.dim)
         self.observation_space.spaces[self.name] = gym.spaces.Box(low=0, high=1, shape=new_shape, dtype=np.uint8)
 
-    def step(self, action):
-        action = get_action(action)
-        obs, reward, done, info = self.env.step(action)
+    def step(self, actions):
+        for i in range(len(actions)):
+            actions[i] = get_action(actions[i])
+        obs, reward, done, info = self.env.step(actions)
         obs = self.transform(obs)
         return obs, reward, done, info
 
@@ -108,8 +110,9 @@ class OneHotEncoding(gym.Wrapper):
         return obs
 
     def transform(self, obs):
-        old = obs[self.name]
-        obs[self.name] = np.eye(self.dim)[old]
+        for i in range (self.n_agents):
+            old = obs[i][self.name]
+            obs[i][self.name] = np.eye(self.dim)[old]
         return obs
 
 """
@@ -243,7 +246,7 @@ class CroppedImagePCGRLWrapper(gym.Wrapper):
         env = Cropped(self.pcgrl_env, crop_size, self.pcgrl_env.get_border_tile(), 'map', self.n_agents)
         # Transform to one hot encoding if not binary
         if 'binary' not in game:
-            env = OneHotEncoding(env, 'map')
+            env = OneHotEncoding(env, 'map',n_agents)
         # Indices for flatting
         flat_indices = ['map']
         # Final Wrapper has to be ToImage or ToFlat

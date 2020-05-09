@@ -12,9 +12,10 @@ class NarrowRepresentation(Representation):
     """
     Initialize all the parameters used by that representation
     """
-    def __init__(self):
+    def __init__(self,n_agents):
         super().__init__()
         self._random_tile = True
+        self.n_agents = n_agents
 
     """
     Resets the current representation where it resets the parent and the current
@@ -27,8 +28,11 @@ class NarrowRepresentation(Representation):
     """
     def reset(self, width, height, prob):
         super().reset(width, height, prob)
-        self._x = self._random.randint(width)
-        self._y = self._random.randint(height)
+        self._x = [0 for _ in range(self.n_agents)]
+        self._y = [0 for _ in range(self.n_agents)]
+        for i in range(self.n_agents):
+            self._x[i] = self._random.randint(width)
+            self._y[i] = self._random.randint(height)
 
     """
     Gets the action space used by the narrow representation
@@ -70,9 +74,9 @@ class NarrowRepresentation(Representation):
         observation: the current observation at the current moment. "pos" Integer
         x,y position for the current location. "map" 2D array of tile numbers
     """
-    def get_observation(self):
+    def get_observation(self, agent):
         return OrderedDict({
-            "pos": np.array([self._x, self._y], dtype=np.uint8),
+            "pos": np.array([self._x[agent], self._y[agent]], dtype=np.uint8),
             "map": self._map.copy()
         })
 
@@ -96,22 +100,22 @@ class NarrowRepresentation(Representation):
     Returns:
         boolean: True if the action change the map, False if nothing changed
     """
-    def update(self, action):
+    def update(self, action, agent):
         change = 0
         if action > 0:
-            change += [0,1][self._map[self._y][self._x] != action-1]
-            self._map[self._y][self._x] = action-1
+            change += [0,1][self._map[self._y[agent]][self._x[agent]] != action-1]
+            self._map[self._y[agent]][self._x[agent]] = action-1
         if self._random_tile:
-            self._x = self._random.randint(self._map.shape[1])
-            self._y = self._random.randint(self._map.shape[0])
+            self._x[agent] = self._random.randint(self._map.shape[1])
+            self._y[agent] = self._random.randint(self._map.shape[0])
         else:
-            self._x += 1
-            if self._x >= self._map.shape[1]:
-                self._x = 0
-                self._y += 1
-                if self._y >= self._map.shape[0]:
-                    self._y = 0
-        return change, self._x, self._y
+            self._x[agent] += 1
+            if self._x[agent] >= self._map.shape[1]:
+                self._x[agent] = 0
+                self._y[agent] += 1
+                if self._y[agent] >= self._map.shape[0]:
+                    self._y[agent] = 0
+        return change, self._x[agent], self._y[agent]
 
     """
     Modify the level image with a red rectangle around the tile that is
@@ -137,6 +141,7 @@ class NarrowRepresentation(Representation):
             x_graphics.putpixel((y,1),(255,0,0,255))
             x_graphics.putpixel((y,tile_size-2),(255,0,0,255))
             x_graphics.putpixel((y,tile_size-1),(255,0,0,255))
-        lvl_image.paste(x_graphics, ((self._x+border_size)*tile_size, (self._y+border_size)*tile_size,
-                                        (self._x+border_size+1)*tile_size,(self._y+border_size+1)*tile_size), x_graphics)
+        for i in range(self.n_agents):
+            lvl_image.paste(x_graphics, ((self._x[i]+border_size)*tile_size, (self._y[i]+border_size)*tile_size,
+                                            (self._x[i]+border_size+1)*tile_size,(self._y[i]+border_size+1)*tile_size), x_graphics)
         return lvl_image

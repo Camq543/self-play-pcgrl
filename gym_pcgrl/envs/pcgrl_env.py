@@ -30,7 +30,7 @@ class PcgrlEnv(gym.Env):
     """
     def __init__(self, prob="binary", rep="narrow", n_agents = 2):
         self._prob = PROBLEMS[prob]()
-        self._rep = REPRESENTATIONS[rep]()
+        self._rep = REPRESENTATIONS[rep](n_agents)
         self.n_agents = n_agents
         # self._prob = BinaryProblem()
         # self._rep = NarrowRepresentation()
@@ -83,7 +83,7 @@ class PcgrlEnv(gym.Env):
 
         observations = []
         for i in range(self.n_agents):
-            observation = self._rep.get_observation()
+            observation = self._rep.get_observation(i)
             observation["heatmap"] = self._heatmap.copy()
             observations.append(observation)
         # print(observations)
@@ -142,20 +142,20 @@ class PcgrlEnv(gym.Env):
     """
     def step(self, actions):
         self._iteration += 1
-        observations, rewards, dones, info = [], [], [], []
+        observations, rewards, dones, infos = [], [], [], {}
         for i in range(self.n_agents):
             #save copy of the old stats to calculate the reward
             old_stats = self._rep_stats
             # update the current state to the new state based on the taken action
             # print("action",action)
-            change, x, y = self._rep.update(actions[i])
+            change, x, y = self._rep.update(actions[i],i)
             # print("update", change,x,y)
             if change > 0:
                 self._changes += change
                 self._heatmap[y][x] += 1.0
                 self._rep_stats = self._prob.get_stats(get_string_map(self._rep._map, self._prob.get_tile_types()))
             # calculate the values
-            observation = self._rep.get_observation()
+            observation = self._rep.get_observation(i)
             observation["heatmap"] = self._heatmap.copy()
             reward = self._prob.get_reward(self._rep_stats, old_stats)
             done = self._prob.get_episode_over(self._rep_stats,old_stats) or self._changes >= self._max_changes or self._iteration >= self._max_iterations
@@ -166,21 +166,31 @@ class PcgrlEnv(gym.Env):
             dones.append(done)
             self.rewards[i].append(reward)
 
-        info["iterations"] = self._iteration
-        info["changes"] = self._changes
-        info["max_iterations"] = self._max_iterations
-        info["max_changes"] = self._max_changes
-        # print(self.rewards)
-        if done:
+            info["iterations"] = self._iteration
+            info["changes"] = self._changes
+            info["max_iterations"] = self._max_iterations
+            info["max_changes"] = self._max_changes
+            #print(info)
             # print(self.rewards)
-            info["reward"] = [sum(reward) for reward in self.rewards]
-            # print([sum(rewards) for rewards in self.rewards])
-            info["length"] = len(self.rewards[0])
-            self.reset()
-        else:
-            info = None
+
+
+            for k,v in info.items():
+                if k in infos:
+                    infos[k][i] = v
+                else:
+                    infos[k] = [0,0]
+                    infos[k][i] = v
+
+            if done:
+                # print(self.rewards)
+                infos["reward"] = [sum(reward) for reward in self.rewards]
+                # print([sum(rewards) for rewards in self.rewards])
+                infos["length"] = len(self.rewards[0])
+                self.reset()
+        # else:
+        #     info = None
         #return the values
-        return observations, rewards, dones, info
+        return observations, rewards, dones, infos
 
     """
     Render the current state of the environment

@@ -14,6 +14,8 @@ from torch.distributions import Categorical
 from torch.nn import functional as F
 
 from gym_pcgrl import wrappers
+import matplotlib.pyplot as plt
+from IPython import display
 
 
 if torch.cuda.is_available():
@@ -22,6 +24,16 @@ else:
     device = torch.device("cpu")
 
 
+
+
+def show_state(env, step=0, changes=0, total_reward=0, name=""):
+    fig = plt.figure(10)
+    plt.clf()
+    plt.title("{} | Step: {} Changes: {} Total Reward: {}".format(name, step, changes, total_reward))
+    plt.axis('off')
+    plt.imshow(env.render(mode='rgb_array'))
+    display.clear_output(wait=True)
+    display.display(plt.gcf())
 
 
 class Orthogonal(object):
@@ -136,12 +148,14 @@ class Game:
 def worker_process(remote: multiprocessing.connection.Connection, env_name: str,crop_size: int,n_agents:int,kwargs:Dict):
 
     game = wrappers.CroppedImagePCGRLWrapper(env_name, crop_size, n_agents,**kwargs)
-
+    render = kwargs.get('render', False)
     while True:
         cmd, data = remote.recv()
         if cmd == "step":
             # print('stepping')
             temp = game.step(data)
+            if render:
+                game.render()
             # print(temp)
             remote.send(temp)
         elif cmd == "reset":
@@ -174,11 +188,11 @@ class Worker:
 
 class Model(nn.Module):
 
-    def __init__(self):
-
+    def __init__(self, in_channels, map_size, out_length):
+        self.map_size = map_size
         super().__init__()
 
-        self.conv1 = nn.Conv2d(in_channels=1,
+        self.conv1 = nn.Conv2d(in_channels=in_channels,
                                out_channels=32,
                                kernel_size=1,
                                stride=1,
@@ -200,12 +214,12 @@ class Model(nn.Module):
         nn.init.orthogonal_(self.conv3.weight, np.sqrt(2))
 
 
-        self.lin = nn.Linear(in_features=28 * 28 * 64,
+        self.lin = nn.Linear(in_features=map_size * map_size * 64,
                              out_features=512)
         nn.init.orthogonal_(self.lin.weight, np.sqrt(2))
 
         self.pi_logits = nn.Linear(in_features=512,
-                                   out_features=3)
+                                   out_features=out_length)
         nn.init.orthogonal_(self.pi_logits.weight, np.sqrt(2))
 
         self.value = nn.Linear(in_features=512,
@@ -223,7 +237,7 @@ class Model(nn.Module):
         # print(h.shape)
         h = F.relu(self.conv3(h))
         # print(h.shape)
-        h = h.reshape((-1, 28 * 28 * 64))
+        h = h.reshape((-1, self.map_size * self.map_size * 64))
         # print(h.shape)
 
         h = F.relu(self.lin(h))
@@ -414,7 +428,7 @@ class Main(object):
 
         self.epochs = 4
 
-        self.n_workers = 8
+        self.n_workers = 1
 
         self.n_agents = 2
 
@@ -430,8 +444,8 @@ class Main(object):
 
         assert (self.batch_size % self.n_mini_batch == 0)
 
-        game = 'binary'
-        representation = 'narrow'
+        game = 'zelda'
+        representation = 'turtle'
         self.n_agents = 2
 
         kwargs = {
@@ -448,19 +462,30 @@ class Main(object):
         elif game == "sokoban":
             kwargs['cropped_size'] = 10
 
+        kwargs['render'] = True
+
         self.crop_size = kwargs.get('cropped_size', 28)
 
         self.workers = [Worker(self.env_name, self.crop_size, self.n_agents, kwargs) for i in range(self.n_workers)]
 
-        self.obs = np.zeros((self.n_agents,self.n_workers, 28, 28, 1), dtype=np.uint8)
+        temp_env = game = wrappers.CroppedImagePCGRLWrapper(self.env_name, self.crop_size, self.n_agents,**kwargs)        
+        n_actions = temp_env.action_space.n
+
+        temp = []
 
         for worker in self.workers:
             worker.child.send(("reset", None))
         for i, worker in enumerate(self.workers):
-            self.obs[:,i] = worker.child.recv()
+            temp.append(worker.child.recv())
+            #self.obs[:,i] = temp
+
+        self.obs = np.zeros((self.n_agents,self.n_workers, self.crop_size, self.crop_size, temp[0].shape[3]), dtype=np.uint8)
+        
+        for i in range(len(temp)):
+            self.obs[:,i] = temp[i]
 
         for i in range(self.n_agents):
-            model = Model()
+            model = Model(self.obs.shape[-1],self.crop_size,n_actions)
             model.to(device)
             self.models.append(model)
 
@@ -473,7 +498,7 @@ class Main(object):
         rewards = np.zeros((self.n_agents, self.n_workers, self.worker_steps), dtype=np.float32) 
         actions = np.zeros((self.n_agents, self.n_workers, self.worker_steps), dtype=np.int32) 
         dones = np.zeros((self.n_agents, self.n_workers, self.worker_steps), dtype=np.bool) 
-        obs = np.zeros((self.n_agents, self.n_workers, self.worker_steps, 28, 28, 1), dtype=np.uint8) 
+        obs = np.zeros((self.obs.shape[0], self.obs.shape[1], self.worker_steps, self.obs.shape[2], self.obs.shape[3], self.obs.shape[4]), dtype=np.uint8) 
         neg_log_pis = np.zeros((self.n_agents, self.n_workers, self.worker_steps), dtype=np.float32) 
         values = np.zeros((self.n_agents, self.n_workers, self.worker_steps), dtype=np.float32) 
         episode_infos = []
@@ -493,6 +518,7 @@ class Main(object):
                 # print(v)
                 values[i,:, t] = v.cpu().data.numpy()
                 a = pi.sample()
+                #print(a)
                 # print(a)
                 actions[i,:, t] = a.cpu().data.numpy()
                 neg_log_pis[i,:, t] = -pi.log_prob(a).cpu().data.numpy()
@@ -507,8 +533,8 @@ class Main(object):
 
                 self.obs[:,w], rewards[:,w, t], dones[:,w, t], info = worker.child.recv()
 
-                if info:
-                    info['obs'] = obs[:,w, t, :, :, 0]
+                if info.get('reward'):
+                    # info['obs'] = obs[:,w, t, :, :, :]
                     episode_infos.append(info)
 
         for i in range(self.n_agents):
@@ -529,9 +555,9 @@ class Main(object):
                 else:
                     samples_flat[k] = torch.tensor(v, device=device)
 
-            samples_return.append(samples_flat)
+            samples_return.append(samples_flat) 
 
-        return samples_flat, episode_infos
+        return samples_return, episode_infos
 
     def _calc_advantages(self, dones: np.ndarray, rewards: np.ndarray,
                          values: np.ndarray, ind:int) -> np.ndarray:
@@ -575,7 +601,7 @@ class Main(object):
                     end = start + self.mini_batch_size
                     mini_batch_indexes = indexes[start: end]
                     mini_batch = {}
-                    for k, v in samples.items():
+                    for k, v in samples[i].items():
                         mini_batch[k] = v[mini_batch_indexes]
                     mini_batches.append(mini_batch)
 
@@ -620,9 +646,12 @@ class Main(object):
             agent1 = reward_mean[0]
             agent2 = reward_mean[1]
 
+            if len(episode_info) > 0:
+                print(episode_info[-1])
             print(f"{update:4}: fps={fps:3} agent_1_reward={agent1:.2f} agent_2_reward={agent2:.2f} length={length_mean:.3f}")
 
-
+            # time.sleep(1000)
+            
     @staticmethod
     def _get_mean_episode_info(n_agents,episode_info):
 
