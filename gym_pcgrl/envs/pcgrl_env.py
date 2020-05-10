@@ -166,27 +166,27 @@ class PcgrlEnv(gym.Env):
             dones.append(done)
             self.rewards[i].append(reward)
 
-            info["iterations"] = self._iteration
-            info["changes"] = self._changes
-            info["max_iterations"] = self._max_iterations
-            info["max_changes"] = self._max_changes
-            #print(info)
+        info["iterations"] = self._iteration
+        info["changes"] = self._changes
+        info["max_iterations"] = self._max_iterations
+        info["max_changes"] = self._max_changes
+        #print(info)
+        # print(self.rewards)
+
+
+        for k,v in info.items():
+            if k in infos:
+                infos[k][i] = v
+            else:
+                infos[k] = [0,0]
+                infos[k][i] = v
+
+        if done:
             # print(self.rewards)
-
-
-            for k,v in info.items():
-                if k in infos:
-                    infos[k][i] = v
-                else:
-                    infos[k] = [0,0]
-                    infos[k][i] = v
-
-            if done:
-                # print(self.rewards)
-                infos["reward"] = [sum(reward) for reward in self.rewards]
-                # print([sum(rewards) for rewards in self.rewards])
-                infos["length"] = len(self.rewards[0])
-                self.reset()
+            infos["reward"] = [sum(reward) for reward in self.rewards]
+            # print([sum(rewards) for rewards in self.rewards])
+            infos["length"] = len(self.rewards[0])
+            self.reset()
         # else:
         #     info = None
         #return the values

@@ -64,86 +64,86 @@ class Orthogonal(object):
         }
 
 
-class Game:
+# class Game:
 
 
-    def __init__(self, seed: int):
+#     def __init__(self, seed: int):
 
 
-        self.env = gym.make('BreakoutNoFrameskip-v4')
-        self.env.seed(seed)
+#         self.env = gym.make('BreakoutNoFrameskip-v4')
+#         self.env.seed(seed)
 
 
-        self.obs_2_max = np.zeros((2, 84, 84, 1), np.uint8)
+#         self.obs_2_max = np.zeros((2, 84, 84, 1), np.uint8)
 
-        self.obs_4 = np.zeros((84, 84, 4))
+#         self.obs_4 = np.zeros((84, 84, 4))
 
-        self.rewards = []
+#         self.rewards = []
 
-        self.lives = 0
-
-
-    def step(self, action):
-
-        reward = 0.
-        done = None
-
-        for i in range(4):
-            obs, r, done, info = self.env.step(action)
-
-            if i >= 2:
-                self.obs_2_max[i % 2] = self._process_obs(obs)
-
-            reward += r
-
-            lives = self.env.unwrapped.ale.lives()
-
-            if lives < self.lives:
-                done = True
-            self.lives = lives
+#         self.lives = 0
 
 
-            if done:
-                break
+#     def step(self, action):
 
-        self.rewards.append(reward)
+#         reward = 0.
+#         done = None
 
-        if done:
-            episode_info = {"reward": sum(self.rewards),
-                        "length": len(self.rewards)}
-            self.reset()
+#         for i in range(4):
+#             obs, r, done, info = self.env.step(action)
 
-        else:
-            episode_info = None
+#             if i >= 2:
+#                 self.obs_2_max[i % 2] = self._process_obs(obs)
 
-            obs = self.obs_2_max.max(axis=0)
+#             reward += r
 
-            self.obs_4 = np.roll(self.obs_4, shift=-1, axis=-1)
-            self.obs_4[..., -1:] = obs
+#             lives = self.env.unwrapped.ale.lives()
 
-        return self.obs_4, reward, done, episode_info            
+#             if lives < self.lives:
+#                 done = True
+#             self.lives = lives
 
-    def reset(self):
 
-        obs = self.env.reset()
-        obs = self._process_obs(obs)
+#             if done:
+#                 break
 
-        self.obs_4[..., 0:] = obs
-        self.obs_4[..., 1:] = obs
-        self.obs_4[..., 2:] = obs
-        self.obs_4[..., 3:] = obs
-        self.rewards = []
+#         self.rewards.append(reward)
 
-        self.lives = self.env.unwrapped.ale.lives()
+#         if done:
+#             episode_info = {"reward": sum(self.rewards),
+#                         "length": len(self.rewards)}
+#             self.reset()
 
-        return self.obs_4
+#         else:
+#             episode_info = None
 
-    @staticmethod
-    def _process_obs(obs):
+#             obs = self.obs_2_max.max(axis=0)
 
-        obs = cv2.cvtColor(obs, cv2.COLOR_RGB2GRAY)
-        obs = cv2.resize(obs, (84, 84), interpolation=cv2.INTER_AREA)
-        return obs[:, :, None]  # Shape (84, 84, 1)
+#             self.obs_4 = np.roll(self.obs_4, shift=-1, axis=-1)
+#             self.obs_4[..., -1:] = obs
+
+#         return self.obs_4, reward, done, episode_info            
+
+#     def reset(self):
+
+#         obs = self.env.reset()
+#         obs = self._process_obs(obs)
+
+#         self.obs_4[..., 0:] = obs
+#         self.obs_4[..., 1:] = obs
+#         self.obs_4[..., 2:] = obs
+#         self.obs_4[..., 3:] = obs
+#         self.rewards = []
+
+#         self.lives = self.env.unwrapped.ale.lives()
+
+#         return self.obs_4
+
+#     @staticmethod
+#     def _process_obs(obs):
+
+#         obs = cv2.cvtColor(obs, cv2.COLOR_RGB2GRAY)
+#         obs = cv2.resize(obs, (84, 84), interpolation=cv2.INTER_AREA)
+#         return obs[:, :, None]  # Shape (84, 84, 1)
 
 
 def worker_process(remote: multiprocessing.connection.Connection, env_name: str,crop_size: int,n_agents:int,kwargs:Dict):
@@ -251,6 +251,38 @@ class Model(nn.Module):
 
         return pi, value
 
+def save_models(models, optimizers, path, epoch = 0, update = 0):
+    print('Saving {} models to {}.'.format(len(models),path))
+    for i in range(len(models)):
+        save_dict = {'model_state_dict': models[i].state_dict(),
+                    'optim_state_dict': optimizers[i].state_dict()}
+        if epoch:
+            save_dict['epoch'] = epoch
+        if update:
+            save_dict['update'] = update
+
+        torch.save(save_dict, path + 'model_' + str(i))
+
+def load_models(device, path, n_models, in_channels, map_size, out_length):
+    models = []
+    optimizers = []
+
+    for i in range(n_models): 
+        model = Model(in_channels, map_size, out_length)
+        checkpoint = torch.load(path + 'model_' + str(i))
+        epoch = checkpoint.get('epoch',0)
+        update = checkpoint.get('update',0)
+        model.load_state_dict(checkpoint['model_state_dict'])
+        model.to(device)
+        optimizer = optim.Adam(model.parameters(), lr = 2.5e-4)
+        optimizer.load_state_dict(checkpoint['optim_state_dict'])
+
+        models.append(model)
+        optimizers.append(optimizer)
+
+    print('Loaded {} models from {}.'.format(len(models),path))
+
+    return models, optimizers, epoch, update  
 
 
 def obs_to_torch(obs: np.ndarray) -> torch.Tensor:
@@ -266,84 +298,87 @@ def obs_to_torch(obs: np.ndarray) -> torch.Tensor:
 
 
 
-class Trainer:
+# class Trainer:
 
-    def __init__(self, model: Model):
-        self.model = model
-        self.optimizer = optim.Adam(self.model.parameters(), lr=2.5e-4)
+#     def __init__(self, model: Model):
+#         self.model = model
+#         self.optimizer = optim.Adam(self.model.parameters(), lr=2.5e-4)
 
-    def train(self,
-              samples: Dict[str, np.ndarray],
-              learning_rate: float,
-              clip_range: float):
+#     def train(self,
+#               samples: Dict[str, np.ndarray],
+#               learning_rate: float,
+#               clip_range: float):
 
-        sampled_obs = samples['obs']
+#         sampled_obs = samples['obs']
 
-        sampled_action = samples['actions']
+#         sampled_action = samples['actions']
 
-        sampled_return = samples['values'] + samples['advantages']
+#         sampled_return = samples['values'] + samples['advantages']
 
-        sampled_normalized_advantage = Trainer._normalize(samples['advantages'])
+#         sampled_normalized_advantage = Trainer._normalize(samples['advantages'])
 
-        sampled_neg_log_pi = samples['neg_log_pis']
+#         sampled_neg_log_pi = samples['neg_log_pis']
 
-        sampled_value = samples['values']
+#         sampled_value = samples['values']
 
-        pi, value = self.model(sampled_obs)
+#         pi, value = self.model(sampled_obs)
 
-        neg_log_pi = -pi.log_prob(sampled_action)
+#         neg_log_pi = -pi.log_prob(sampled_action)
 
-        ratio: torch.Tensor = torch.exp(sampled_neg_log_pi - neg_log_pi)
+#         ratio: torch.Tensor = torch.exp(sampled_neg_log_pi - neg_log_pi)
 
-        clipped_ratio = ratio.clamp(min=1.0 - clip_range,
-                                    max=1.0 + clip_range)
-        policy_reward = torch.min(ratio * sampled_normalized_advantage,
-                                  clipped_ratio * sampled_normalized_advantage)
-        policy_reward = policy_reward.mean()
+#         clipped_ratio = ratio.clamp(min=1.0 - clip_range,
+#                                     max=1.0 + clip_range)
+#         policy_reward = torch.min(ratio * sampled_normalized_advantage,
+#                                   clipped_ratio * sampled_normalized_advantage)
+#         policy_reward = policy_reward.mean()
 
-        entropy_bonus = pi.entropy()
-        entropy_bonus = entropy_bonus.mean()
+#         entropy_bonus = pi.entropy()
+#         entropy_bonus = entropy_bonus.mean()
 
-        clipped_value = sampled_value + (value - sampled_value).clamp(min=-clip_range,
-                                                                      max=clip_range)
-        vf_loss = torch.max((value - sampled_return) ** 2, (clipped_value - sampled_return) ** 2)
-        vf_loss = 0.5 * vf_loss.mean()
+#         clipped_value = sampled_value + (value - sampled_value).clamp(min=-clip_range,
+#                                                                       max=clip_range)
+#         vf_loss = torch.max((value - sampled_return) ** 2, (clipped_value - sampled_return) ** 2)
+#         vf_loss = 0.5 * vf_loss.mean()
 
-        loss: torch.Tensor = -(policy_reward - 0.5 * vf_loss + 0.01 * entropy_bonus)
+#         loss: torch.Tensor = -(policy_reward - 0.5 * vf_loss + 0.01 * entropy_bonus)
 
-        for pg in self.optimizer.param_groups:
-            pg['lr'] = learning_rate
-        self.optimizer.zero_grad()
-        loss.backward()
-        torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=0.5)
-        self.optimizer.step()
-
-
-        approx_kl_divergence = .5 * ((neg_log_pi - sampled_neg_log_pi) ** 2).mean()
-        clip_fraction = (abs((ratio - 1.0)) > clip_range).type(torch.FloatTensor).mean()
-
-        return [policy_reward,
-                vf_loss,
-                entropy_bonus,
-                approx_kl_divergence,
-                clip_fraction]
+#         for pg in self.optimizer.param_groups:
+#             pg['lr'] = learning_rate
+#         self.optimizer.zero_grad()
+#         loss.backward()
+#         torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=0.5)
+#         self.optimizer.step()
 
 
+#         approx_kl_divergence = .5 * ((neg_log_pi - sampled_neg_log_pi) ** 2).mean()
+#         clip_fraction = (abs((ratio - 1.0)) > clip_range).type(torch.FloatTensor).mean()
 
-    @staticmethod
-    def _normalize(adv: np.ndarray):
+#         return [policy_reward,
+#                 vf_loss,
+#                 entropy_bonus,
+#                 approx_kl_divergence,
+#                 clip_fraction]
 
-#
 
-        return (adv - adv.mean()) / (adv.std() + 1e-8)
+
+#     @staticmethod
+#     def _normalize(adv: np.ndarray):
+
+# #
+
+#         return (adv - adv.mean()) / (adv.std() + 1e-8)
 
 
 class MultiTrainer:
 
-    def __init__(self, models: List[Model], learning_rate=2.5e-4):
+    def __init__(self, models: List[Model], learning_rate=2.5e-4, optimizers = None):
         self.n_agents = len(models)
         self.models = models
-        self.optimizers = [optim.Adam(model.parameters(), lr=learning_rate) for model in self.models]
+        if optimizers:
+            self.optimizers = optimizers
+        else:
+            self.optimizers = [optim.Adam(model.parameters(), lr=learning_rate) for model in self.models]
 
     def train(self,
               samples: List[Dict[str, np.ndarray]],
@@ -359,7 +394,7 @@ class MultiTrainer:
 
             sampled_return = samples[i]['values'] + samples[i]['advantages']
 
-            sampled_normalized_advantage = Trainer._normalize(samples[i]['advantages'])
+            sampled_normalized_advantage = MultiTrainer._normalize(samples[i]['advantages'])
 
             sampled_neg_log_pi = samples[i]['neg_log_pis']
 
@@ -422,10 +457,13 @@ class Main(object):
 
     def __init__(self):
 
+        self.load_model = True
+
         self.gamma = 0.99
         self.lamda = 0.95
 
         self.updates = 10000
+        self.update_start = 0
 
         self.epochs = 4
 
@@ -445,8 +483,8 @@ class Main(object):
 
         assert (self.batch_size % self.n_mini_batch == 0)
 
-        game = 'zelda'
-        representation = 'turtle'
+        game = 'binary'
+        representation = 'narrow'
         self.n_agents = 2
 
         kwargs = {
@@ -456,6 +494,7 @@ class Main(object):
 
 
         self.env_name = '{}-{}-v0'.format(game, representation)
+
         if game == "binary":
             kwargs['cropped_size'] = 28
         elif game == "zelda":
@@ -463,7 +502,9 @@ class Main(object):
         elif game == "sokoban":
             kwargs['cropped_size'] = 10
 
-        kwargs['render'] = True
+        kwargs['render'] = False
+
+        self.save_path = 'models/{}/{}/'.format(game,representation)
 
         self.crop_size = kwargs.get('cropped_size', 28)
 
@@ -485,12 +526,21 @@ class Main(object):
         for i in range(len(temp)):
             self.obs[:,i] = temp[i]
 
-        for i in range(self.n_agents):
-            model = Model(self.obs.shape[-1],self.crop_size,n_actions)
-            model.to(device)
-            self.models.append(model)
+        if self.load_model:                                                 #device, path, n_models, in_channels, map_size, out_length
+            self.models, optimizers, epoch,self.update_start = load_models(device, self.save_path, self.n_agents,self.obs.shape[-1],self.crop_size,n_actions)
+            self.updates = self.updates - self.update_start
 
-        self.trainer = MultiTrainer(self.models)
+
+            self.trainer = MultiTrainer(self.models, optimizers = optimizers)
+
+        else:
+            for i in range(self.n_agents):
+                model = Model(self.obs.shape[-1],self.crop_size,n_actions)
+                model.to(device)
+                self.models.append(model)
+
+            self.trainer = MultiTrainer(self.models)
+
 
 
 
@@ -625,7 +675,10 @@ class Main(object):
 
         episode_info = deque(maxlen=100)
 
-        for update in range(self.updates):
+        count = 0
+
+        for update in range(self.updates): 
+            count += 1
             time_start = time.time()
             progress = update / self.updates
 
@@ -647,9 +700,13 @@ class Main(object):
             agent1 = reward_mean[0]
             agent2 = reward_mean[1]
 
+            if count % 50 == 0:
+                save_models(self.models, self.trainer.optimizers, self.save_path, epoch = 0, update = update)
+
             if len(episode_info) > 0:
                 print(episode_info[-1])
-            print(f"{update:4}: fps={fps:3} agent_1_reward={agent1:.2f} agent_2_reward={agent2:.2f} length={length_mean:.3f}")
+
+            print(f"{update + self.update_start:4}: fps={fps:3} agent_1_reward={agent1:.2f} agent_2_reward={agent2:.2f} length={length_mean:.3f}")
 
             # time.sleep(1000)
             
