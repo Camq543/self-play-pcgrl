@@ -31,6 +31,15 @@ def build(game, representation, model_path, n_agents, make_gif, gif_name, **kwar
 
     crop_size = kwargs.get('cropped_size',28)
 
+    temp_env = wrappers.CroppedImagePCGRLWrapper(self.env_name, self.crop_size, self.n_agents,**kwargs)
+
+    if kwargs['restrict_map']:  
+        map_restrictions = [{'x': (0,(temp_env.pcgrl_env._prob._width - 1)//2 - 1),
+                            'y': (0,temp_env.pcgrl_env._prob._height - 1)},
+                            {'x':((temp_env.pcgrl_env._prob._width - 1)//2,(temp_env.pcgrl_env._prob._width - 1)),
+                            'y':(0,temp_env.pcgrl_env._prob._height - 1)}]
+        kwargs['map_restrictions'] = map_restrictions
+
     env = wrappers.CroppedImagePCGRLWrapper(env_name, crop_size, n_agents,**kwargs)
 
     n_actions = env.action_space.n
@@ -72,15 +81,19 @@ def build(game, representation, model_path, n_agents, make_gif, gif_name, **kwar
 ################################## MAIN ########################################
 game = 'binary'
 representation = 'narrow'
-model_path = 'models/{}/{}/'.format(game, representation)
 n_agents = 2
 make_gif = True
-gif_name = 'gifs/{}-{}.gif'.format(game, representation)
 kwargs = {
-    'change_percentage': 0.4,
-    'trials': 1,
-    'verbose': True
+            'change_percentage': 0.4,
+            'verbose': True,
+            'negative_switch': False,
+            'render': False
+            'restrict map':False
 }
+
+model_path = 'models/{}/{}/{}{}'.format(game,representation,'negative_switch_' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['restrict_map'] else '')
+gif_name = 'gifs/{}-{}{}{}.gif'.format(game, representation,'_negative_switch' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['_restrict_map'] else '')
+
 
 if __name__ == '__main__':
     build(game, representation, model_path, n_agents, make_gif, gif_name, **kwargs)

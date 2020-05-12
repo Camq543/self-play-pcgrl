@@ -464,15 +464,16 @@ class Main(object):
         self.gamma = 0.99
         self.lamda = 0.95
 
-        self.updates = 10000
+        self.updates = 4000
         self.update_start = 0
         self.save_period = 50
 
         self.epochs = 4
 
-        self.n_workers = 1
+        self.n_workers = 8
 
         self.n_agents = 2
+        self.active_agent = 0
 
         self.worker_steps = 128
 
@@ -486,16 +487,18 @@ class Main(object):
 
         assert (self.batch_size % self.n_mini_batch == 0)
 
-        game = 'binary'
+        game = 'zelda'
         representation = 'narrow'
 
         kwargs = {
             'change_percentage': 0.4,
             'verbose': True,
-            'negative_switch': False,
-            'render': True
+            'negative_switch': True,
+            'render': False
+            'restrict map':True
         }
 
+        self.negative_switch = kwargs['negative_switch']
 
         self.env_name = '{}-{}-v0'.format(game, representation)
 
@@ -507,19 +510,18 @@ class Main(object):
             kwargs['cropped_size'] = 10
 
 
-        self.save_path = 'models/{}/{}/'.format(game,representation)
+        self.save_path = 'models/{}/{}/{}{}'.format(game,representation,'negative_switch_' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['restrict_map'] else '')
 
         self.crop_size = kwargs.get('cropped_size', 28)
 
         temp_env = wrappers.CroppedImagePCGRLWrapper(self.env_name, self.crop_size, self.n_agents,**kwargs)
 
-        map_restrictions = [{'x': (0,(temp_env.pcgrl_env._prob._width - 1)//2 - 1),
-                            'y': (0,temp_env.pcgrl_env._prob._height - 1)},
-                            {'x':((temp_env.pcgrl_env._prob._width - 1)//2,(temp_env.pcgrl_env._prob._width - 1)),
-                            'y':(0,temp_env.pcgrl_env._prob._height - 1)}]
-
-        # kwargs['restrict_map'] = True
-        # kwargs['map_restrictions'] = map_restrictions
+        if kwargs['restrict_map']:  
+            map_restrictions = [{'x': (0,(temp_env.pcgrl_env._prob._width - 1)//2 - 1),
+                                'y': (0,temp_env.pcgrl_env._prob._height - 1)},
+                                {'x':((temp_env.pcgrl_env._prob._width - 1)//2,(temp_env.pcgrl_env._prob._width - 1)),
+                                'y':(0,temp_env.pcgrl_env._prob._height - 1)}]
+            kwargs['map_restrictions'] = map_restrictions
 
         kwargs['step_length'] = [10,1]
 
@@ -585,7 +587,10 @@ class Main(object):
                 values[i,:, t] = v.cpu().data.numpy()
                 a = pi.sample()
                 # print(a)
-                actions[i,:, t] = a.cpu().data.numpy()
+                if self.negative_switch and i != self.active_agent:
+                    actions[i,:, t] = 0
+                else:
+                    actions[i,:, t] = a.cpu().data.numpy()
                 neg_log_pis[i,:, t] = -pi.log_prob(a).cpu().data.numpy()
 
             # print("actions",actions)
@@ -596,7 +601,7 @@ class Main(object):
 
             for w, worker in enumerate(self.workers):
 
-                self.obs[:,w], rewards[:,w, t], dones[:,w, t], info = worker.child.recv()
+                self.obs[:,w], rewards[:,w, t], dones[:,w, t], info, self.active_agent = worker.child.recv()
 
                 if info.get('reward'):
                     # info['obs'] = obs[:,w, t, :, :, :]

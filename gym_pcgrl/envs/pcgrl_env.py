@@ -200,12 +200,12 @@ class PcgrlEnv(gym.Env):
             # print(self.rewards)
 
 
-                for k,v in info.items():
-                    if k in infos:
-                        infos[k][i] = v
-                    else:
-                        infos[k] = [0,0]
-                        infos[k][i] = v
+            for k,v in info.items():
+                if k in infos:
+                    infos[k][i] = v
+                else:
+                    infos[k] = [0,0]
+                    infos[k][i] = v
 
         if done:
             # print(self.rewards)
@@ -216,7 +216,7 @@ class PcgrlEnv(gym.Env):
         # else:
         #     info = None
         #return the values
-        return observations, rewards, dones, infos
+        return observations, rewards, dones, infos, self.active_agent
 
     """
     Render the current state of the environment
