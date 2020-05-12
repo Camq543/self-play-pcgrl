@@ -16,6 +16,7 @@ class NarrowRepresentation(Representation):
         super().__init__()
         self._random_tile = True
         self.n_agents = n_agents
+        self.restrict_map = False
 
     """
     Resets the current representation where it resets the parent and the current
@@ -87,9 +88,20 @@ class NarrowRepresentation(Representation):
         random_start (boolean): if the system will restart with a new map (true) or the previous map (false)
         random_tile (boolean): if the system will move between tiles random (true) or sequentially (false)
     """
-    def adjust_param(self, **kwargs):
+    def adjust_param(self, width, height, **kwargs):
         super().adjust_param(**kwargs)
         self._random_tile = kwargs.get('random_tile', self._random_tile)
+        if 'cropped_size' in kwargs:
+            map_size = kwargs['cropped_size']
+            if 'map_restrictions' in kwargs:
+                # if kwargs['restrict_map']:
+                self.map_restrictions = kwargs['map_restrictions']
+            else:
+                self.map_restrictions = [{'x': (0,width - 1),
+                                        'y': (0,height - 1)},
+                                        {'x':(0,width - 1),
+                                        'y':(0,height - 1)}]
+
 
     """
     Update the narrow representation with the input action
@@ -106,15 +118,15 @@ class NarrowRepresentation(Representation):
             change += [0,1][self._map[self._y[agent]][self._x[agent]] != action-1]
             self._map[self._y[agent]][self._x[agent]] = action-1
         if self._random_tile:
-            self._x[agent] = self._random.randint(self._map.shape[1])
-            self._y[agent] = self._random.randint(self._map.shape[0])
+            self._x[agent] = self._random.randint(self.map_restrictions[agent]['x'][0],self.map_restrictions[agent]['x'][1])
+            self._y[agent] = self._random.randint(self.map_restrictions[agent]['y'][0],self.map_restrictions[agent]['y'][1])
         else:
             self._x[agent] += 1
-            if self._x[agent] >= self._map.shape[1]:
-                self._x[agent] = 0
+            if self._x[agent] >= self.self.map_restrictions[agent]['x'][1]:
+                self._x[agent] = self.map_restrictions[agent]['x'][0]
                 self._y[agent] += 1
-                if self._y[agent] >= self._map.shape[0]:
-                    self._y[agent] = 0
+                if self._y[agent] >= self.map_restrictions[agent]['y'][1]:
+                    self._y[agent] = self.map_restrictions[agent]['y'][0]
         return change, self._x[agent], self._y[agent]
 
     """
@@ -131,17 +143,19 @@ class NarrowRepresentation(Representation):
     """
     def render(self, lvl_image, tile_size, border_size):
         x_graphics = Image.new("RGBA", (tile_size,tile_size), (0,0,0,0))
-        for x in range(tile_size):
-            x_graphics.putpixel((0,x),(255,0,0,255))
-            x_graphics.putpixel((1,x),(255,0,0,255))
-            x_graphics.putpixel((tile_size-2,x),(255,0,0,255))
-            x_graphics.putpixel((tile_size-1,x),(255,0,0,255))
-        for y in range(tile_size):
-            x_graphics.putpixel((y,0),(255,0,0,255))
-            x_graphics.putpixel((y,1),(255,0,0,255))
-            x_graphics.putpixel((y,tile_size-2),(255,0,0,255))
-            x_graphics.putpixel((y,tile_size-1),(255,0,0,255))
+        color_list = [(255,0,0,255),(0,0,255,255),(0,255,0,255)]
         for i in range(self.n_agents):
+            for x in range(tile_size):
+                x_graphics.putpixel((0,x),color_list[i])
+                x_graphics.putpixel((1,x),color_list[i])
+                x_graphics.putpixel((tile_size-2,x),color_list[i])
+                x_graphics.putpixel((tile_size-1,x),color_list[i])
+            for y in range(tile_size):
+                x_graphics.putpixel((y,0),color_list[i])
+                x_graphics.putpixel((y,1),color_list[i])
+                x_graphics.putpixel((y,tile_size-2),color_list[i])
+                x_graphics.putpixel((y,tile_size-1),color_list[i])
+        
             lvl_image.paste(x_graphics, ((self._x[i]+border_size)*tile_size, (self._y[i]+border_size)*tile_size,
                                             (self._x[i]+border_size+1)*tile_size,(self._y[i]+border_size+1)*tile_size), x_graphics)
         return lvl_image

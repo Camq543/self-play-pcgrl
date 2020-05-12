@@ -29,19 +29,23 @@ class PcgrlEnv(gym.Env):
         constant in gym_pcgrl.envs.reps.__init__.py
     """
     def __init__(self, prob="binary", rep="narrow", n_agents = 2):
-        self._prob = PROBLEMS[prob]()
+        self._prob = PROBLEMS[prob](n_agents)
         self._rep = REPRESENTATIONS[rep](n_agents)
         self.n_agents = n_agents
+        self.active_agent = 0
+        self.negative_switch = False
         # self._prob = BinaryProblem()
         # self._rep = NarrowRepresentation()
         self._rep_stats = None
         self._iteration = 0
         self._changes = [0 for _ in range(n_agents)]
+        self._steps = [0 for _ in range(n_agents)]
         self._max_changes = max(int(0.2 * self._prob._width * self._prob._height), 1)
         self._max_iterations = self._max_changes * self._prob._width * self._prob._height
         self._heatmap = np.zeros((self._prob._height, self._prob._width))
         self.rewards = [[],[]]
         self.infos = False
+        self.step_length = [1 for _ in range(n_agents)]
 
         self.seed()
         self.viewer = None
@@ -75,6 +79,7 @@ class PcgrlEnv(gym.Env):
     """
     def reset(self):
         self._changes = [0 for _ in range(self.n_agents)]
+        self._steps = [0 for _ in range(self.n_agents)]
         self._iteration = 0
         self._rep.reset(self._prob._width, self._prob._height, get_int_prob(self._prob._prob, self._prob.get_tile_types()))
         self._rep_stats = self._prob.get_stats(get_string_map(self._rep._map, self._prob.get_tile_types()))
@@ -119,12 +124,15 @@ class PcgrlEnv(gym.Env):
         representation and the used problem
     """
     def adjust_param(self, **kwargs):
+        if 'negative_switch' in kwargs:
+            self.negative_switch = kwargs['negative_switch']
         if 'change_percentage' in kwargs:
             percentage = min(1, max(0, kwargs.get('change_percentage')))
             self._max_changes = max(int(percentage * self._prob._width * self._prob._height), 1)
         self._max_iterations = self._max_changes * self._prob._width * self._prob._height
+        self.step_length = kwargs.get('step_length',self.step_length)
         self._prob.adjust_param(**kwargs)
-        self._rep.adjust_param(**kwargs)
+        self._rep.adjust_param(self._prob._width, self._prob._height, **kwargs)
         self.action_space = self._rep.get_action_space(self._prob._width, self._prob._height, self.get_num_tiles())
         self.observation_space = self._rep.get_observation_space(self._prob._width, self._prob._height, self.get_num_tiles())
         self.observation_space.spaces['heatmap'] = spaces.Box(low=0, high=self._max_changes, dtype=np.uint8, shape=(self._prob._height, self._prob._width))
@@ -148,10 +156,16 @@ class PcgrlEnv(gym.Env):
         for i in range(self.n_agents):
             #save copy of the old stats to calculate the reward
             old_stats = self._rep_stats
+
             # update the current state to the new state based on the taken action
-            # print("action",action)
-            if not done:    
-                change, x, y = self._rep.update(actions[i],i)
+            if not done:
+                if self.negative_switch:
+                    if i != self.active_agent: 
+                        change = 0
+                    else:
+                        change, x, y = self._rep.update(actions[i],i)
+                else:
+                    change, x, y = self._rep.update(actions[i],i)
             else:
                 change = 0
             # print("update", change,x,y)
@@ -159,12 +173,14 @@ class PcgrlEnv(gym.Env):
                 self._changes[i] += change
                 self._heatmap[y][x] += 1.0
                 self._rep_stats = self._prob.get_stats(get_string_map(self._rep._map, self._prob.get_tile_types()))
+            self._steps[i] += self.active_agent == i
+            # print(self._changes)
             # calculate the values
             observation = self._rep.get_observation(i)
             observation["heatmap"] = self._heatmap.copy()
             reward = self._prob.get_reward(self._rep_stats, old_stats)
             done = self._prob.get_episode_over(self._rep_stats,old_stats) or np.sum(self._changes) >= self._max_changes or self._iteration >= self._max_iterations
-            info = self._prob.get_debug_info(self._rep_stats,old_stats)
+            info = self._prob.get_debug_info(self._rep_stats,old_stats,i)
 
             observations.append(observation)
             rewards.append(reward)
@@ -172,19 +188,24 @@ class PcgrlEnv(gym.Env):
             self.rewards[i].append(reward)
 
             info["iterations"] = self._iteration
-            info["changes"] = self._changes
+            info["changes"] = self._changes[i]
+            info["steps"] = self._steps[i]
             info["max_iterations"] = self._max_iterations
             info["max_changes"] = self._max_changes
-        #print(info)
-        # print(self.rewards)
+
+            if self.negative_switch:
+                if reward < 0:
+                    self.active_agent = (self.active_agent + 1) % self.n_agents
+            #print(info)
+            # print(self.rewards)
 
 
-            for k,v in info.items():
-                if k in infos:
-                    infos[k][i] = v
-                else:
-                    infos[k] = [0,0]
-                    infos[k][i] = v
+                for k,v in info.items():
+                    if k in infos:
+                        infos[k][i] = v
+                    else:
+                        infos[k] = [0,0]
+                        infos[k][i] = v
 
         if done:
             # print(self.rewards)

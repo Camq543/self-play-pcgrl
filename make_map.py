@@ -55,10 +55,12 @@ def build(game, representation, model_path, n_agents, make_gif, gif_name, **kwar
             pi, _ = models[i](obs_to_torch(obs[i]))
             a = pi.sample()
             actions.append(a)
+            # print(actions) 
         obs, rewards, dones, info = env.step(actions)
         obs = reshape_obs(obs)
         if True in dones:
             done = True
+    print(info)
 
     if make_gif:
         frames[0].save(gif_name,save_all=True,append_images = frames[1:])

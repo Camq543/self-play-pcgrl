@@ -12,12 +12,13 @@ class SokobanProblem(Problem):
     """
     The constructor is responsible of initializing all the game parameters
     """
-    def __init__(self):
+    def __init__(self,n_agents):
         super().__init__()
         self._width = 5
         self._height = 5
         self._prob = {"empty":0.45, "solid":0.4, "player": 0.05, "crate": 0.05, "target": 0.05}
         self._border_tile = "solid"
+        self.n_agents = n_agents
 
         self._solver_power = 5000
 

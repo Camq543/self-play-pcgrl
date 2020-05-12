@@ -147,7 +147,6 @@ class Orthogonal(object):
 
 
 def worker_process(remote: multiprocessing.connection.Connection, env_name: str,crop_size: int,n_agents:int,kwargs:Dict):
-
     game = wrappers.CroppedImagePCGRLWrapper(env_name, crop_size, n_agents,**kwargs)
     render = kwargs.get('render', False)
     while True:
@@ -178,7 +177,7 @@ class Worker:
     child: multiprocessing.connection.Connection
     process: multiprocessing.Process
 
-    def __init__(self, env_name,crop_size,n_agents,kwargs):
+    def __init__(self, env_name,crop_size,n_agents,**kwargs):
 
         self.child, parent = multiprocessing.Pipe()
         self.process = multiprocessing.Process(target=worker_process, args=(parent, env_name,crop_size,n_agents,kwargs))
@@ -221,7 +220,7 @@ class Model(nn.Module):
 
         self.pi_logits = nn.Linear(in_features=512,
                                    out_features=out_length)
-        nn.init.orthogonal_(self.pi_logits.weight, np.sqrt(2))
+        nn.init.orthogonal_(self.pi_logits.weight, np.sqrt(.01))
 
         self.value = nn.Linear(in_features=512,
                                  out_features=1)
@@ -247,6 +246,7 @@ class Model(nn.Module):
         # print(h)
         # print('logits',self.pi_logits(h))
         pi = Categorical(logits=self.pi_logits(h))
+        # print(pi)
         value = self.value(h).reshape(-1)
 
         return pi, value
@@ -422,6 +422,8 @@ class MultiTrainer:
 
             loss: torch.Tensor = -(policy_reward - 0.5 * vf_loss + 0.01 * entropy_bonus)
 
+            # print('loss',loss)
+
             for pg in self.optimizers[i].param_groups:
                 pg['lr'] = learning_rate
             self.optimizers[i].zero_grad()
@@ -464,6 +466,7 @@ class Main(object):
 
         self.updates = 10000
         self.update_start = 0
+        self.save_period = 50
 
         self.epochs = 4
 
@@ -485,11 +488,12 @@ class Main(object):
 
         game = 'binary'
         representation = 'narrow'
-        self.n_agents = 2
 
         kwargs = {
             'change_percentage': 0.4,
-            'verbose': True
+            'verbose': True,
+            'negative_switch': False,
+            'render': True
         }
 
 
@@ -502,18 +506,29 @@ class Main(object):
         elif game == "sokoban":
             kwargs['cropped_size'] = 10
 
-        kwargs['render'] = False
 
         self.save_path = 'models/{}/{}/'.format(game,representation)
 
         self.crop_size = kwargs.get('cropped_size', 28)
 
-        self.workers = [Worker(self.env_name, self.crop_size, self.n_agents, kwargs) for i in range(self.n_workers)]
+        temp_env = wrappers.CroppedImagePCGRLWrapper(self.env_name, self.crop_size, self.n_agents,**kwargs)
 
-        temp_env = wrappers.CroppedImagePCGRLWrapper(self.env_name, self.crop_size, self.n_agents,**kwargs)        
+        map_restrictions = [{'x': (0,(temp_env.pcgrl_env._prob._width - 1)//2 - 1),
+                            'y': (0,temp_env.pcgrl_env._prob._height - 1)},
+                            {'x':((temp_env.pcgrl_env._prob._width - 1)//2,(temp_env.pcgrl_env._prob._width - 1)),
+                            'y':(0,temp_env.pcgrl_env._prob._height - 1)}]
+
+        # kwargs['restrict_map'] = True
+        # kwargs['map_restrictions'] = map_restrictions
+
+        kwargs['step_length'] = [10,1]
+
         n_actions = temp_env.action_space.n
 
         temp = []
+
+        self.workers = [Worker(self.env_name, self.crop_size, self.n_agents, **kwargs) for i in range(self.n_workers)]
+
 
         for worker in self.workers:
             worker.child.send(("reset", None))
@@ -569,6 +584,7 @@ class Main(object):
                 # print(v)
                 values[i,:, t] = v.cpu().data.numpy()
                 a = pi.sample()
+                # print(a)
                 actions[i,:, t] = a.cpu().data.numpy()
                 neg_log_pis[i,:, t] = -pi.log_prob(a).cpu().data.numpy()
 
@@ -696,17 +712,16 @@ class Main(object):
             reward_mean, length_mean = Main._get_mean_episode_info(self.n_agents,episode_info)
 
             agent1 = reward_mean[0]
-            agent2 = reward_mean[1]
-
-            if count % 50 == 0:
-                save_models(self.models, self.trainer.optimizers, self.save_path, epoch = 0, update = update)
+            agent2 = reward_mean[1] if self.n_agents > 1 else reward_mean[0]
 
             if len(episode_info) > 0:
                 print(episode_info[-1])
 
             print(f"{update + self.update_start:4}: fps={fps:3} agent_1_reward={agent1:.2f} agent_2_reward={agent2:.2f} length={length_mean:.3f}")
 
-            # time.sleep(1000)
+            if count % self.save_period == 0:
+                save_models(self.models, self.trainer.optimizers, self.save_path, epoch = 0, update = update)
+            # time.sleep(10)
             
     @staticmethod
     def _get_mean_episode_info(n_agents,episode_info):

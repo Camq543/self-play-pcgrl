@@ -11,12 +11,14 @@ class BinaryProblem(Problem):
     """
     The constructor is responsible of initializing all the game parameters
     """
-    def __init__(self):
+    def __init__(self,n_agents):
         super().__init__()
         self._width = 14
         self._height = 14
         self._prob = {"empty": 0.5, "solid":0.5}
         self._border_tile = "solid"
+        self.n_agents = n_agents
+        self.path_change = [0 for _ in range(n_agents)]
 
         self._target_path = 20
         self._random_probs = True
@@ -67,6 +69,7 @@ class BinaryProblem(Problem):
     """
     def reset(self, start_stats):
         super().reset(start_stats)
+        self.path_change = [0 for _ in range(self.n_agents)]
         if self._random_probs:
             self._prob["empty"] = self._random.random()
             self._prob["solid"] = 1 - self._prob["empty"]
@@ -130,12 +133,13 @@ class BinaryProblem(Problem):
         dict(any,any): is a debug information that can be used to debug what is
         happening in the problem
     """
-    def get_debug_info(self, new_stats, old_stats):
+    def get_debug_info(self, new_stats, old_stats,i):
+        self.path_change[i] += (new_stats["path-length"] - old_stats["path-length"])
         return {
             "regions": new_stats["regions"],
             "path-length": new_stats["path-length"],
             "path-imp": new_stats["path-length"] - self._start_stats["path-length"],
-            "path-change" : new_stats["path-length"] - old_stats["path-length"]
+            "path-change" : self.path_change[i]
         }
 
     """

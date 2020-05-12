@@ -43,9 +43,19 @@ class TurtleRepresentation(Representation):
         random_start (boolean): if the system will restart with a new map (true) or the previous map (false)
         warp (boolean): if the turtle will stop at the edges (false) or warp around the edges (true)
     """
-    def adjust_param(self, **kwargs):
+    def adjust_param(self, width, height, **kwargs):
         super().adjust_param(**kwargs)
         self._warp = kwargs.get('warp', self._warp)
+        if 'cropped_size' in kwargs:
+            map_size = kwargs['cropped_size']
+            if 'map_restrictions' in kwargs:
+                # if kwargs['restrict_map']:
+                self.map_restrictions = kwargs['map_restrictions']
+            else:
+                self.map_restrictions = [{'x': (0,width - 1),
+                                        'y': (0,height - 1)},
+                                        {'x':(0,width - 1),
+                                        'y':(0,height - 1)}]
 
     """
     Gets the action space used by the turtle representation
@@ -106,31 +116,74 @@ class TurtleRepresentation(Representation):
         change = 0
         if action < len(self._dirs):
             self._x[agent] += self._dirs[action][0]
-            if self._x[agent] < 0:
+            if self._x[agent] < self.map_restrictions[agent]['x'][0]:
                 if self._warp:
-                    self._x[agent] += self._map.shape[1]
+                    self._x[agent] = max(self._x[agent] + self._map._shape[1], self.map_restrictions[agent]['x'][1]) 
                 else:
-                    self._x[agent] = 0
-            if self._x[agent] >= self._map.shape[1]:
+                    self._x[agent] = self.map_restrictions[agent]['x'][0]
+            if self._x[agent] >= self.map_restrictions[agent]['x'][1] + 1:
                 if self._warp:
-                    self._x[agent] -= self._map.shape[1]
+                    self._x[agent] = min(self._x[agent] - self._map._shape[1], self.map_restrictions[agent]['x'][0])
                 else:
-                    self._x[agent] = self._map.shape[1] - 1
+                    self._x[agent] = self.map_restrictions[agent]['x'][1]
+            
             self._y[agent] += self._dirs[action][1]
-            if self._y[agent] < 0:
+            if self._y[agent] < self.map_restrictions[agent]['y'][0]:
                 if self._warp:
-                    self._y[agent] += self._map.shape[0]
+                    self._y[agent] = may(self._y[agent] + self._map._shape[0], self.map_restrictions[agent]['y'][1]) 
                 else:
-                    self._y[agent] = 0
-            if self._y[agent] >= self._map.shape[0]:
+                    self._y[agent] = self.map_restrictions[agent]['y'][0]
+            if self._y[agent] >= self.map_restrictions[agent]['y'][1] + 1:
                 if self._warp:
-                    self._y[agent] -= self._map.shape[0]
+                    self._y[agent] = min(self._y[agent] - self._map._shape[0], self.map_restrictions[agent]['y'][0])
                 else:
-                    self._y[agent] = self._map.shape[0] - 1
+                    self._y[agent] = self.map_restrictions[agent]['y'][1]
+            
+            # self._y[agent] += self._dirs[action][1]
+            # if self._y[agent] < self.map_restrictions[agent]['y'][0]:
+            #     if self._warp:
+            #         self._y[agent] += self.map_restrictions[agent]['y'][1]
+            #     else:
+            #         self._y[agent] = self.map_restrictions[agent]['y'][0]
+            # if self._y[agent] >= self._map.shape[0]:
+            #     if self._warp:
+            #         self._y[agent] -= self._map.shape[0]
+            #     else:
+            #         self._y[agent] = self._map.shape[0] - 1
         else:
             change = [0,1][self._map[self._y[agent]][self._x[agent]] != action - len(self._dirs)]
             self._map[self._y[agent]][self._x[agent]] = action - len(self._dirs)
         return change, self._x[agent], self._y[agent]
+    
+    # def update(self, action,agent):
+    #     change = 0
+    #     if action < len(self._dirs):
+    #         self._x[agent] += self._dirs[action][0]
+    #         if self._x[agent] < 0:
+    #             if self._warp:
+    #                 self._x[agent] += self._map.shape[1]
+    #             else:
+    #                 self._x[agent] = 0
+    #         if self._x[agent] >= self._map.shape[1]:
+    #             if self._warp:
+    #                 self._x[agent] -= self._map.shape[1]
+    #             else:
+    #                 self._x[agent] = self._map.shape[1] - 1
+    #         self._y[agent] += self._dirs[action][1]
+    #         if self._y[agent] < 0:
+    #             if self._warp:
+    #                 self._y[agent] += self._map.shape[0]
+    #             else:
+    #                 self._y[agent] = 0
+    #         if self._y[agent] >= self._map.shape[0]:
+    #             if self._warp:
+    #                 self._y[agent] -= self._map.shape[0]
+    #             else:
+    #                 self._y[agent] = self._map.shape[0] - 1
+    #     else:
+    #         change = [0,1][self._map[self._y[agent]][self._x[agent]] != action - len(self._dirs)]
+    #         self._map[self._y[agent]][self._x[agent]] = action - len(self._dirs)
+    #     return change, self._x[agent], self._y[agent]
 
     """
     Modify the level image with a red rectangle around the tile that the turtle is on
@@ -145,17 +198,19 @@ class TurtleRepresentation(Representation):
     """
     def render(self, lvl_image, tile_size, border_size):
         x_graphics = Image.new("RGBA", (tile_size,tile_size), (0,0,0,0))
-        for x in range(tile_size):
-            x_graphics.putpixel((0,x),(255,0,0,255))
-            x_graphics.putpixel((1,x),(255,0,0,255))
-            x_graphics.putpixel((tile_size-2,x),(255,0,0,255))
-            x_graphics.putpixel((tile_size-1,x),(255,0,0,255))
-        for y in range(tile_size):
-            x_graphics.putpixel((y,0),(255,0,0,255))
-            x_graphics.putpixel((y,1),(255,0,0,255))
-            x_graphics.putpixel((y,tile_size-2),(255,0,0,255))
-            x_graphics.putpixel((y,tile_size-1),(255,0,0,255))
+        color_list = [(255,0,0,255),(0,0,255,255),(0,255,0,255)]
         for i in range(self.n_agents):
+            for x in range(tile_size):
+                x_graphics.putpixel((0,x),color_list[i])
+                x_graphics.putpixel((1,x),color_list[i])
+                x_graphics.putpixel((tile_size-2,x),color_list[i])
+                x_graphics.putpixel((tile_size-1,x),color_list[i])
+            for y in range(tile_size):
+                x_graphics.putpixel((y,0),color_list[i])
+                x_graphics.putpixel((y,1),color_list[i])
+                x_graphics.putpixel((y,tile_size-2),color_list[i])
+                x_graphics.putpixel((y,tile_size-1),color_list[i])
+        
             lvl_image.paste(x_graphics, ((self._x[i]+border_size)*tile_size, (self._y[i]+border_size)*tile_size,
                                             (self._x[i]+border_size+1)*tile_size,(self._y[i]+border_size+1)*tile_size), x_graphics)
         return lvl_image

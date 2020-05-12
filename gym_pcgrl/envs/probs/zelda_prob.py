@@ -14,13 +14,13 @@ class ZeldaProblem(Problem):
     """
     The constructor is responsible of initializing all the game parameters
     """
-    def __init__(self):
+    def __init__(self,n_agents):
         super().__init__()
         self._width = 11
         self._height = 7
         self._prob = {"empty": 0.58, "solid":0.3, "player":0.02, "key": 0.02, "door": 0.02, "bat": 0.02, "scorpion": 0.02, "spider": 0.02}
         self._border_tile = "solid"
-
+        self.n_agents = n_agents
         self._max_enemies = 5
 
         self._target_enemy_dist = 4
