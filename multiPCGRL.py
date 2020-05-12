@@ -457,7 +457,7 @@ class Main(object):
 
     def __init__(self):
 
-        self.load_model = True
+        self.load_model = False
 
         self.gamma = 0.99
         self.lamda = 0.95
@@ -510,7 +510,7 @@ class Main(object):
 
         self.workers = [Worker(self.env_name, self.crop_size, self.n_agents, kwargs) for i in range(self.n_workers)]
 
-        temp_env = game = wrappers.CroppedImagePCGRLWrapper(self.env_name, self.crop_size, self.n_agents,**kwargs)        
+        temp_env = wrappers.CroppedImagePCGRLWrapper(self.env_name, self.crop_size, self.n_agents,**kwargs)        
         n_actions = temp_env.action_space.n
 
         temp = []
@@ -569,8 +569,6 @@ class Main(object):
                 # print(v)
                 values[i,:, t] = v.cpu().data.numpy()
                 a = pi.sample()
-                #print(a)
-                # print(a)
                 actions[i,:, t] = a.cpu().data.numpy()
                 neg_log_pis[i,:, t] = -pi.log_prob(a).cpu().data.numpy()
 

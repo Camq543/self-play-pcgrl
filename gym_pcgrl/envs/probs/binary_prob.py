@@ -134,7 +134,8 @@ class BinaryProblem(Problem):
         return {
             "regions": new_stats["regions"],
             "path-length": new_stats["path-length"],
-            "path-imp": new_stats["path-length"] - self._start_stats["path-length"]
+            "path-imp": new_stats["path-length"] - self._start_stats["path-length"],
+            "path-change" : new_stats["path-length"] - old_stats["path-length"]
         }
 
     """
