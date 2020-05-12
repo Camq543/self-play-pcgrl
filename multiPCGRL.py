@@ -494,8 +494,8 @@ class Main(object):
             'change_percentage': 0.4,
             'verbose': True,
             'negative_switch': True,
-            'render': False
-            'restrict map':True
+            'render': False,
+            'restrict_map':True
         }
 
         self.negative_switch = kwargs['negative_switch']

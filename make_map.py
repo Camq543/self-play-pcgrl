@@ -31,7 +31,7 @@ def build(game, representation, model_path, n_agents, make_gif, gif_name, **kwar
 
     crop_size = kwargs.get('cropped_size',28)
 
-    temp_env = wrappers.CroppedImagePCGRLWrapper(self.env_name, self.crop_size, self.n_agents,**kwargs)
+    temp_env = wrappers.CroppedImagePCGRLWrapper(env_name, crop_size, n_agents,**kwargs)
 
     if kwargs['restrict_map']:  
         map_restrictions = [{'x': (0,(temp_env.pcgrl_env._prob._width - 1)//2 - 1),
@@ -65,7 +65,7 @@ def build(game, representation, model_path, n_agents, make_gif, gif_name, **kwar
             a = pi.sample()
             actions.append(a)
             # print(actions) 
-        obs, rewards, dones, info = env.step(actions)
+        obs, rewards, dones, info, active_agent = env.step(actions)
         obs = reshape_obs(obs)
         if True in dones:
             done = True
@@ -87,12 +87,12 @@ kwargs = {
             'change_percentage': 0.4,
             'verbose': True,
             'negative_switch': False,
-            'render': False
-            'restrict map':False
+            'render': False,
+            'restrict_map':True
 }
 
 model_path = 'models/{}/{}/{}{}'.format(game,representation,'negative_switch_' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['restrict_map'] else '')
-gif_name = 'gifs/{}-{}{}{}.gif'.format(game, representation,'_negative_switch' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['_restrict_map'] else '')
+gif_name = 'gifs/{}-{}{}{}.gif'.format(game, representation,'_negative_switch' if kwargs['negative_switch'] else '','_map_restricted_' if kwargs['restrict_map'] else '')
 
 
 if __name__ == '__main__':

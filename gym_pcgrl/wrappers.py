@@ -44,12 +44,12 @@ class ToImage(gym.Wrapper):
         for i in range(self.n_agents):
             actions[i] = get_action(actions[i])
 
-        obs, reward, done, info = self.env.step(actions)
+        obs, reward, done, info, active_agent = self.env.step(actions)
 
         for i in range(self.n_agents):
             obs[i] = self.transform(obs[i])
 
-        return np.array(obs), reward, done, info
+        return np.array(obs), reward, done, info, active_agent
 
     def reset(self):
         obs = self.env.reset()
@@ -100,9 +100,9 @@ class OneHotEncoding(gym.Wrapper):
     def step(self, actions):
         for i in range(len(actions)):
             actions[i] = get_action(actions[i])
-        obs, reward, done, info = self.env.step(actions)
+        obs, reward, done, info, active_agent = self.env.step(actions)
         obs = self.transform(obs)
-        return obs, reward, done, info
+        return obs, reward, done, info, active_agent
 
     def reset(self):
         obs = self.env.reset()
@@ -154,16 +154,16 @@ class ActionMap(gym.Wrapper):
         if 'pos' in self.old_obs:
             o_x, o_y = self.old_obs['pos']
             if o_x == x and o_y == y:
-                obs, reward, done, info = self.env.step(v)
+                obs, reward, done, info, active_agent = self.env.step(v)
             else:
                 o_v = self.old_obs['map'][o_y][o_x]
                 if self.one_hot:
                     o_v = o_v.argmax()
-                obs, reward, done, info = self.env.step(o_v)
+                obs, reward, done, info, active_agent = self.env.step(o_v)
         else:
             obs, reward, done, info = self.env.step([x, y, v])
         self.old_obs = obs
-        return obs, reward, done, info
+        return obs, reward, done, info, active_agent
 
 """
 Crops and centers the view around the agent and replace the map with cropped version
@@ -200,12 +200,12 @@ class Cropped(gym.Wrapper):
         for i in range(self.n_agents):
             actions[i] = get_action(actions[i])
 
-        obs, reward, done, info = self.env.step(actions)
+        obs, reward, done, info, active_agent = self.env.step(actions)
 
         for i in range(self.n_agents):
             obs[i] = self.transform(obs[i])
 
-        return obs, reward, done, info
+        return obs, reward, done, info, active_agent
 
     def reset(self):
         obs = self.env.reset()
