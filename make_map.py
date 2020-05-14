@@ -79,16 +79,16 @@ def build(game, representation, model_path, n_agents, make_gif, gif_name, **kwar
 
 
 ################################## MAIN ########################################
-game = 'binary'
+game = 'zelda'
 representation = 'narrow'
 n_agents = 2
 make_gif = True
 kwargs = {
             'change_percentage': 0.4,
             'verbose': True,
-            'negative_switch': False,
+            'negative_switch': True,
             'render': False,
-            'restrict_map':True
+            'restrict_map':False
 }
 
 model_path = 'models/{}/{}/{}{}'.format(game,representation,'negative_switch_' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['restrict_map'] else '')

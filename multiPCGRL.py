@@ -466,7 +466,7 @@ class Main(object):
 
         self.updates = 4000
         self.update_start = 0
-        self.save_period = 50
+        self.save_period = 2
 
         self.epochs = 4
 
@@ -485,6 +485,9 @@ class Main(object):
 
         self.models = []
 
+        self.logging = True
+        
+
         assert (self.batch_size % self.n_mini_batch == 0)
 
         game = 'zelda'
@@ -493,7 +496,7 @@ class Main(object):
         kwargs = {
             'change_percentage': 0.4,
             'verbose': True,
-            'negative_switch': True,
+            'negative_switch': False,
             'render': False,
             'restrict_map':True
         }
@@ -511,6 +514,11 @@ class Main(object):
 
 
         self.save_path = 'models/{}/{}/{}{}'.format(game,representation,'negative_switch_' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['restrict_map'] else '')
+        
+        if self.logging:
+            self.logfile = open('logs/{}_{}_{}{}log.txt'.format(game,representation,'negative_switch_' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['restrict_map'] else ''),'w')
+            if self.load_model:
+                self.logfile.read()
 
         self.crop_size = kwargs.get('cropped_size', 28)
 
@@ -568,7 +576,8 @@ class Main(object):
         dones = np.zeros((self.n_agents, self.n_workers, self.worker_steps), dtype=np.bool) 
         obs = np.zeros((self.obs.shape[0], self.obs.shape[1], self.worker_steps, self.obs.shape[2], self.obs.shape[3], self.obs.shape[4]), dtype=np.uint8) 
         neg_log_pis = np.zeros((self.n_agents, self.n_workers, self.worker_steps), dtype=np.float32) 
-        values = np.zeros((self.n_agents, self.n_workers, self.worker_steps), dtype=np.float32) 
+        values = np.zeros((self.n_agents, self.n_workers, self.worker_steps), dtype=np.float32)
+        actives =  np.zeros((self.n_agents, self.n_workers, self.worker_steps), dtype=np.int32)
         episode_infos = []
 
         samples_return = []
@@ -587,10 +596,10 @@ class Main(object):
                 values[i,:, t] = v.cpu().data.numpy()
                 a = pi.sample()
                 # print(a)
-                if self.negative_switch and i != self.active_agent:
-                    actions[i,:, t] = 0
-                else:
-                    actions[i,:, t] = a.cpu().data.numpy()
+                # if self.negative_switch and i != self.active_agent:
+                #     actions[i,:, t] = 0
+                # else:
+                actions[i,:, t] = a.cpu().data.numpy()
                 neg_log_pis[i,:, t] = -pi.log_prob(a).cpu().data.numpy()
 
             # print("actions",actions)
@@ -601,21 +610,32 @@ class Main(object):
 
             for w, worker in enumerate(self.workers):
 
-                self.obs[:,w], rewards[:,w, t], dones[:,w, t], info, self.active_agent = worker.child.recv()
+                self.obs[:,w], rewards[:,w, t], dones[:,w, t], info, actives[:,w,t] = worker.child.recv()
 
                 if info.get('reward'):
                     # info['obs'] = obs[:,w, t, :, :, :]
                     episode_infos.append(info)
 
         for i in range(self.n_agents):
+
             advantages = self._calc_advantages(dones[i], rewards[i], values[i],i)
-            samples = {
-                'obs': obs[i],
-                'actions': actions[i],
-                'values': values[i],
-                'neg_log_pis': neg_log_pis[i],
-                'advantages': advantages
-            }
+            if self.negative_switch:
+                samples = {
+                    'obs': obs[i][np.nonzero(actives[i])[0]],
+                    'actions': actions[i][np.nonzero(actives[i])],
+                    'values': values[i][np.nonzero(actives[i])],
+                    'neg_log_pis': neg_log_pis[i][np.nonzero(actives[i])],
+                    'advantages': advantages,
+                }
+            else:
+                samples = {
+                    'obs': obs[i],
+                    'actions': actions[i],
+                    'values': values[i],
+                    'neg_log_pis': neg_log_pis[i],
+                    'advantages': advantages,
+                }
+
 
             samples_flat = {}
             for k, v in samples.items():
@@ -693,6 +713,7 @@ class Main(object):
     def run_training_loop(self):
 
         episode_info = deque(maxlen=100)
+        log_list = deque(maxlen = 50)
 
         count = 0
 
@@ -713,8 +734,9 @@ class Main(object):
             fps = int(self.batch_size / (time_end - time_start))
 
             episode_info.extend(sample_episode_info)
+            log_list.extend(sample_episode_info)
 
-            reward_mean, length_mean = Main._get_mean_episode_info(self.n_agents,episode_info)
+            reward_mean = Main._get_mean_episode_info(self.n_agents,episode_info)
 
             agent1 = reward_mean[0]
             agent2 = reward_mean[1] if self.n_agents > 1 else reward_mean[0]
@@ -722,9 +744,13 @@ class Main(object):
             if len(episode_info) > 0:
                 print(episode_info[-1])
 
-            print(f"{update + self.update_start:4}: fps={fps:3} agent_1_reward={agent1:.2f} agent_2_reward={agent2:.2f} length={length_mean:.3f}")
+
+
+            print(f"{update + self.update_start:4}: fps={fps:3} agent_1_reward={agent1:.2f} agent_2_reward={agent2:.2f}")
 
             if count % self.save_period == 0:
+                self.logfile.write(str(Main.log_mean_performance(self.n_agents,log_list)) + '\n')
+                self.logfile.flush()
                 save_models(self.models, self.trainer.optimizers, self.save_path, epoch = 0, update = update)
             # time.sleep(10)
             
@@ -732,13 +758,33 @@ class Main(object):
     def _get_mean_episode_info(n_agents,episode_info):
 
         if len(episode_info) > 0:
-            toreturn = [[]]
+            toreturn = []
             for i in range(n_agents):
-                toreturn[0].append(np.mean([info["reward"][i] for info in episode_info]))
-            toreturn.append(np.mean([info["length"] for info in episode_info]))
+                toreturn.append(np.mean([info["reward"][i] for info in episode_info]))
             return toreturn
         else:
             return (np.nan,np.nan), np.nan
+
+    @staticmethod
+    def log_mean_performance(n_agents,log_list):
+        sum_dict = {}
+        length = len(log_list)
+        if length > 0:
+            for info in log_list:
+                for k, v in info.items():
+                    for i in range(n_agents):
+                        if k in sum_dict:
+                            sum_dict[k][i] += v[i]
+                        else:
+                            sum_dict[k] = [0,0]
+                            sum_dict[k][i] = v[i]
+
+        for k,v in sum_dict.items():
+            for i in range(n_agents):
+                sum_dict[k][i] = v[i] / length
+
+        return sum_dict
+
 
 
 

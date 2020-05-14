@@ -152,7 +152,7 @@ class PcgrlEnv(gym.Env):
     def step(self, actions):
         self._iteration += 1
         done = False
-        observations, rewards, dones, infos = [], [], [], {}
+        observations, rewards, dones, infos, actives = [], [], [], {}, [0,0]
         for i in range(self.n_agents):
             #save copy of the old stats to calculate the reward
             old_stats = self._rep_stats
@@ -160,9 +160,11 @@ class PcgrlEnv(gym.Env):
             # update the current state to the new state based on the taken action
             if not done:
                 if self.negative_switch:
-                    if i != self.active_agent: 
+                    if i != self.active_agent:
+                        actives[i] = 0 
                         change = 0
                     else:
+                        actives[i] = 1
                         change, x, y = self._rep.update(actions[i],i)
                 else:
                     change, x, y = self._rep.update(actions[i],i)
@@ -211,12 +213,11 @@ class PcgrlEnv(gym.Env):
             # print(self.rewards)
             infos["reward"] = [sum(reward) for reward in self.rewards]
             # print([sum(rewards) for rewards in self.rewards])
-            infos["length"] = len(self.rewards[0])
             self.reset()
         # else:
         #     info = None
         #return the values
-        return observations, rewards, dones, infos, self.active_agent
+        return observations, rewards, dones, infos, actives
 
     """
     Render the current state of the environment
