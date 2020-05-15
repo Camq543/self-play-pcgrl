@@ -772,7 +772,7 @@ class Main(object):
                 toreturn.append(np.mean([info["reward"][i] for info in episode_info]))
             return toreturn
         else:
-            return (np.nan,np.nan), np.nan
+            return (np.nan,np.nan)
 
     @staticmethod
     def log_mean_performance(n_agents,log_list, train_list):

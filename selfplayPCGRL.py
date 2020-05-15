@@ -260,7 +260,7 @@ def save_model(model, optimizer, path, epoch = 0, update = 0):
     if update:
         save_dict['update'] = update
 
-    torch.save(save_dict, path + 'model')
+    torch.save(save_dict, path + 'self_play_model')
 
 def load_model(device, path, in_channels, map_size, out_length):
     models = []
@@ -461,7 +461,7 @@ class Main(object):
 
     def __init__(self):
 
-        self.load_model = False
+        self.load_model = True
 
         self.gamma = 0.99
         self.lamda = 0.95
@@ -490,7 +490,7 @@ class Main(object):
 
         assert (self.batch_size % self.n_mini_batch == 0)
 
-        game = 'zelda'
+        game = 'binary'
         representation = 'narrow'
 
         kwargs = {
@@ -762,8 +762,6 @@ class Main(object):
             if len(episode_info) > 0:
                 print(episode_info[-1])
 
-
-
             print(f"{update + self.update_start:4}: fps={fps:3} agent_1_reward={agent1:.2f} agent_2_reward={agent2:.2f}")
 
             if count % self.save_period == 0:
@@ -784,7 +782,7 @@ class Main(object):
                 toreturn.append(np.mean([info["reward"][i] for info in episode_info]))
             return toreturn
         else:
-            return (np.nan,np.nan), np.nan
+            return (np.nan,np.nan)
 
     @staticmethod
     def log_mean_performance(n_agents,log_list, train_list):
