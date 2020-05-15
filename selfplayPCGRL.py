@@ -267,7 +267,7 @@ def load_model(device, path, in_channels, map_size, out_length):
     optimizers = []
 
     model = Model(in_channels, map_size, out_length)
-    checkpoint = torch.load(path + 'model')
+    checkpoint = torch.load(path + 'self_play_model')
     epoch = checkpoint.get('epoch',0)
     update = checkpoint.get('update',0)
     model.load_state_dict(checkpoint['model_state_dict'])
@@ -496,7 +496,7 @@ class Main(object):
         kwargs = {
             'change_percentage': 0.4,
             'verbose': True,
-            'negative_switch': True,
+            'negative_switch': False,
             'render': False,
             'restrict_map':False
         }
