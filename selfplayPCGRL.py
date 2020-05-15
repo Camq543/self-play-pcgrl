@@ -491,7 +491,7 @@ class Main(object):
         assert (self.batch_size % self.n_mini_batch == 0)
 
         game = 'binary'
-        representation = 'narrow'
+        representation = 'turtle'
 
         kwargs = {
             'change_percentage': 0.4,
@@ -763,7 +763,7 @@ class Main(object):
                 self.logfile.write(str(logs[0]) + '\n')
                 self.logfile.write(str(logs[1]) + '\n')
                 self.logfile.flush()
-                save_model(self.model, self.trainer.optimizer, self.save_path, epoch = 0, update = update)
+                save_model(self.model, self.trainer.optimizer, self.save_path, epoch = 0, update = update + self.update_start)
             # time.sleep(10)
             
     @staticmethod

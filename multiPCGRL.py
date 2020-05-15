@@ -756,7 +756,7 @@ class Main(object):
                 self.logfile.write(str(logs[0]) + '\n')
                 self.logfile.write(str(logs[1]) + '\n')
                 self.logfile.flush()
-                save_models(self.models, self.trainer.optimizers, self.save_path, epoch = 0, update = update)
+                save_models(self.models, self.trainer.optimizers, self.save_path, epoch = 0, update = update + self.update_start)
             # time.sleep(10)
             
     @staticmethod
