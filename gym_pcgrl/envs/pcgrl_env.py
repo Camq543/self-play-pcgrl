@@ -34,7 +34,7 @@ class PcgrlEnv(gym.Env):
         self._prob = PROBLEMS[prob](n_agents)
         self._rep = REPRESENTATIONS[rep](n_agents)
         self.n_agents = n_agents
-        self.active_agent = 0
+        self._active_agent = 0
         self.negative_switch = False
         self.agent_order = [i for i in range(self.n_agents)]
         # self._prob = BinaryProblem()
@@ -43,6 +43,7 @@ class PcgrlEnv(gym.Env):
         self._iteration = 0
         self._changes = [0 for _ in range(n_agents)]
         self._steps = [0 for _ in range(n_agents)]
+        self._steps_since_reward = 0
         self._max_changes = max(int(0.2 * self._prob._width * self._prob._height), 1)
         self._max_iterations = self._max_changes * self._prob._width * self._prob._height
         self._heatmap = np.zeros((self._prob._height, self._prob._width))
@@ -83,6 +84,8 @@ class PcgrlEnv(gym.Env):
     def reset(self):
         self._changes = [0 for _ in range(self.n_agents)]
         self._steps = [0 for _ in range(self.n_agents)]
+        self._active_agent = random.randint(0,self.n_agents - 1)
+        self._steps_since_reward = 0
         self._iteration = 0
         self._rep.reset(self._prob._width, self._prob._height, get_int_prob(self._prob._prob, self._prob.get_tile_types()))
         self._rep_stats = self._prob.get_stats(get_string_map(self._rep._map, self._prob.get_tile_types()))
@@ -154,7 +157,7 @@ class PcgrlEnv(gym.Env):
         dictionary: debug information that might be useful to understand what's happening
     """
     def step(self, actions):
-        random.shuffle(self.agent_order)
+        # random.shuffle(self.agent_order)
         self._iteration += 1
         done = False
         observations, rewards, dones, infos, actives = [None for i in range(self.n_agents)], [0 for i in range(self.n_agents)], [0 for i in range(self.n_agents)], {}, [0 for i in range(self.n_agents)]
@@ -166,9 +169,9 @@ class PcgrlEnv(gym.Env):
             # update the current state to the new state based on the taken action
             if not done:
                 if self.negative_switch:
-                    if i != self.active_agent:
+                    if i != self._active_agent:
                         actives[i] = 0 
-                        change = 0
+                        change = 0  
                     else:
                         actives[i] = 1
                         change, x, y = self._rep.update(actions[i],i)
@@ -181,12 +184,14 @@ class PcgrlEnv(gym.Env):
                 self._changes[i] += change
                 self._heatmap[y][x] += 1.0
                 self._rep_stats = self._prob.get_stats(get_string_map(self._rep._map, self._prob.get_tile_types()))
-            self._steps[i] += self.active_agent == i
+            
+            self._steps[i] += self._active_agent == i
             # print(self._changes)
             # calculate the values
             observation = self._rep.get_observation(i)
             observation["heatmap"] = self._heatmap.copy()
             reward = self._prob.get_reward(self._rep_stats, old_stats)
+            self._steps_since_reward += ((i == self._active_agent) and (reward == 0))
             done = self._prob.get_episode_over(self._rep_stats,old_stats) or np.sum(self._changes) >= self._max_changes or self._iteration >= self._max_iterations
             info = self._prob.get_debug_info(self._rep_stats,old_stats,i)
 
@@ -202,8 +207,9 @@ class PcgrlEnv(gym.Env):
             info["max_changes"] = self._max_changes
 
             if self.negative_switch:
-                if reward < 0:
-                    self.active_agent = (self.active_agent + 1) % self.n_agents
+                if (reward < 0) or (self._steps_since_reward > 10):
+                    self._active_agent = (self._active_agent + 1) % self.n_agents
+                    self._steps_since_reward = 0
             #print(info)
             # print(self.rewards)
 
