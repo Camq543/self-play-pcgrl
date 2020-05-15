@@ -10,6 +10,8 @@ import gym
 from gym import spaces
 import PIL
 
+
+import random
 """
 The PCGRL GYM Environment
 """
@@ -34,6 +36,7 @@ class PcgrlEnv(gym.Env):
         self.n_agents = n_agents
         self.active_agent = 0
         self.negative_switch = False
+        self.agent_order = [i for i in range(self.n_agents)]
         # self._prob = BinaryProblem()
         # self._rep = NarrowRepresentation()
         self._rep_stats = None
@@ -86,6 +89,7 @@ class PcgrlEnv(gym.Env):
         self._prob.reset(self._rep_stats)
         self._heatmap = np.zeros((self._prob._height, self._prob._width))
         self.rewards = [[],[]]
+        random.shuffle(self.agent_order)
 
         observations = []
         for i in range(self.n_agents):
@@ -150,10 +154,12 @@ class PcgrlEnv(gym.Env):
         dictionary: debug information that might be useful to understand what's happening
     """
     def step(self, actions):
+        random.shuffle(self.agent_order)
         self._iteration += 1
         done = False
-        observations, rewards, dones, infos, actives = [], [], [], {}, [0,0]
-        for i in range(self.n_agents):
+        observations, rewards, dones, infos, actives = [None for i in range(self.n_agents)], [0 for i in range(self.n_agents)], [0 for i in range(self.n_agents)], {}, [0 for i in range(self.n_agents)]
+        for j in range(self.n_agents):
+            i = self.agent_order[j]
             #save copy of the old stats to calculate the reward
             old_stats = self._rep_stats
 
@@ -184,9 +190,9 @@ class PcgrlEnv(gym.Env):
             done = self._prob.get_episode_over(self._rep_stats,old_stats) or np.sum(self._changes) >= self._max_changes or self._iteration >= self._max_iterations
             info = self._prob.get_debug_info(self._rep_stats,old_stats,i)
 
-            observations.append(observation)
-            rewards.append(reward)
-            dones.append(done)
+            observations[i] = observation
+            rewards[i] = reward
+            dones[i] = done
             self.rewards[i].append(reward)
 
             info["iterations"] = self._iteration

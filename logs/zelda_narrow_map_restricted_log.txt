@@ -1,1 +1,0 @@
-{'player': [3.78, 3.82], 'key': [3.74, 3.8], 'door': [4.36, 4.42], 'enemies': [12.92, 12.94], 'regions': [2.76, 2.78], 'nearest-enemy': [1.56, 1.56], 'path-length': [0.0, 0.0], 'iterations': [19.16, 19.16], 'changes': [15.2, 14.8], 'steps': [19.16, 0.0], 'max_iterations': [2310.0, 2310.0], 'max_changes': [30.0, 30.0], 'reward': [-10.92, -12.52]}

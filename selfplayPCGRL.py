@@ -251,38 +251,34 @@ class Model(nn.Module):
 
         return pi, value
 
-def save_models(models, optimizers, path, epoch = 0, update = 0):
-    print('Saving {} models to {}.'.format(len(models),path))
-    for i in range(len(models)):
-        save_dict = {'model_state_dict': models[i].state_dict(),
-                    'optim_state_dict': optimizers[i].state_dict()}
-        if epoch:
-            save_dict['epoch'] = epoch
-        if update:
-            save_dict['update'] = update
+def save_model(model, optimizer, path, epoch = 0, update = 0):
+    print('Saving model to {}.'.format(path))
+    save_dict = {'model_state_dict': model.state_dict(),
+                'optim_state_dict': optimizer.state_dict()}
+    if epoch:
+        save_dict['epoch'] = epoch
+    if update:
+        save_dict['update'] = update
 
-        torch.save(save_dict, path + 'model_' + str(i))
+    torch.save(save_dict, path + 'model')
 
-def load_models(device, path, n_models, in_channels, map_size, out_length):
+def load_model(device, path, in_channels, map_size, out_length):
     models = []
     optimizers = []
 
-    for i in range(n_models): 
-        model = Model(in_channels, map_size, out_length)
-        checkpoint = torch.load(path + 'model_' + str(i))
-        epoch = checkpoint.get('epoch',0)
-        update = checkpoint.get('update',0)
-        model.load_state_dict(checkpoint['model_state_dict'])
-        model.to(device)
-        optimizer = optim.Adam(model.parameters(), lr = 2.5e-4)
-        optimizer.load_state_dict(checkpoint['optim_state_dict'])
+    model = Model(in_channels, map_size, out_length)
+    checkpoint = torch.load(path + 'model')
+    epoch = checkpoint.get('epoch',0)
+    update = checkpoint.get('update',0)
+    model.load_state_dict(checkpoint['model_state_dict'])
+    model.to(device)
+    optimizer = optim.Adam(model.parameters(), lr = 2.5e-4)
+    optimizer.load_state_dict(checkpoint['optim_state_dict'])
 
-        models.append(model)
-        optimizers.append(optimizer)
 
-    print('Loaded {} models from {}.'.format(len(models),path))
+    print('Loaded model from {}.'.format(path))
 
-    return models, optimizers, epoch, update  
+    return model, optimizer, epoch, update  
 
 
 def obs_to_torch(obs: np.ndarray) -> torch.Tensor:
@@ -296,154 +292,76 @@ def obs_to_torch(obs: np.ndarray) -> torch.Tensor:
 
     return torch.tensor(obs, dtype=torch.float32, device=device)
 
-
-
-# class Trainer:
-
-#     def __init__(self, model: Model):
-#         self.model = model
-#         self.optimizer = optim.Adam(self.model.parameters(), lr=2.5e-4)
-
-#     def train(self,
-#               samples: Dict[str, np.ndarray],
-#               learning_rate: float,
-#               clip_range: float):
-
-#         sampled_obs = samples['obs']
-
-#         sampled_action = samples['actions']
-
-#         sampled_return = samples['values'] + samples['advantages']
-
-#         sampled_normalized_advantage = Trainer._normalize(samples['advantages'])
-
-#         sampled_neg_log_pi = samples['neg_log_pis']
-
-#         sampled_value = samples['values']
-
-#         pi, value = self.model(sampled_obs)
-
-#         neg_log_pi = -pi.log_prob(sampled_action)
-
-#         ratio: torch.Tensor = torch.exp(sampled_neg_log_pi - neg_log_pi)
-
-#         clipped_ratio = ratio.clamp(min=1.0 - clip_range,
-#                                     max=1.0 + clip_range)
-#         policy_reward = torch.min(ratio * sampled_normalized_advantage,
-#                                   clipped_ratio * sampled_normalized_advantage)
-#         policy_reward = policy_reward.mean()
-
-#         entropy_bonus = pi.entropy()
-#         entropy_bonus = entropy_bonus.mean()
-
-#         clipped_value = sampled_value + (value - sampled_value).clamp(min=-clip_range,
-#                                                                       max=clip_range)
-#         vf_loss = torch.max((value - sampled_return) ** 2, (clipped_value - sampled_return) ** 2)
-#         vf_loss = 0.5 * vf_loss.mean()
-
-#         loss: torch.Tensor = -(policy_reward - 0.5 * vf_loss + 0.01 * entropy_bonus)
-
-#         for pg in self.optimizer.param_groups:
-#             pg['lr'] = learning_rate
-#         self.optimizer.zero_grad()
-#         loss.backward()
-#         torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=0.5)
-#         self.optimizer.step()
-
-
-#         approx_kl_divergence = .5 * ((neg_log_pi - sampled_neg_log_pi) ** 2).mean()
-#         clip_fraction = (abs((ratio - 1.0)) > clip_range).type(torch.FloatTensor).mean()
-
-#         return [policy_reward,
-#                 vf_loss,
-#                 entropy_bonus,
-#                 approx_kl_divergence,
-#                 clip_fraction]
+def flip_agent(agent, n_agents):
+    return (agent + 1) % n_agents
 
 
 
-#     @staticmethod
-#     def _normalize(adv: np.ndarray):
+class SelfTrainer:
 
-# #
+    def __init__(self, model: Model, learning_rate=2.5e-4, optimizer = None):
+        self.model = model
 
-#         return (adv - adv.mean()) / (adv.std() + 1e-8)
-
-
-class MultiTrainer:
-
-    def __init__(self, models: List[Model], learning_rate=2.5e-4, optimizers = None):
-        self.n_agents = len(models)
-        self.models = models
-        if optimizers:
-            self.optimizers = optimizers
+        if optimizer:
+            self.optimizer = optimizer
         else:
-            self.optimizers = [optim.Adam(model.parameters(), lr=learning_rate) for model in self.models]
+            self.optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
     def train(self,
-              samples: List[Dict[str, np.ndarray]],
+              samples: Dict[str, np.ndarray],
               learning_rate: float,
               clip_range: float):
 
-        to_return = []
+        sampled_obs = samples['obs']
 
-        for i in range(self.n_agents):
-            sampled_obs = samples[i]['obs']
+        sampled_action = samples['actions']
 
-            sampled_action = samples[i]['actions']
+        sampled_return = samples['values'] + samples['advantages']
 
-            sampled_return = samples[i]['values'] + samples[i]['advantages']
+        sampled_normalized_advantage = SelfTrainer._normalize(samples['advantages'])
 
-            sampled_normalized_advantage = MultiTrainer._normalize(samples[i]['advantages'])
+        sampled_neg_log_pi = samples['neg_log_pis']
 
-            sampled_neg_log_pi = samples[i]['neg_log_pis']
+        sampled_value = samples['values']
 
-            sampled_value = samples[i]['values']
+        pi, value = self.model(sampled_obs)
 
-            pi, value = self.models[i](sampled_obs)
+        neg_log_pi = -pi.log_prob(sampled_action)
 
-            neg_log_pi = -pi.log_prob(sampled_action)
+        ratio: torch.Tensor = torch.exp(sampled_neg_log_pi - neg_log_pi)
 
-            ratio: torch.Tensor = torch.exp(sampled_neg_log_pi - neg_log_pi)
+        clipped_ratio = ratio.clamp(min=1.0 - clip_range,
+                                    max=1.0 + clip_range)
+        policy_reward = torch.min(ratio * sampled_normalized_advantage,
+                                  clipped_ratio * sampled_normalized_advantage)
+        policy_reward = policy_reward.mean()
 
-            clipped_ratio = ratio.clamp(min=1.0 - clip_range,
-                                        max=1.0 + clip_range)
-            policy_reward = torch.min(ratio * sampled_normalized_advantage,
-                                      clipped_ratio * sampled_normalized_advantage)
-            policy_reward = policy_reward.mean()
+        entropy_bonus = pi.entropy()
+        entropy_bonus = entropy_bonus.mean()
 
-            entropy_bonus = pi.entropy()
-            entropy_bonus = entropy_bonus.mean()
+        clipped_value = sampled_value + (value - sampled_value).clamp(min=-clip_range,
+                                                                      max=clip_range)
+        vf_loss = torch.max((value - sampled_return) ** 2, (clipped_value - sampled_return) ** 2)
+        vf_loss = 0.5 * vf_loss.mean()
 
-            clipped_value = sampled_value + (value - sampled_value).clamp(min=-clip_range,
-                                                                          max=clip_range)
-            vf_loss = torch.max((value - sampled_return) ** 2, (clipped_value - sampled_return) ** 2)
-            vf_loss = 0.5 * vf_loss.mean()
+        loss: torch.Tensor = -(policy_reward - 0.5 * vf_loss + 0.01 * entropy_bonus)
 
-            loss: torch.Tensor = -(policy_reward - 0.5 * vf_loss + 0.01 * entropy_bonus)
-
-            # print('loss',loss)
-
-            for pg in self.optimizers[i].param_groups:
-                pg['lr'] = learning_rate
-            self.optimizers[i].zero_grad()
-            loss.backward()
-            torch.nn.utils.clip_grad_norm_(self.models[i].parameters(), max_norm=0.5)
-            self.optimizers[i].step()
+        for pg in self.optimizer.param_groups:
+            pg['lr'] = learning_rate
+        self.optimizer.zero_grad()
+        loss.backward()
+        torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=0.5)
+        self.optimizer.step()
 
 
-            approx_kl_divergence = .5 * ((neg_log_pi - sampled_neg_log_pi) ** 2).mean()
-            clip_fraction = (abs((ratio - 1.0)) > clip_range).type(torch.FloatTensor).mean()
-            
+        approx_kl_divergence = .5 * ((neg_log_pi - sampled_neg_log_pi) ** 2).mean()
+        clip_fraction = (abs((ratio - 1.0)) > clip_range).type(torch.FloatTensor).mean()
 
-            to_return.append([policy_reward.data.cpu().numpy().item(),
+        return [policy_reward.data.cpu().numpy().item(),
                 vf_loss.data.cpu().numpy().item(),
                 entropy_bonus.data.cpu().numpy().item(),
                 approx_kl_divergence.data.cpu().numpy().item(),
-                clip_fraction.data.cpu().numpy().item()])
-
-
-        return to_return
+                clip_fraction.data.cpu().numpy().item()]
 
 
 
@@ -453,6 +371,90 @@ class MultiTrainer:
 #
 
         return (adv - adv.mean()) / (adv.std() + 1e-8)
+
+
+# class SelfTrainer:
+
+#     def __init__(self, model: Model, n_agents, learning_rate=2.5e-4, optimizer = None):
+#         self.model = model
+#         if optimizer:
+#             self.optimizer = optimizer
+#         else:
+#             self.optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+
+#     def train(self,
+#               samples: Dict[str, np.ndarray],
+#               learning_rate: float,
+#               clip_range: float):
+
+#         to_return = []
+
+#         for i in range(self.n_agents):
+#             sampled_obs = samples[i]['obs']
+
+#             sampled_action = samples[i]['actions']
+
+#             sampled_return = samples[i]['values'] + samples[i]['advantages']
+
+#             sampled_normalized_advantage = MultiTrainer._normalize(samples[i]['advantages'])
+
+#             sampled_neg_log_pi = samples[i]['neg_log_pis']
+
+#             sampled_value = samples[i]['values']
+
+#             pi, value = self.models[i](sampled_obs)
+
+#             neg_log_pi = -pi.log_prob(sampled_action)
+
+#             ratio: torch.Tensor = torch.exp(sampled_neg_log_pi - neg_log_pi)
+
+#             clipped_ratio = ratio.clamp(min=1.0 - clip_range,
+#                                         max=1.0 + clip_range)
+#             policy_reward = torch.min(ratio * sampled_normalized_advantage,
+#                                       clipped_ratio * sampled_normalized_advantage)
+#             policy_reward = policy_reward.mean()
+
+#             entropy_bonus = pi.entropy()
+#             entropy_bonus = entropy_bonus.mean()
+
+#             clipped_value = sampled_value + (value - sampled_value).clamp(min=-clip_range,
+#                                                                           max=clip_range)
+#             vf_loss = torch.max((value - sampled_return) ** 2, (clipped_value - sampled_return) ** 2)
+#             vf_loss = 0.5 * vf_loss.mean()
+
+#             loss: torch.Tensor = -(policy_reward - 0.5 * vf_loss + 0.01 * entropy_bonus)
+
+#             # print('loss',loss)
+
+#             for pg in self.optimizers[i].param_groups:
+#                 pg['lr'] = learning_rate
+#             self.optimizers[i].zero_grad()
+#             loss.backward()
+#             torch.nn.utils.clip_grad_norm_(self.models[i].parameters(), max_norm=0.5)
+#             self.optimizers[i].step()
+
+
+#             approx_kl_divergence = .5 * ((neg_log_pi - sampled_neg_log_pi) ** 2).mean()
+#             clip_fraction = (abs((ratio - 1.0)) > clip_range).type(torch.FloatTensor).mean()
+            
+
+#             to_return.append([policy_reward,
+#                 vf_loss,
+#                 entropy_bonus,
+#                 approx_kl_divergence,
+#                 clip_fraction])
+
+
+#         return to_return
+
+
+
+#     @staticmethod
+#     def _normalize(adv: np.ndarray):
+
+# #
+
+#         return (adv - adv.mean()) / (adv.std() + 1e-8)
 
 
 class Main(object):
@@ -483,8 +485,6 @@ class Main(object):
 
         self.mini_batch_size = self.batch_size // self.n_mini_batch
 
-        self.models = []
-
         self.logging = True
         
 
@@ -498,7 +498,7 @@ class Main(object):
             'verbose': True,
             'negative_switch': False,
             'render': False,
-            'restrict_map':True
+            'restrict_map':False
         }
 
         self.negative_switch = kwargs['negative_switch']
@@ -516,13 +516,14 @@ class Main(object):
         self.save_path = 'models/{}/{}/{}{}'.format(game,representation,'negative_switch_' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['restrict_map'] else '')
         
         if self.logging:
-            
+
             if self.load_model:
-                self.logfile = open('logs/{}_{}_{}{}log.txt'.format(game,representation,'negative_switch_' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['restrict_map'] else ''),'a+')
+                self.logfile = open('logs/self_play_{}_{}_{}{}log.txt'.format(game,representation,'negative_switch_' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['restrict_map'] else ''),'a+')
                 self.logfile.read()
 
             else:
-                self.logfile = open('logs/{}_{}_{}{}log.txt'.format(game,representation,'negative_switch_' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['restrict_map'] else ''),'w')
+                self.logfile = open('logs/self_play_{}_{}_{}{}log.txt'.format(game,representation,'negative_switch_' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['restrict_map'] else ''),'w')
+
 
         self.crop_size = kwargs.get('cropped_size', 28)
 
@@ -556,24 +557,22 @@ class Main(object):
             self.obs[:,i] = temp[i]
 
         if self.load_model:                                                 #device, path, n_models, in_channels, map_size, out_length
-            self.models, optimizers, epoch,self.update_start = load_models(device, self.save_path, self.n_agents,self.obs.shape[-1],self.crop_size,n_actions)
+            self.model, optimizer, epoch, self.update_start = load_model(device, self.save_path, self.obs.shape[-1],self.crop_size,n_actions)
             self.updates = self.updates - self.update_start
 
 
-            self.trainer = MultiTrainer(self.models, optimizers = optimizers)
+            self.trainer = SelfTrainer(self.model, optimizer = optimizer)
 
         else:
-            for i in range(self.n_agents):
-                model = Model(self.obs.shape[-1],self.crop_size,n_actions)
-                model.to(device)
-                self.models.append(model)
+            self.model = Model(self.obs.shape[-1],self.crop_size,n_actions)
+            self.model.to(device)
 
-            self.trainer = MultiTrainer(self.models)
+            self.trainer = SelfTrainer(self.model)
 
 
 
 
-    def sample(self) -> (List[Dict[str, np.ndarray]], List):
+    def sample(self, reward_weight) -> (List[Dict[str, np.ndarray]], List):
 
         rewards = np.zeros((self.n_agents, self.n_workers, self.worker_steps), dtype=np.float32) 
         actions = np.zeros((self.n_agents, self.n_workers, self.worker_steps), dtype=np.int32) 
@@ -595,7 +594,7 @@ class Main(object):
 
                 temp = obs_to_torch(self.obs[i])
                 # print(temp.shape)
-                pi, v = self.models[i](temp)
+                pi, v = self.model(temp)
                 # print(v)
                 values[i,:, t] = v.cpu().data.numpy()
                 a = pi.sample()
@@ -619,6 +618,16 @@ class Main(object):
                 if info.get('reward'):
                     # info['obs'] = obs[:,w, t, :, :, :]
                     episode_infos.append(info)
+
+        reward_sum = np.zeros((self.n_agents, self.n_workers), dtype=np.int32)
+        reward_mult = np.zeros((self.n_agents, self.n_workers, self.worker_steps), dtype=np.float32)
+
+        reward_sum[:] = np.sum(rewards, axis = 2)
+
+        reward_sum = reward_sum[:,:,np.newaxis]
+        for i in range(self.n_agents):
+            reward_mult[i][:][:] = np.where(reward_sum[i][:] > reward_sum[flip_agent(i, self.n_agents)][:], reward_weight, reward_weight ** -1)
+            rewards[i] = np.where(rewards[i] < 0, rewards[i] / reward_mult[i], rewards[i] * reward_mult[i])
 
         for i in range(self.n_agents):
 
@@ -659,7 +668,7 @@ class Main(object):
         advantages = np.zeros((self.n_workers, self.worker_steps), dtype=np.float32)
         last_advantage = 0
 
-        _, last_value = self.models[ind](obs_to_torch(self.obs[ind]))
+        _, last_value = self.model(obs_to_torch(self.obs[ind]))
         last_value = last_value.cpu().data.numpy()
 
         for t in reversed(range(self.worker_steps)):
@@ -697,17 +706,18 @@ class Main(object):
                     mini_batch = {}
                     for k, v in samples[i].items():
                         mini_batch[k] = v[mini_batch_indexes]
-                    mini_batches.append(mini_batch)
+                    # mini_batches.append(mini_batch)
 
-                res = self.trainer.train(learning_rate=learning_rate,
-                                         clip_range=clip_range,
-                                         samples=mini_batches)
-                for i in range(self.n_agents):  
-                    train_info[i].append(res[i])
+                    res = self.trainer.train(learning_rate=learning_rate,
+                                             clip_range=clip_range,
+                                             samples=mini_batch)
+
+                    train_info[i].append(res)
                     
             returns = []
             for i in range(self.n_agents):
                 returns.append(list(np.mean(train_info[i], axis=0)))
+
 
         return returns
 
@@ -729,8 +739,9 @@ class Main(object):
 
             learning_rate = 2.5e-4 * (1 - progress)
             clip_range = 0.1 * (1 - progress)
+            reward_weight = 1.1 + .9 * (update + self.update_start) / self.updates
 
-            samples, sample_episode_info = self.sample()
+            samples, sample_episode_info = self.sample(reward_weight)
 
             train_info = self.train(samples, learning_rate, clip_range)
 
@@ -741,6 +752,7 @@ class Main(object):
             episode_info.extend(sample_episode_info)
             log_list.extend(sample_episode_info)
             train_list.append(train_info)
+
 
             reward_mean = Main._get_mean_episode_info(self.n_agents,episode_info)
 
@@ -760,7 +772,7 @@ class Main(object):
                 self.logfile.write(str(logs[0]) + '\n')
                 self.logfile.write(str(logs[1]) + '\n')
                 self.logfile.flush()
-                save_models(self.models, self.trainer.optimizers, self.save_path, epoch = 0, update = update)
+                save_model(self.model, self.trainer.optimizer, self.save_path, epoch = 0, update = update)
             # time.sleep(10)
             
     @staticmethod
