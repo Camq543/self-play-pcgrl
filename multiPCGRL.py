@@ -466,11 +466,11 @@ class Main(object):
 
         self.updates = 10000
         self.update_start = 0
-        self.save_period = 50
+        self.save_period = 2
 
         self.epochs = 4
 
-        self.n_workers = 8
+        self.n_workers = 1
 
         self.n_agents = 2
         self.active_agent = 0
@@ -496,12 +496,14 @@ class Main(object):
         kwargs = {
             'change_percentage': 0.4,
             'verbose': True,
-            'negative_switch': False,
+            'negative_switch': True,
             'render': False,
-            'restrict_map':True
+            'restrict_map':False
         }
 
         self.negative_switch = kwargs['negative_switch']
+        if self.negative_switch:
+            self.updates = self.updates * 1.5
 
         self.env_name = '{}-{}-v0'.format(game, representation)
 
@@ -620,25 +622,19 @@ class Main(object):
                     # info['obs'] = obs[:,w, t, :, :, :]
                     episode_infos.append(info)
 
+            if self.negative_switch:
+                actions[:,:,t] = actions[:,:,t] * actives[:,:,t]
+
         for i in range(self.n_agents):
 
             advantages = self._calc_advantages(dones[i], rewards[i], values[i],i)
-            if self.negative_switch:
-                samples = {
-                    'obs': obs[i][np.nonzero(actives[i])[0]],
-                    'actions': actions[i][np.nonzero(actives[i])],
-                    'values': values[i][np.nonzero(actives[i])],
-                    'neg_log_pis': neg_log_pis[i][np.nonzero(actives[i])],
-                    'advantages': advantages,
-                }
-            else:
-                samples = {
-                    'obs': obs[i],
-                    'actions': actions[i],
-                    'values': values[i],
-                    'neg_log_pis': neg_log_pis[i],
-                    'advantages': advantages,
-                }
+            samples = {
+                'obs': obs[i],
+                'actions': actions[i],
+                'values': values[i],
+                'neg_log_pis': neg_log_pis[i],
+                'advantages': advantages,
+            }
 
 
             samples_flat = {}
@@ -772,7 +768,7 @@ class Main(object):
                 toreturn.append(np.mean([info["reward"][i] for info in episode_info]))
             return toreturn
         else:
-            return (np.nan,np.nan), np.nan
+            return (np.nan,np.nan)
 
     @staticmethod
     def log_mean_performance(n_agents,log_list, train_list):
