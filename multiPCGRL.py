@@ -466,7 +466,7 @@ class Main(object):
 
         self.updates = 10000
         self.update_start = 0
-        self.save_period = 2
+        self.save_period = 50
 
         self.epochs = 4
 
@@ -503,7 +503,7 @@ class Main(object):
 
         self.negative_switch = kwargs['negative_switch']
         if self.negative_switch:
-            self.updates = self.updates * 1.5
+            self.updates = int(self.updates * 1.5)
 
         self.env_name = '{}-{}-v0'.format(game, representation)
 

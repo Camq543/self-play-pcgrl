@@ -461,14 +461,14 @@ class Main(object):
 
     def __init__(self):
 
-        self.load_model = True
+        self.load_model = False
 
         self.gamma = 0.99
         self.lamda = 0.95
 
         self.updates = 10000
         self.update_start = 0
-        self.save_period = 2
+        self.save_period = 50
 
         self.epochs = 4
 
@@ -496,14 +496,14 @@ class Main(object):
         kwargs = {
             'change_percentage': 0.4,
             'verbose': True,
-            'negative_switch': False,
+            'negative_switch': True,
             'render': False,
             'restrict_map':False
         }
 
         self.negative_switch = kwargs['negative_switch']
         if self.negative_switch:
-            self.updates = self.updates * 1.5
+            self.updates = int(self.updates * 1.5)
 
         self.env_name = '{}-{}-v0'.format(game, representation)
 
