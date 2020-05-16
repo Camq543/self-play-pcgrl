@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import re
 import os
+from scipy.ndimage.filters import gaussian_filter1d
 
 ####### REWARD PLOT #######
 d = open("logs\zelda_turtle_map_restricted_log.txt", "r") #CHANGE THIS
@@ -30,9 +31,12 @@ print("Number of updates: " + str(number_of_obs))
 x_val_og = range(number_of_obs)
 x_val = [element * 50 for element in x_val_og]  #update interval is 50
 
+ysmoothed_1 = gaussian_filter1d(y_agent1_val, sigma=2)
+ysmoothed_2 = gaussian_filter1d(y_agent2_val, sigma=2)
+
 #plt.figure(figsize=(12,9))
-plt.plot(x_val, y_agent1_val, label = "Agent 1")
-plt.plot(x_val, y_agent2_val, label = "Agent 2")
+plt.plot(x_val, ysmoothed_1, label = "Agent 1")
+plt.plot(x_val, ysmoothed_2, label = "Agent 2")
 plt.title("Zelda Turtle Map Restricted - Reward Values") #CHANGE THIS
 plt.legend(loc="lower right")
 plt.xlabel('Update Interval')
@@ -75,9 +79,13 @@ print("Number of updates: " + str(number_of_obs))
 x_val_og = range(number_of_obs)
 x_val = [element * 50 for element in x_val_og]  #update interval is 50
 
+ysmoothed_1 = gaussian_filter1d(y_agent1_val, sigma=2)
+ysmoothed_2 = gaussian_filter1d(y_agent2_val, sigma=2)
+
 #plt.figure(figsize=(12,9))
-plt.plot(x_val, y_agent1_val, label = "Agent 1")
-plt.plot(x_val, y_agent2_val, label = "Agent 2")
+plt.plot(x_val, ysmoothed_1, label = "Agent 1")
+plt.plot(x_val, ysmoothed_2, label = "Agent 2")
+
 plt.title("Zelda Turtle Map Restricted - Key Values") #CHANGE THIS
 plt.legend(loc="upper right")
 plt.xlabel('Update Interval')
@@ -119,9 +127,13 @@ print("Number of updates: " + str(number_of_obs))
 x_val_og = range(number_of_obs)
 x_val = [element * 50 for element in x_val_og]  #update interval is 50
 
+ysmoothed_1 = gaussian_filter1d(y_agent1_val, sigma=2)
+ysmoothed_2 = gaussian_filter1d(y_agent2_val, sigma=2)
+
 #plt.figure(figsize=(12,9))
-plt.plot(x_val, y_agent1_val, label = "Agent 1")
-plt.plot(x_val, y_agent2_val, label = "Agent 2")
+plt.plot(x_val, ysmoothed_1, label = "Agent 1")
+plt.plot(x_val, ysmoothed_2, label = "Agent 2")
+
 plt.title("Zelda Turtle Map Restricted - Door Values") #CHANGE THIS
 plt.legend(loc="upper right")
 plt.xlabel('Update Interval')
