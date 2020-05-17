@@ -17,7 +17,7 @@ def reshape_obs(obs):
     return obs[:,np.newaxis,:,:,:]
 
 
-def build(game, representation, model_path, n_agents, make_gif, gif_name, **kwargs):
+def build(game, representation, model_path, n_agents, make_gif, image_name, **kwargs):
 
     env_name = '{}-{}-v0'.format(game, representation)  
 
@@ -56,6 +56,7 @@ def build(game, representation, model_path, n_agents, make_gif, gif_name, **kwar
 
     done = False
     while not done:
+        print('loopin')
         if make_gif:
             frames.append(env.render(mode='rgb_array'))
         env.render()
@@ -72,7 +73,8 @@ def build(game, representation, model_path, n_agents, make_gif, gif_name, **kwar
     print(info)
 
     if make_gif:
-        frames[0].save(gif_name,save_all=True,append_images = frames[1:])
+        frames[0].save(image_name + '.gif',save_all=True,append_images = frames[1:])
+        frames[-1].save(image_name + '.png')
 
     time.sleep(10)
 
@@ -92,8 +94,8 @@ kwargs = {
 }
 
 model_path = 'models/{}/{}/{}{}'.format(game,representation,'negative_switch_' if kwargs['negative_switch'] else '','map_restricted_' if kwargs['restrict_map'] else '')
-gif_name = 'gifs/{}-{}{}{}.gif'.format(game, representation,'_negative_switch' if kwargs['negative_switch'] else '','_map_restricted_' if kwargs['restrict_map'] else '')
+image_name = 'gifs/{}-{}{}{}'.format(game, representation,'_negative_switch' if kwargs['negative_switch'] else '','_map_restricted_' if kwargs['restrict_map'] else '')
 
 
 if __name__ == '__main__':
-    build(game, representation, model_path, n_agents, make_gif, gif_name, **kwargs)
+    build(game, representation, model_path, n_agents, make_gif, image_name, **kwargs)
