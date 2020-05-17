@@ -1,0 +1,569 @@
+{'regions': [5.12, 0], 'path-length': [24.46, 0], 'path-imp': [9.88, 0], 'path-change': [9.88, 0], 'iterations': [405.18, 0], 'changes': [78.0, 0], 'steps': [405.18, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [53.48, 0]}
+[array([8.77398474e-04, 4.33634614e+01, 1.09579098e+00, 1.84686211e-03,
+       8.08105469e-02])]
+{'regions': [3.28, 0], 'path-length': [25.12, 0], 'path-imp': [5.58, 0], 'path-change': [5.58, 0], 'iterations': [1323.86, 0], 'changes': [78.0, 0], 'steps': [1323.86, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [42.98, 0]}
+[array([0.00116711, 0.02991741, 0.21598603, 0.00052519, 0.03271484])]
+{'regions': [6.24, 0], 'path-length': [25.92, 0], 'path-imp': [13.72, 0], 'path-change': [13.72, 0], 'iterations': [182.94, 0], 'changes': [78.0, 0], 'steps': [182.94, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [56.22, 0]}
+[array([-2.26142810e-03,  3.30799072e+01,  3.43099006e-01,  8.19557637e-04,
+        4.10156250e-02])]
+{'regions': [5.46, 0], 'path-length': [25.82, 0], 'path-imp': [11.3, 0], 'path-change': [11.3, 0], 'iterations': [222.14, 0], 'changes': [77.16, 0], 'steps': [222.14, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [47.6, 0]}
+[array([-5.05725387e-04,  2.74121772e+01,  3.78071114e-01,  9.42883924e-04,
+        5.49316406e-02])]
+{'regions': [6.86, 0], 'path-length': [29.02, 0], 'path-imp': [16.34, 0], 'path-change': [16.34, 0], 'iterations': [173.46, 0], 'changes': [76.98, 0], 'steps': [173.46, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [50.54, 0]}
+[array([-8.87264148e-04,  4.35011961e+01,  6.17060289e-01,  1.60891451e-03,
+        9.66796875e-02])]
+{'regions': [3.68, 0], 'path-length': [27.62, 0], 'path-imp': [8.56, 0], 'path-change': [8.56, 0], 'iterations': [230.5, 0], 'changes': [77.18, 0], 'steps': [230.5, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [44.46, 0]}
+[array([1.54318922e-03, 3.52873397e+01, 5.22366162e-01, 1.17334979e-03,
+       7.00683594e-02])]
+{'regions': [5.48, 0], 'path-length': [30.82, 0], 'path-imp': [14.92, 0], 'path-change': [14.92, 0], 'iterations': [168.34, 0], 'changes': [76.86, 0], 'steps': [168.34, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [61.02, 0]}
+[array([-4.21730452e-03,  3.01366546e+01,  5.01837349e-01,  6.84310554e-03,
+        2.14111328e-01])]
+{'regions': [5.88, 0], 'path-length': [30.74, 0], 'path-imp': [15.0, 0], 'path-change': [15.0, 0], 'iterations': [350.6, 0], 'changes': [77.1, 0], 'steps': [350.6, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [56.4, 0]}
+[array([-1.04026461e-03,  4.08770549e+01,  4.33749082e-01,  3.64383577e-03,
+        2.09716797e-01])]
+{'regions': [6.3, 0], 'path-length': [30.18, 0], 'path-imp': [14.94, 0], 'path-change': [14.94, 0], 'iterations': [454.06, 0], 'changes': [77.1, 0], 'steps': [454.06, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [52.74, 0]}
+[array([-0.00519436,  2.89505108,  0.19361208,  0.00667116,  0.05639648])]
+{'regions': [6.3, 0], 'path-length': [30.18, 0], 'path-imp': [14.94, 0], 'path-change': [14.94, 0], 'iterations': [454.06, 0], 'changes': [77.1, 0], 'steps': [454.06, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [52.74, 0]}
+[array([-0.00254913,  0.09937699,  0.09344609,  0.00148186,  0.02026367])]
+{'regions': [5.96, 0], 'path-length': [27.78, 0], 'path-imp': [14.44, 0], 'path-change': [14.44, 0], 'iterations': [2810.28, 0], 'changes': [74.84, 0], 'steps': [2810.28, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [72.34, 0]}
+[array([-7.95116648e-08,  4.73672174e-02,  1.58781835e-04,  5.49227330e-13,
+        0.00000000e+00])]
+{'regions': [5.78, 0], 'path-length': [27.14, 0], 'path-imp': [14.04, 0], 'path-change': [14.04, 0], 'iterations': [2962.96, 0], 'changes': [74.68, 0], 'steps': [2962.96, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [72.14, 0]}
+[array([7.65873119e-06, 7.10942436e-01, 2.42590043e-01, 2.77577035e-03,
+       9.35058594e-02])]
+{'regions': [4.92, 0], 'path-length': [27.2, 0], 'path-imp': [12.28, 0], 'path-change': [12.28, 0], 'iterations': [4174.18, 0], 'changes': [72.82, 0], 'steps': [4174.18, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [67.68, 0]}
+[array([5.31803293e-04, 1.43143868e-02, 5.96352529e-01, 1.68377684e-03,
+       1.04736328e-01])]
+{'regions': [3.96, 0], 'path-length': [25.58, 0], 'path-imp': [9.5, 0], 'path-change': [9.5, 0], 'iterations': [3376.9, 0], 'changes': [73.46, 0], 'steps': [3376.9, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [53.3, 0]}
+[array([0.00184294, 0.0078807 , 0.53654349, 0.00154014, 0.0949707 ])]
+{'regions': [4.64, 0], 'path-length': [30.24, 0], 'path-imp': [12.4, 0], 'path-change': [12.4, 0], 'iterations': [211.8, 0], 'changes': [77.0, 0], 'steps': [211.8, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [40.5, 0]}
+[array([-5.79757965e-04,  2.41576301e+01,  6.90764595e-01,  7.32227679e-04,
+        2.58789062e-02])]
+{'regions': [4.58, 0], 'path-length': [30.16, 0], 'path-imp': [14.4, 0], 'path-change': [14.4, 0], 'iterations': [198.42, 0], 'changes': [75.86, 0], 'steps': [198.42, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [62.6, 0]}
+[array([-8.17689189e-03,  3.65472095e+01,  3.68352976e-01,  1.00275274e-02,
+        2.23144531e-01])]
+{'regions': [5.18, 0], 'path-length': [28.16, 0], 'path-imp': [12.74, 0], 'path-change': [12.74, 0], 'iterations': [305.64, 0], 'changes': [77.58, 0], 'steps': [305.64, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [55.54, 0]}
+[array([-8.01134680e-04,  5.43741653e+01,  3.76628634e-01,  2.18467779e-03,
+        1.49902344e-01])]
+{'regions': [5.58, 0], 'path-length': [28.28, 0], 'path-imp': [14.1, 0], 'path-change': [14.1, 0], 'iterations': [166.08, 0], 'changes': [76.66, 0], 'steps': [166.08, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [58.8, 0]}
+[array([-2.16244778e-03,  3.34535509e+01,  5.18590115e-01,  3.24911372e-03,
+        1.90185547e-01])]
+{'regions': [6.68, 0], 'path-length': [31.3, 0], 'path-imp': [18.46, 0], 'path-change': [18.46, 0], 'iterations': [156.18, 0], 'changes': [78.0, 0], 'steps': [156.18, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [64.46, 0]}
+[array([-6.84070983e-04,  3.47771450e+01,  2.13170361e-01,  1.25283188e-03,
+        6.27441406e-02])]
+{'regions': [5.02, 0], 'path-length': [27.7, 0], 'path-imp': [12.12, 0], 'path-change': [12.12, 0], 'iterations': [184.9, 0], 'changes': [77.24, 0], 'steps': [184.9, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [66.32, 0]}
+[array([-1.73587424e-02,  4.81463940e+01,  1.91535029e-01,  3.97498864e-02,
+        2.34619141e-01])]
+{'regions': [5.02, 0], 'path-length': [29.14, 0], 'path-imp': [14.08, 0], 'path-change': [14.08, 0], 'iterations': [170.5, 0], 'changes': [76.5, 0], 'steps': [170.5, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [58.08, 0]}
+[array([-6.12708391e-05,  2.67905467e+01,  5.61365669e-02,  7.17144554e-05,
+        4.39453125e-03])]
+{'regions': [5.28, 0], 'path-length': [24.36, 0], 'path-imp': [11.7, 0], 'path-change': [11.7, 0], 'iterations': [241.84, 0], 'changes': [77.62, 0], 'steps': [241.84, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [59.9, 0]}
+[array([-1.18352831e-02,  3.98776549e+01,  2.18010987e-01,  2.49785053e-02,
+        2.55859375e-01])]
+{'regions': [5.28, 0], 'path-length': [24.36, 0], 'path-imp': [11.7, 0], 'path-change': [11.7, 0], 'iterations': [241.84, 0], 'changes': [77.62, 0], 'steps': [241.84, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [59.9, 0]}
+[array([4.78466973e-08, 1.44602240e-01, 1.01574712e-04, 1.30162547e-12,
+       0.00000000e+00])]
+{'regions': [4.78, 0], 'path-length': [24.06, 0], 'path-imp': [11.2, 0], 'path-change': [11.2, 0], 'iterations': [1763.8, 0], 'changes': [76.9, 0], 'steps': [1763.8, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [65.0, 0]}
+[array([2.06578989e-06, 5.87565156e-01, 8.75825026e-05, 2.36022313e-11,
+       0.00000000e+00])]
+{'regions': [4.38, 0], 'path-length': [24.4, 0], 'path-imp': [10.62, 0], 'path-change': [10.62, 0], 'iterations': [2673.74, 0], 'changes': [75.72, 0], 'steps': [2673.74, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [65.42, 0]}
+[array([1.07817468e-05, 1.23111614e-01, 1.74539057e-03, 1.19567544e-08,
+       0.00000000e+00])]
+{'regions': [4.38, 0], 'path-length': [24.4, 0], 'path-imp': [10.62, 0], 'path-change': [10.62, 0], 'iterations': [2673.74, 0], 'changes': [75.72, 0], 'steps': [2673.74, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [65.42, 0]}
+[array([3.83006409e-08, 4.96172650e-02, 6.58844687e-07, 0.00000000e+00,
+       0.00000000e+00])]
+{'regions': [5.12, 0], 'path-length': [23.64, 0], 'path-imp': [11.3, 0], 'path-change': [11.3, 0], 'iterations': [5027.8, 0], 'changes': [71.12, 0], 'steps': [5027.8, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [65.7, 0]}
+[array([-2.78232619e-08,  4.91899785e-02,  3.19095673e-06,  1.19904087e-14,
+        0.00000000e+00])]
+{'regions': [5.12, 0], 'path-length': [23.64, 0], 'path-imp': [11.3, 0], 'path-change': [11.3, 0], 'iterations': [5027.8, 0], 'changes': [71.12, 0], 'steps': [5027.8, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [65.7, 0]}
+[array([2.23517418e-08, 6.44234903e-02, 1.80874408e-07, 0.00000000e+00,
+       0.00000000e+00])]
+{'regions': [4.08, 0], 'path-length': [24.2, 0], 'path-imp': [8.9, 0], 'path-change': [8.9, 0], 'iterations': [7145.86, 0], 'changes': [63.2, 0], 'steps': [7145.86, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [55.5, 0]}
+[array([-2.22353265e-08,  6.81661328e-02,  7.24596287e-07,  8.88178420e-15,
+        0.00000000e+00])]
+{'regions': [4.08, 0], 'path-length': [24.22, 0], 'path-imp': [8.58, 0], 'path-change': [8.58, 0], 'iterations': [7445.12, 0], 'changes': [61.9, 0], 'steps': [7445.12, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [53.18, 0]}
+[array([8.87049828e-06, 4.69926444e-02, 6.01013210e-03, 2.40013758e-05,
+       9.76562500e-04])]
+{'regions': [4.08, 0], 'path-length': [24.22, 0], 'path-imp': [8.58, 0], 'path-change': [8.58, 0], 'iterations': [7445.12, 0], 'changes': [61.9, 0], 'steps': [7445.12, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [53.18, 0]}
+[array([1.26624946e-06, 3.83421872e-03, 1.01968083e-03, 1.01976427e-10,
+       0.00000000e+00])]
+{'regions': [4.46, 0], 'path-length': [24.24, 0], 'path-imp': [7.74, 0], 'path-change': [7.74, 0], 'iterations': [7437.24, 0], 'changes': [62.0, 0], 'steps': [7437.24, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [48.34, 0]}
+[array([1.18685421e-07, 1.92292271e-02, 3.36607291e-04, 2.22751817e-11,
+       0.00000000e+00])]
+{'regions': [4.46, 0], 'path-length': [24.24, 0], 'path-imp': [7.74, 0], 'path-change': [7.74, 0], 'iterations': [7437.24, 0], 'changes': [62.0, 0], 'steps': [7437.24, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [48.34, 0]}
+[array([9.74099385e-06, 8.64023782e-02, 1.31718086e-04, 1.67447611e-10,
+       0.00000000e+00])]
+{'regions': [4.14, 0], 'path-length': [24.28, 0], 'path-imp': [7.2, 0], 'path-change': [7.2, 0], 'iterations': [8043.22, 0], 'changes': [59.56, 0], 'steps': [8043.22, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [45.1, 0]}
+[array([2.06509139e-06, 3.34521579e-02, 3.99055194e-04, 5.39277512e-11,
+       0.00000000e+00])]
+{'regions': [4.14, 0], 'path-length': [24.28, 0], 'path-imp': [7.2, 0], 'path-change': [7.2, 0], 'iterations': [8043.22, 0], 'changes': [59.56, 0], 'steps': [8043.22, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [45.1, 0]}
+[array([2.32830644e-08, 1.87783676e-02, 3.96125999e-06, 2.10942375e-15,
+       0.00000000e+00])]
+{'regions': [3.7, 0], 'path-length': [24.5, 0], 'path-imp': [6.16, 0], 'path-change': [6.16, 0], 'iterations': [8952.52, 0], 'changes': [57.04, 0], 'steps': [8952.52, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [44.06, 0]}
+[array([-9.31322575e-10,  9.78129346e-03,  3.37092538e-05,  3.45279361e-14,
+        0.00000000e+00])]
+{'regions': [3.26, 0], 'path-length': [24.94, 0], 'path-imp': [4.98, 0], 'path-change': [4.98, 0], 'iterations': [10160.78, 0], 'changes': [52.96, 0], 'steps': [10160.78, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [36.58, 0]}
+[array([2.24099495e-08, 1.99339860e-02, 1.01227591e-05, 1.35447209e-14,
+       0.00000000e+00])]
+{'regions': [3.16, 0], 'path-length': [24.96, 0], 'path-imp': [4.48, 0], 'path-change': [4.48, 0], 'iterations': [10042.46, 0], 'changes': [58.48, 0], 'steps': [10042.46, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [32.98, 0]}
+[array([1.19791366e-07, 1.17855488e-03, 2.69399387e-04, 4.71933603e-12,
+       0.00000000e+00])]
+{'regions': [3.44, 0], 'path-length': [25.38, 0], 'path-imp': [9.58, 0], 'path-change': [9.58, 0], 'iterations': [261.5, 0], 'changes': [77.7, 0], 'steps': [261.5, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [70.98, 0]}
+[array([4.06019855e-04, 2.07495124e+01, 2.81210362e-01, 1.90400712e-03,
+       5.39550781e-02])]
+{'regions': [3.2, 0], 'path-length': [26.98, 0], 'path-imp': [8.08, 0], 'path-change': [8.08, 0], 'iterations': [238.26, 0], 'changes': [77.62, 0], 'steps': [238.26, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [54.08, 0]}
+[array([1.66139606e-03, 2.60362146e+00, 2.07182747e-01, 3.69408898e-03,
+       1.15722656e-01])]
+{'regions': [3.98, 0], 'path-length': [24.76, 0], 'path-imp': [9.72, 0], 'path-change': [9.72, 0], 'iterations': [1133.92, 0], 'changes': [75.82, 0], 'steps': [1133.92, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [57.82, 0]}
+[array([-2.20972463e-04,  8.14658481e+00,  2.80862387e-02,  1.36430902e-04,
+        3.90625000e-03])]
+{'regions': [4.52, 0], 'path-length': [22.22, 0], 'path-imp': [7.88, 0], 'path-change': [7.88, 0], 'iterations': [2864.46, 0], 'changes': [74.52, 0], 'steps': [2864.46, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [47.48, 0]}
+[array([0.00065969, 0.26300135, 0.46112096, 0.00267884, 0.24145508])]
+{'regions': [4.24, 0], 'path-length': [26.98, 0], 'path-imp': [11.12, 0], 'path-change': [11.12, 0], 'iterations': [557.18, 0], 'changes': [77.48, 0], 'steps': [557.18, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [64.82, 0]}
+[array([-7.81487906e-04,  1.56530776e+01,  3.25101985e-01,  4.29398102e-04,
+        4.78515625e-02])]
+{'regions': [4.24, 0], 'path-length': [26.98, 0], 'path-imp': [11.12, 0], 'path-change': [11.12, 0], 'iterations': [557.18, 0], 'changes': [77.48, 0], 'steps': [557.18, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [64.82, 0]}
+[array([-0.00029624,  0.01041221,  0.10790327,  0.00020139,  0.0144043 ])]
+{'regions': [2.74, 0], 'path-length': [23.88, 0], 'path-imp': [8.04, 0], 'path-change': [8.04, 0], 'iterations': [2234.9, 0], 'changes': [69.7, 0], 'steps': [2234.9, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [54.84, 0]}
+[array([0.00026504, 0.00151922, 0.20898712, 0.00022912, 0.02709961])]
+{'regions': [2.38, 0], 'path-length': [23.96, 0], 'path-imp': [7.32, 0], 'path-change': [7.32, 0], 'iterations': [1968.9, 0], 'changes': [71.1, 0], 'steps': [1968.9, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [60.62, 0]}
+[array([-2.63739779e-03,  1.19473056e+01,  6.12984370e-01,  3.29941371e-03,
+        2.67089844e-01])]
+{'regions': [2.46, 0], 'path-length': [23.46, 0], 'path-imp': [7.1, 0], 'path-change': [7.1, 0], 'iterations': [2265.66, 0], 'changes': [70.14, 0], 'steps': [2265.66, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [60.7, 0]}
+[array([-0.00253935,  0.01031595,  0.40737555,  0.00147517,  0.05102539])]
+{'regions': [2.58, 0], 'path-length': [21.78, 0], 'path-imp': [6.42, 0], 'path-change': [6.42, 0], 'iterations': [3413.28, 0], 'changes': [64.78, 0], 'steps': [3413.28, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [57.52, 0]}
+[array([-0.00626383,  0.10386209,  0.6736864 ,  0.00496804,  0.48388672])]
+{'regions': [2.56, 0], 'path-length': [21.76, 0], 'path-imp': [6.1, 0], 'path-change': [6.1, 0], 'iterations': [3413.36, 0], 'changes': [64.78, 0], 'steps': [3413.36, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [54.4, 0]}
+[array([-0.00287348,  0.63034519,  0.6576589 ,  0.00197681,  0.17260742])]
+{'regions': [3.18, 0], 'path-length': [19.72, 0], 'path-imp': [5.12, 0], 'path-change': [5.12, 0], 'iterations': [4679.12, 0], 'changes': [62.14, 0], 'steps': [4679.12, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [51.82, 0]}
+[array([-0.00167505,  0.00809257,  0.43102383,  0.00135409,  0.07983398])]
+{'regions': [4.48, 0], 'path-length': [18.88, 0], 'path-imp': [4.52, 0], 'path-change': [4.52, 0], 'iterations': [4293.84, 0], 'changes': [65.86, 0], 'steps': [4293.84, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [48.92, 0]}
+[array([-3.75587202e-04,  4.32528993e+00,  5.62335126e-01,  1.14281808e-03,
+        1.10107422e-01])]
+{'regions': [4.62, 0], 'path-length': [18.92, 0], 'path-imp': [4.44, 0], 'path-change': [4.44, 0], 'iterations': [4022.64, 0], 'changes': [67.42, 0], 'steps': [4022.64, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [50.64, 0]}
+[array([0.00246024, 0.67470935, 0.69131017, 0.00136298, 0.13037109])]
+{'regions': [6.12, 0], 'path-length': [16.88, 0], 'path-imp': [2.34, 0], 'path-change': [2.34, 0], 'iterations': [4266.92, 0], 'changes': [68.38, 0], 'steps': [4266.92, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [36.04, 0]}
+[array([-3.63032799e-04,  2.23758524e-03,  6.45220011e-01,  9.59499913e-04,
+        1.02783203e-01])]
+{'regions': [5.5, 0], 'path-length': [17.72, 0], 'path-imp': [-0.16, 0], 'path-change': [-0.16, 0], 'iterations': [3216.7, 0], 'changes': [69.4, 0], 'steps': [3216.7, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [24.24, 0]}
+[array([-0.00225201,  0.00239398,  0.50576434,  0.00086619,  0.07226562])]
+{'regions': [6.02, 0], 'path-length': [17.22, 0], 'path-imp': [-0.58, 0], 'path-change': [-0.58, 0], 'iterations': [3486.9, 0], 'changes': [68.34, 0], 'steps': [3486.9, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [24.22, 0]}
+[array([1.38750148e-03, 1.42707765e-01, 5.79632472e-01, 4.44231684e-04,
+       4.46777344e-02])]
+{'regions': [5.3, 0], 'path-length': [17.24, 0], 'path-imp': [-0.14, 0], 'path-change': [-0.14, 0], 'iterations': [4487.74, 0], 'changes': [65.96, 0], 'steps': [4487.74, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [31.96, 0]}
+[array([0.00221381, 0.34035617, 0.49082789, 0.0015975 , 0.11694336])]
+{'regions': [3.86, 0], 'path-length': [20.3, 0], 'path-imp': [1.24, 0], 'path-change': [1.24, 0], 'iterations': [3276.72, 0], 'changes': [69.7, 0], 'steps': [3276.72, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [45.24, 0]}
+[array([-1.27898552e-03,  3.07933712e+00,  7.05426045e-01,  5.85023676e-04,
+        1.95312500e-02])]
+{'regions': [4.04, 0], 'path-length': [18.96, 0], 'path-imp': [0.98, 0], 'path-change': [0.98, 0], 'iterations': [4258.76, 0], 'changes': [67.78, 0], 'steps': [4258.76, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [50.18, 0]}
+[array([0.00161618, 0.19909163, 0.67967057, 0.00165954, 0.2722168 ])]
+{'regions': [3.32, 0], 'path-length': [18.9, 0], 'path-imp': [0.9, 0], 'path-change': [0.9, 0], 'iterations': [4525.16, 0], 'changes': [66.62, 0], 'steps': [4525.16, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [47.7, 0]}
+[array([-0.00366621,  0.00107173,  0.56332745,  0.00152221,  0.15185547])]
+{'regions': [2.86, 0], 'path-length': [19.08, 0], 'path-imp': [1.24, 0], 'path-change': [1.24, 0], 'iterations': [4819.88, 0], 'changes': [65.5, 0], 'steps': [4819.88, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [49.24, 0]}
+[array([6.28005626e-04, 8.93621571e-01, 3.45825624e-01, 5.20439996e-04,
+       4.95605469e-02])]
+{'regions': [4.36, 0], 'path-length': [18.22, 0], 'path-imp': [-0.42, 0], 'path-change': [-0.42, 0], 'iterations': [4810.0, 0], 'changes': [65.36, 0], 'steps': [4810.0, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [34.78, 0]}
+[array([2.28087127e-04, 7.48323973e-02, 2.86846198e-01, 1.90807804e-04,
+       2.75878906e-02])]
+{'regions': [5.02, 0], 'path-length': [17.28, 0], 'path-imp': [-1.16, 0], 'path-change': [-1.16, 0], 'iterations': [5108.78, 0], 'changes': [64.96, 0], 'steps': [5108.78, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [32.54, 0]}
+[array([-8.94466764e-04,  4.27149223e+00,  3.00828071e-01,  3.33513430e-04,
+        4.85839844e-02])]
+{'regions': [6.64, 0], 'path-length': [15.7, 0], 'path-imp': [-1.68, 0], 'path-change': [-1.68, 0], 'iterations': [5695.8, 0], 'changes': [63.18, 0], 'steps': [5695.8, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [17.82, 0]}
+[array([-0.00062397,  0.00066437,  0.22481547,  0.00024851,  0.02978516])]
+{'regions': [7.6, 0], 'path-length': [14.78, 0], 'path-imp': [-2.44, 0], 'path-change': [-2.44, 0], 'iterations': [5649.86, 0], 'changes': [63.16, 0], 'steps': [5649.86, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [14.86, 0]}
+[array([0.00040205, 0.09569493, 0.15834084, 0.00169254, 0.04248047])]
+{'regions': [7.86, 0], 'path-length': [12.86, 0], 'path-imp': [-2.8, 0], 'path-change': [-2.8, 0], 'iterations': [6606.4, 0], 'changes': [61.9, 0], 'steps': [6606.4, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [20.1, 0]}
+[array([-0.00052772,  0.00102708,  0.36436637,  0.00046993,  0.05371094])]
+{'regions': [8.44, 0], 'path-length': [11.54, 0], 'path-imp': [-2.9, 0], 'path-change': [-2.9, 0], 'iterations': [7223.74, 0], 'changes': [60.34, 0], 'steps': [7223.74, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [22.5, 0]}
+[array([4.55515401e-04, 2.42756392e-03, 6.86933510e-01, 1.59610430e-03,
+       3.11523438e-01])]
+{'regions': [8.54, 0], 'path-length': [10.68, 0], 'path-imp': [-3.16, 0], 'path-change': [-3.16, 0], 'iterations': [7525.46, 0], 'changes': [59.38, 0], 'steps': [7525.46, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [24.74, 0]}
+[array([-0.0006857 ,  0.01063886,  0.60999031,  0.00289974,  0.54199219])]
+{'regions': [8.26, 0], 'path-length': [7.88, 0], 'path-imp': [-3.76, 0], 'path-change': [-3.76, 0], 'iterations': [9035.2, 0], 'changes': [54.36, 0], 'steps': [9035.2, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [26.94, 0]}
+[array([1.32076896e-03, 3.26312604e-01, 4.40430859e-01, 9.71134692e-05,
+       3.41796875e-03])]
+{'regions': [8.68, 0], 'path-length': [10.48, 0], 'path-imp': [-2.26, 0], 'path-change': [-2.26, 0], 'iterations': [8743.58, 0], 'changes': [55.78, 0], 'steps': [8743.58, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [29.34, 0]}
+[array([-8.19816487e-05,  9.63402071e-03,  1.89347064e-01,  7.29701948e-05,
+        4.88281250e-03])]
+{'regions': [7.98, 0], 'path-length': [11.6, 0], 'path-imp': [-1.16, 0], 'path-change': [-1.16, 0], 'iterations': [9149.36, 0], 'changes': [56.58, 0], 'steps': [9149.36, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [31.54, 0]}
+[array([0.00156904, 0.12275304, 0.37684702, 0.00060955, 0.05834961])]
+{'regions': [7.42, 0], 'path-length': [11.02, 0], 'path-imp': [-1.16, 0], 'path-change': [-1.16, 0], 'iterations': [9791.5, 0], 'changes': [55.22, 0], 'steps': [9791.5, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [35.94, 0]}
+[array([-0.00137444,  0.18386388,  0.38178412,  0.00101646,  0.01806641])]
+{'regions': [6.7, 0], 'path-length': [10.98, 0], 'path-imp': [-0.94, 0], 'path-change': [-0.94, 0], 'iterations': [10393.26, 0], 'changes': [52.82, 0], 'steps': [10393.26, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [38.06, 0]}
+[array([-4.78527509e-05,  1.15202709e-01,  4.52845508e-01,  1.36849030e-03,
+        1.38427734e-01])]
+{'regions': [6.46, 0], 'path-length': [11.62, 0], 'path-imp': [-0.46, 0], 'path-change': [-0.46, 0], 'iterations': [10461.02, 0], 'changes': [54.58, 0], 'steps': [10461.02, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [47.44, 0]}
+[array([1.50915235e-03, 1.53159049e+00, 3.16809170e-01, 1.23261969e-04,
+       1.31835938e-02])]
+{'regions': [5.38, 0], 'path-length': [11.86, 0], 'path-imp': [0.18, 0], 'path-change': [0.18, 0], 'iterations': [10905.36, 0], 'changes': [52.88, 0], 'steps': [10905.36, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [53.98, 0]}
+[array([-2.44561408e-04,  8.50354950e-02,  4.09355566e-01,  1.40038067e-03,
+        5.81054688e-02])]
+{'regions': [4.6, 0], 'path-length': [12.2, 0], 'path-imp': [0.7, 0], 'path-change': [0.7, 0], 'iterations': [11506.78, 0], 'changes': [49.82, 0], 'steps': [11506.78, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [54.4, 0]}
+[array([-2.79162155e-03,  2.44889481e+00,  3.95289568e-01,  4.10910955e-04,
+        2.61230469e-02])]
+{'regions': [4.22, 0], 'path-length': [14.22, 0], 'path-imp': [1.86, 0], 'path-change': [1.86, 0], 'iterations': [11253.86, 0], 'changes': [50.38, 0], 'steps': [11253.86, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [55.96, 0]}
+[array([5.33991843e-05, 7.29564968e+00, 4.74480996e-01, 4.78902717e-04,
+       3.39355469e-02])]
+{'regions': [3.5, 0], 'path-length': [16.96, 0], 'path-imp': [1.46, 0], 'path-change': [1.46, 0], 'iterations': [10920.1, 0], 'changes': [54.32, 0], 'steps': [10920.1, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [51.56, 0]}
+[array([0.00056024, 0.00160302, 0.42204381, 0.00079281, 0.07397461])]
+{'regions': [3.44, 0], 'path-length': [18.22, 0], 'path-imp': [2.38, 0], 'path-change': [2.38, 0], 'iterations': [9824.78, 0], 'changes': [58.2, 0], 'steps': [9824.78, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [54.88, 0]}
+[array([-0.0016154 ,  0.13172306,  0.3963015 ,  0.0012293 ,  0.02734375])]
+{'regions': [2.86, 0], 'path-length': [16.82, 0], 'path-imp': [1.32, 0], 'path-change': [1.32, 0], 'iterations': [10381.92, 0], 'changes': [57.4, 0], 'steps': [10381.92, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [54.72, 0]}
+[array([1.36077870e-06, 1.60618197e-01, 5.32938875e-01, 3.22477629e-04,
+       2.85644531e-02])]
+{'regions': [2.94, 0], 'path-length': [16.84, 0], 'path-imp': [1.24, 0], 'path-change': [1.24, 0], 'iterations': [10381.92, 0], 'changes': [57.36, 0], 'steps': [10381.92, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [56.04, 0]}
+[array([-3.18640145e-04,  4.64099989e-02,  5.37580088e-01,  4.79420856e-04,
+        2.61230469e-02])]
+{'regions': [2.66, 0], 'path-length': [16.54, 0], 'path-imp': [1.6, 0], 'path-change': [1.6, 0], 'iterations': [10383.84, 0], 'changes': [55.28, 0], 'steps': [10383.84, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [58.7, 0]}
+[array([8.67484021e-04, 1.26793701e-03, 4.72645603e-01, 4.47408114e-04,
+       9.17968750e-02])]
+{'regions': [2.84, 0], 'path-length': [17.3, 0], 'path-imp': [2.84, 0], 'path-change': [2.84, 0], 'iterations': [9920.44, 0], 'changes': [54.32, 0], 'steps': [9920.44, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [62.94, 0]}
+[array([1.25566788e-04, 9.32350336e-04, 5.30992173e-01, 4.66685180e-05,
+       0.00000000e+00])]
+{'regions': [2.76, 0], 'path-length': [16.88, 0], 'path-imp': [2.78, 0], 'path-change': [2.78, 0], 'iterations': [9934.74, 0], 'changes': [53.64, 0], 'steps': [9934.74, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [60.78, 0]}
+[array([0.00174247, 0.00082986, 0.33376287, 0.00089495, 0.20483398])]
+{'regions': [2.7, 0], 'path-length': [17.88, 0], 'path-imp': [2.64, 0], 'path-change': [2.64, 0], 'iterations': [9669.08, 0], 'changes': [57.46, 0], 'steps': [9669.08, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [55.44, 0]}
+[array([-1.05264422e-03,  3.08116556e-04,  4.43612773e-01,  2.97997543e-04,
+        3.80859375e-02])]
+{'regions': [2.5, 0], 'path-length': [18.8, 0], 'path-imp': [4.08, 0], 'path-change': [4.08, 0], 'iterations': [8771.06, 0], 'changes': [58.92, 0], 'steps': [8771.06, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [56.88, 0]}
+[array([5.10874670e-04, 1.12506669e-03, 6.60668645e-01, 8.96131983e-04,
+       1.63330078e-01])]
+{'regions': [2.54, 0], 'path-length': [18.68, 0], 'path-imp': [3.82, 0], 'path-change': [3.82, 0], 'iterations': [8290.3, 0], 'changes': [60.38, 0], 'steps': [8290.3, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [58.22, 0]}
+[array([3.16318969e-03, 3.60570926e-02, 6.82706892e-01, 3.37749625e-04,
+       3.61328125e-02])]
+{'regions': [2.56, 0], 'path-length': [18.16, 0], 'path-imp': [3.9, 0], 'path-change': [3.9, 0], 'iterations': [8362.02, 0], 'changes': [59.08, 0], 'steps': [8362.02, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [58.8, 0]}
+[array([-0.00101626,  0.00096002,  0.65403751,  0.00150164,  0.37036133])]
+{'regions': [1.94, 0], 'path-length': [21.2, 0], 'path-imp': [2.92, 0], 'path-change': [2.92, 0], 'iterations': [7113.34, 0], 'changes': [64.88, 0], 'steps': [7113.34, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [45.42, 0]}
+[array([-3.75620031e-04,  1.36467572e+01,  6.82092641e-01,  2.05287702e-04,
+        9.76562500e-03])]
+{'regions': [1.9, 0], 'path-length': [20.54, 0], 'path-imp': [1.08, 0], 'path-change': [1.08, 0], 'iterations': [6928.8, 0], 'changes': [66.74, 0], 'steps': [6928.8, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [40.88, 0]}
+[array([1.33698457e-04, 4.46088251e+00, 5.77590831e-01, 1.97931199e-04,
+       4.12597656e-02])]
+{'regions': [2.12, 0], 'path-length': [21.04, 0], 'path-imp': [2.54, 0], 'path-change': [2.54, 0], 'iterations': [5558.22, 0], 'changes': [67.72, 0], 'steps': [5558.22, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [52.64, 0]}
+[array([-5.37566782e-04,  1.39633371e-03,  6.16355404e-01,  3.02628863e-04,
+        6.42089844e-02])]
+{'regions': [2.22, 0], 'path-length': [19.08, 0], 'path-imp': [2.08, 0], 'path-change': [2.08, 0], 'iterations': [6348.82, 0], 'changes': [64.14, 0], 'steps': [6348.82, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [55.18, 0]}
+[array([1.02759321e-03, 3.02435296e-01, 6.25951692e-01, 5.27928188e-04,
+       1.06689453e-01])]
+{'regions': [2.24, 0], 'path-length': [19.14, 0], 'path-imp': [1.4, 0], 'path-change': [1.4, 0], 'iterations': [6315.18, 0], 'changes': [65.0, 0], 'steps': [6315.18, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [51.6, 0]}
+[array([-5.46836178e-04,  1.27269278e+00,  5.32774158e-01,  2.73305450e-04,
+        5.63964844e-02])]
+{'regions': [2.6, 0], 'path-length': [18.96, 0], 'path-imp': [1.32, 0], 'path-change': [1.32, 0], 'iterations': [5236.88, 0], 'changes': [67.06, 0], 'steps': [5236.88, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [52.22, 0]}
+[array([8.33104132e-04, 1.67500624e-03, 4.78590652e-01, 3.09955060e-04,
+       7.73925781e-02])]
+{'regions': [3.14, 0], 'path-length': [17.52, 0], 'path-imp': [1.34, 0], 'path-change': [1.34, 0], 'iterations': [5880.58, 0], 'changes': [65.2, 0], 'steps': [5880.58, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [57.14, 0]}
+[array([-1.10517372e-04,  5.26538447e-02,  3.94464159e-01,  2.27211123e-04,
+        5.88378906e-02])]
+{'regions': [3.26, 0], 'path-length': [18.62, 0], 'path-imp': [2.16, 0], 'path-change': [2.16, 0], 'iterations': [5439.86, 0], 'changes': [66.6, 0], 'steps': [5439.86, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [52.76, 0]}
+[array([-5.41460468e-05,  8.45737471e-02,  3.78941974e-01,  3.22875290e-04,
+        6.07910156e-02])]
+{'regions': [3.12, 0], 'path-length': [19.52, 0], 'path-imp': [2.66, 0], 'path-change': [2.66, 0], 'iterations': [4938.6, 0], 'changes': [67.98, 0], 'steps': [4938.6, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [53.66, 0]}
+[array([3.90039175e-04, 1.70016331e-03, 5.78452129e-01, 4.05077894e-04,
+       8.98437500e-02])]
+{'regions': [3.3, 0], 'path-length': [18.46, 0], 'path-imp': [2.54, 0], 'path-change': [2.54, 0], 'iterations': [5171.3, 0], 'changes': [66.8, 0], 'steps': [5171.3, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [59.24, 0]}
+[array([0.001626  , 0.70696597, 0.5848278 , 0.00071677, 0.19970703])]
+{'regions': [3.24, 0], 'path-length': [18.06, 0], 'path-imp': [3.26, 0], 'path-change': [3.26, 0], 'iterations': [5717.6, 0], 'changes': [65.06, 0], 'steps': [5717.6, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [63.06, 0]}
+[array([4.45457001e-04, 2.19631264e-03, 3.40705177e-01, 2.36254826e-04,
+       3.93066406e-02])]
+{'regions': [3.06, 0], 'path-length': [19.72, 0], 'path-imp': [4.04, 0], 'path-change': [4.04, 0], 'iterations': [5711.28, 0], 'changes': [68.26, 0], 'steps': [5711.28, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [63.24, 0]}
+[array([-2.48467200e-04,  5.09731410e-02,  3.36141476e-01,  7.82052121e-04,
+        8.42285156e-02])]
+{'regions': [2.76, 0], 'path-length': [20.0, 0], 'path-imp': [4.34, 0], 'path-change': [4.34, 0], 'iterations': [5679.82, 0], 'changes': [67.84, 0], 'steps': [5679.82, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [61.34, 0]}
+[array([-2.28284393e-04,  2.33676510e-01,  4.17759659e-01,  1.94147207e-04,
+        5.12695312e-02])]
+{'regions': [2.7, 0], 'path-length': [18.98, 0], 'path-imp': [4.06, 0], 'path-change': [4.06, 0], 'iterations': [6362.16, 0], 'changes': [65.92, 0], 'steps': [6362.16, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [64.36, 0]}
+[array([-8.81412299e-04,  1.19561269e-03,  5.37017882e-01,  2.91268620e-04,
+        3.54003906e-02])]
+{'regions': [3.18, 0], 'path-length': [19.14, 0], 'path-imp': [4.54, 0], 'path-change': [4.54, 0], 'iterations': [6634.76, 0], 'changes': [67.04, 0], 'steps': [6634.76, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [68.54, 0]}
+[array([4.20713390e-04, 6.40477590e-01, 5.34253161e-01, 3.94435481e-04,
+       1.36230469e-01])]
+{'regions': [3.12, 0], 'path-length': [20.26, 0], 'path-imp': [5.06, 0], 'path-change': [5.06, 0], 'iterations': [5954.36, 0], 'changes': [67.64, 0], 'steps': [5954.36, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [62.86, 0]}
+[array([2.24465504e-04, 1.64111288e+01, 4.97282974e-01, 2.41024743e-04,
+       5.24902344e-02])]
+{'regions': [3.04, 0], 'path-length': [20.62, 0], 'path-imp': [4.72, 0], 'path-change': [4.72, 0], 'iterations': [5858.56, 0], 'changes': [68.44, 0], 'steps': [5858.56, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [59.92, 0]}
+[array([5.07656368e-05, 9.17858444e-04, 4.95491879e-01, 4.05719331e-04,
+       7.15332031e-02])]
+{'regions': [2.94, 0], 'path-length': [20.7, 0], 'path-imp': [4.22, 0], 'path-change': [4.22, 0], 'iterations': [5332.1, 0], 'changes': [66.98, 0], 'steps': [5332.1, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [51.92, 0]}
+[array([-0.00068061,  0.00081586,  0.45980714,  0.00066166,  0.12231445])]
+{'regions': [2.52, 0], 'path-length': [21.78, 0], 'path-imp': [2.94, 0], 'path-change': [2.94, 0], 'iterations': [4392.34, 0], 'changes': [68.52, 0], 'steps': [4392.34, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [38.84, 0]}
+[array([-3.74574680e-04,  6.24749392e-01,  5.00066822e-01,  1.73985092e-04,
+        3.80859375e-02])]
+{'regions': [2.62, 0], 'path-length': [23.32, 0], 'path-imp': [2.84, 0], 'path-change': [2.84, 0], 'iterations': [3480.96, 0], 'changes': [72.64, 0], 'steps': [3480.96, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [36.84, 0]}
+[array([1.03571964e-03, 2.14993120e-01, 5.28543852e-01, 1.45442154e-04,
+       1.61132812e-02])]
+{'regions': [2.12, 0], 'path-length': [23.72, 0], 'path-imp': [3.84, 0], 'path-change': [3.84, 0], 'iterations': [2366.12, 0], 'changes': [73.66, 0], 'steps': [2366.12, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [50.74, 0]}
+[array([-7.85284152e-04,  3.40184871e-01,  5.62855992e-01,  2.61756105e-04,
+        5.02929688e-02])]
+{'regions': [2.04, 0], 'path-length': [23.18, 0], 'path-imp': [5.08, 0], 'path-change': [5.08, 0], 'iterations': [2441.54, 0], 'changes': [72.18, 0], 'steps': [2441.54, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [62.58, 0]}
+[array([-1.05676532e-03,  1.91640404e-03,  5.52273009e-01,  4.49065276e-04,
+        1.84570312e-01])]
+{'regions': [2.08, 0], 'path-length': [22.82, 0], 'path-imp': [6.06, 0], 'path-change': [6.06, 0], 'iterations': [2619.0, 0], 'changes': [71.18, 0], 'steps': [2619.0, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [69.06, 0]}
+[array([-0.00334183,  0.00156336,  0.6398714 ,  0.00110515,  0.39282227])]
+{'regions': [1.92, 0], 'path-length': [21.7, 0], 'path-imp': [6.02, 0], 'path-change': [6.02, 0], 'iterations': [3241.52, 0], 'changes': [68.02, 0], 'steps': [3241.52, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [64.32, 0]}
+[array([3.53507581e-04, 5.66724327e-03, 5.79533152e-01, 3.79471931e-04,
+       5.32226562e-02])]
+{'regions': [1.94, 0], 'path-length': [21.26, 0], 'path-imp': [6.02, 0], 'path-change': [6.02, 0], 'iterations': [3651.62, 0], 'changes': [66.9, 0], 'steps': [3651.62, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [64.72, 0]}
+[array([1.00954925e-03, 3.50648479e-03, 5.78995418e-01, 4.55411376e-04,
+       1.20117188e-01])]
+{'regions': [2.16, 0], 'path-length': [19.38, 0], 'path-imp': [5.22, 0], 'path-change': [5.22, 0], 'iterations': [4793.1, 0], 'changes': [62.28, 0], 'steps': [4793.1, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [64.82, 0]}
+[array([1.78477028e-04, 1.11399595e-02, 6.70269620e-01, 3.28921239e-04,
+       5.93261719e-02])]
+{'regions': [2.26, 0], 'path-length': [18.86, 0], 'path-imp': [4.54, 0], 'path-change': [4.54, 0], 'iterations': [5050.92, 0], 'changes': [61.5, 0], 'steps': [5050.92, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [63.04, 0]}
+[array([1.00924517e-03, 2.53590041e-01, 5.57226494e-01, 4.70188017e-04,
+       1.49902344e-01])]
+{'regions': [2.12, 0], 'path-length': [18.68, 0], 'path-imp': [3.9, 0], 'path-change': [3.9, 0], 'iterations': [4857.5, 0], 'changes': [60.6, 0], 'steps': [4857.5, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [61.5, 0]}
+[array([-3.00518004e-05,  6.10353023e-01,  5.22763763e-01,  3.23905974e-04,
+        7.27539062e-02])]
+{'regions': [2.58, 0], 'path-length': [16.48, 0], 'path-imp': [3.54, 0], 'path-change': [3.54, 0], 'iterations': [6020.48, 0], 'changes': [56.48, 0], 'steps': [6020.48, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [63.94, 0]}
+[array([-3.76379234e-04,  1.24133509e+00,  6.78743869e-01,  3.45469910e-04,
+        9.76562500e-02])]
+{'regions': [2.58, 0], 'path-length': [15.36, 0], 'path-imp': [3.7, 0], 'path-change': [3.7, 0], 'iterations': [6563.06, 0], 'changes': [53.8, 0], 'steps': [6563.06, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [66.2, 0]}
+[array([3.80335841e-05, 5.27815177e-03, 6.74361538e-01, 7.60062742e-04,
+       3.45703125e-01])]
+{'regions': [2.76, 0], 'path-length': [13.88, 0], 'path-imp': [3.08, 0], 'path-change': [3.08, 0], 'iterations': [7444.38, 0], 'changes': [51.12, 0], 'steps': [7444.38, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [68.38, 0]}
+[array([-0.00227068,  0.00513683,  0.63504043,  0.00120368,  0.29052734])]
+{'regions': [2.64, 0], 'path-length': [16.04, 0], 'path-imp': [4.02, 0], 'path-change': [4.02, 0], 'iterations': [6418.12, 0], 'changes': [55.72, 0], 'steps': [6418.12, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [74.72, 0]}
+[array([8.60170694e-04, 1.02109767e-01, 4.60670993e-01, 2.88103863e-04,
+       1.19628906e-01])]
+{'regions': [2.64, 0], 'path-length': [16.56, 0], 'path-imp': [4.46, 0], 'path-change': [4.46, 0], 'iterations': [6695.5, 0], 'changes': [57.72, 0], 'steps': [6695.5, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [75.86, 0]}
+[array([1.32074545e-03, 8.29951698e-02, 5.66223830e-01, 3.67471085e-04,
+       1.46972656e-01])]
+{'regions': [2.4, 0], 'path-length': [16.42, 0], 'path-imp': [3.88, 0], 'path-change': [3.88, 0], 'iterations': [6973.96, 0], 'changes': [57.14, 0], 'steps': [6973.96, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [70.98, 0]}
+[array([-1.16784917e-03,  8.06005244e-03,  5.42376321e-01,  4.98763799e-04,
+        2.54882812e-01])]
+{'regions': [1.98, 0], 'path-length': [18.8, 0], 'path-imp': [4.08, 0], 'path-change': [4.08, 0], 'iterations': [5876.26, 0], 'changes': [61.76, 0], 'steps': [5876.26, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [67.88, 0]}
+[array([-1.04904408e-03,  4.39335845e-03,  6.43871494e-01,  4.99297481e-04,
+        2.53906250e-01])]
+{'regions': [2.08, 0], 'path-length': [18.4, 0], 'path-imp': [3.96, 0], 'path-change': [3.96, 0], 'iterations': [6168.46, 0], 'changes': [61.6, 0], 'steps': [6168.46, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [71.26, 0]}
+[array([-5.23679773e-05,  9.85950130e-03,  6.81512441e-01,  2.98973663e-04,
+        1.32324219e-01])]
+{'regions': [2.06, 0], 'path-length': [20.3, 0], 'path-imp': [3.92, 0], 'path-change': [3.92, 0], 'iterations': [4726.02, 0], 'changes': [65.4, 0], 'steps': [4726.02, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [59.62, 0]}
+[array([8.89972958e-04, 1.50750337e+01, 6.37136918e-01, 4.85929680e-04,
+       2.73193359e-01])]
+{'regions': [2.04, 0], 'path-length': [19.58, 0], 'path-imp': [3.46, 0], 'path-change': [3.46, 0], 'iterations': [4562.14, 0], 'changes': [63.12, 0], 'steps': [4562.14, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [58.16, 0]}
+[array([-1.60547358e-03,  3.29932982e-03,  6.46363232e-01,  4.82732649e-04,
+        2.43652344e-01])]
+{'regions': [2.44, 0], 'path-length': [19.32, 0], 'path-imp': [3.54, 0], 'path-change': [3.54, 0], 'iterations': [4715.58, 0], 'changes': [63.66, 0], 'steps': [4715.58, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [61.44, 0]}
+[array([-6.93338981e-04,  1.47204095e-03,  6.21225677e-01,  2.71450040e-04,
+        1.24267578e-01])]
+{'regions': [2.52, 0], 'path-length': [17.74, 0], 'path-imp': [2.96, 0], 'path-change': [2.96, 0], 'iterations': [5506.22, 0], 'changes': [59.62, 0], 'steps': [5506.22, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [58.66, 0]}
+[array([-5.42956404e-05,  3.88882439e-03,  5.77165298e-01,  4.29465463e-04,
+        1.25488281e-01])]
+{'regions': [2.52, 0], 'path-length': [18.02, 0], 'path-imp': [2.28, 0], 'path-change': [2.28, 0], 'iterations': [5509.34, 0], 'changes': [59.4, 0], 'steps': [5509.34, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [52.08, 0]}
+[array([-5.19902969e-04,  1.71738230e+00,  5.36480244e-01,  2.10782501e-04,
+        1.05468750e-01])]
+{'regions': [2.52, 0], 'path-length': [17.78, 0], 'path-imp': [1.2, 0], 'path-change': [1.2, 0], 'iterations': [5803.84, 0], 'changes': [58.2, 0], 'steps': [5803.84, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [46.8, 0]}
+[array([-0.00485856,  0.00135586,  0.68448263,  0.00100463,  0.5       ])]
+{'regions': [2.6, 0], 'path-length': [17.8, 0], 'path-imp': [0.9, 0], 'path-change': [0.9, 0], 'iterations': [5750.48, 0], 'changes': [58.68, 0], 'steps': [5750.48, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [49.6, 0]}
+[array([2.13510939e-04, 4.75862211e-01, 5.43577064e-01, 8.80903106e-05,
+       1.12304688e-02])]
+{'regions': [2.32, 0], 'path-length': [19.36, 0], 'path-imp': [1.1, 0], 'path-change': [1.1, 0], 'iterations': [4824.86, 0], 'changes': [61.52, 0], 'steps': [4824.86, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [44.4, 0]}
+[array([-5.21014910e-04,  1.14128007e-03,  6.74636789e-01,  4.52448880e-04,
+        3.20800781e-01])]
+{'regions': [2.34, 0], 'path-length': [19.5, 0], 'path-imp': [1.2, 0], 'path-change': [1.2, 0], 'iterations': [4818.6, 0], 'changes': [61.58, 0], 'steps': [4818.6, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [40.3, 0]}
+[array([-8.28753691e-04,  4.14489716e-01,  6.78501066e-01,  4.78420862e-04,
+        3.53271484e-01])]
+{'regions': [2.14, 0], 'path-length': [20.34, 0], 'path-imp': [1.3, 0], 'path-change': [1.3, 0], 'iterations': [4217.68, 0], 'changes': [63.76, 0], 'steps': [4217.68, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [36.2, 0]}
+[array([5.18243876e-04, 2.98902509e-03, 6.32694203e-01, 1.79515868e-04,
+       9.69238281e-02])]
+{'regions': [2.16, 0], 'path-length': [21.44, 0], 'path-imp': [1.9, 0], 'path-change': [1.9, 0], 'iterations': [3906.78, 0], 'changes': [65.44, 0], 'steps': [3906.78, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [35.4, 0]}
+[array([-4.86849924e-04,  1.22873464e-01,  6.88914686e-01,  2.84932525e-04,
+        2.30224609e-01])]
+{'regions': [2.4, 0], 'path-length': [20.84, 0], 'path-imp': [1.68, 0], 'path-change': [1.68, 0], 'iterations': [4502.36, 0], 'changes': [63.28, 0], 'steps': [4502.36, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [33.18, 0]}
+[array([1.49569174e-03, 2.23787912e-03, 6.80462692e-01, 3.20248174e-04,
+       2.37060547e-01])]
+{'regions': [2.68, 0], 'path-length': [20.08, 0], 'path-imp': [1.5, 0], 'path-change': [1.5, 0], 'iterations': [4495.12, 0], 'changes': [64.92, 0], 'steps': [4495.12, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [44.8, 0]}
+[array([6.04969100e-04, 1.63069762e-03, 6.63909744e-01, 3.40832612e-04,
+       2.10449219e-01])]
+{'regions': [2.84, 0], 'path-length': [19.24, 0], 'path-imp': [1.62, 0], 'path-change': [1.62, 0], 'iterations': [4789.88, 0], 'changes': [63.68, 0], 'steps': [4789.88, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [49.12, 0]}
+[array([-1.47445535e-03,  4.95710794e-01,  6.53196897e-01,  4.80985543e-04,
+        1.89697266e-01])]
+{'regions': [2.88, 0], 'path-length': [18.6, 0], 'path-imp': [1.46, 0], 'path-change': [1.46, 0], 'iterations': [5089.9, 0], 'changes': [62.68, 0], 'steps': [5089.9, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [50.46, 0]}
+[array([2.75367434e-04, 2.66977795e-03, 6.88814994e-01, 2.80924061e-04,
+       2.85400391e-01])]
+{'regions': [3.04, 0], 'path-length': [19.8, 0], 'path-imp': [2.82, 0], 'path-change': [2.82, 0], 'iterations': [4479.42, 0], 'changes': [65.0, 0], 'steps': [4479.42, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [55.32, 0]}
+[array([8.26990639e-04, 1.47492471e-03, 6.61963262e-01, 1.80121328e-04,
+       1.19628906e-01])]
+{'regions': [3.44, 0], 'path-length': [19.14, 0], 'path-imp': [2.24, 0], 'path-change': [2.24, 0], 'iterations': [4477.56, 0], 'changes': [64.9, 0], 'steps': [4477.56, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [56.44, 0]}
+[array([1.76166504e-04, 3.09980653e-01, 6.06512249e-01, 1.82362018e-04,
+       6.37207031e-02])]
+{'regions': [3.82, 0], 'path-length': [18.0, 0], 'path-imp': [2.32, 0], 'path-change': [2.32, 0], 'iterations': [5088.36, 0], 'changes': [62.34, 0], 'steps': [5088.36, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [55.42, 0]}
+[array([-1.68242189e-03,  1.43201033e-03,  6.91979971e-01,  4.13428336e-04,
+        4.83642578e-01])]
+{'regions': [3.52, 0], 'path-length': [24.64, 0], 'path-imp': [7.5, 0], 'path-change': [7.5, 0], 'iterations': [2346.84, 0], 'changes': [68.76, 0], 'steps': [2346.84, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [51.8, 0]}
+[array([-2.85204500e-04,  2.00000272e+01,  5.55619374e-01,  1.92402382e-04,
+        9.93652344e-02])]
+{'regions': [3.38, 0], 'path-length': [25.64, 0], 'path-imp': [7.82, 0], 'path-change': [7.82, 0], 'iterations': [2026.52, 0], 'changes': [70.38, 0], 'steps': [2026.52, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [51.22, 0]}
+[array([-2.34312686e-03,  4.15965701e-03,  6.90439329e-01,  5.67242470e-04,
+        5.68359375e-01])]
+{'regions': [3.08, 0], 'path-length': [23.96, 0], 'path-imp': [7.32, 0], 'path-change': [7.32, 0], 'iterations': [3231.28, 0], 'changes': [65.9, 0], 'steps': [3231.28, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [47.32, 0]}
+[array([1.18151307e-04, 9.83332726e-02, 6.70124676e-01, 2.72042889e-04,
+       2.72705078e-01])]
+{'regions': [2.92, 0], 'path-length': [22.38, 0], 'path-imp': [6.0, 0], 'path-change': [6.0, 0], 'iterations': [3832.4, 0], 'changes': [64.06, 0], 'steps': [3832.4, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [46.6, 0]}
+[array([-7.67748570e-04,  1.92968799e+00,  5.71268652e-01,  3.22846420e-04,
+        2.06787109e-01])]
+{'regions': [3.2, 0], 'path-length': [21.2, 0], 'path-imp': [4.18, 0], 'path-change': [4.18, 0], 'iterations': [4137.9, 0], 'changes': [63.86, 0], 'steps': [4137.9, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [41.48, 0]}
+[array([-7.74889777e-04,  2.15945874e-03,  6.84307493e-01,  4.47954014e-04,
+        4.29199219e-01])]
+{'regions': [3.4, 0], 'path-length': [19.76, 0], 'path-imp': [3.64, 0], 'path-change': [3.64, 0], 'iterations': [5041.46, 0], 'changes': [61.7, 0], 'steps': [5041.46, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [45.74, 0]}
+[array([-5.32493519e-04,  1.66260661e-03,  6.80815361e-01,  1.85234166e-04,
+        2.32666016e-01])]
+{'regions': [3.52, 0], 'path-length': [18.48, 0], 'path-imp': [3.22, 0], 'path-change': [3.22, 0], 'iterations': [5650.8, 0], 'changes': [59.8, 0], 'steps': [5650.8, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [46.22, 0]}
+[array([3.09446361e-04, 1.93547133e-03, 6.76226579e-01, 2.40573046e-04,
+       1.93115234e-01])]
+{'regions': [3.5, 0], 'path-length': [15.44, 0], 'path-imp': [1.34, 0], 'path-change': [1.34, 0], 'iterations': [7457.58, 0], 'changes': [54.34, 0], 'steps': [7457.58, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [49.44, 0]}
+[array([1.51724584e-03, 2.14656027e-01, 6.67185523e-01, 3.59997360e-04,
+       4.80712891e-01])]
+{'regions': [3.4, 0], 'path-length': [16.24, 0], 'path-imp': [1.22, 0], 'path-change': [1.22, 0], 'iterations': [7157.34, 0], 'changes': [55.06, 0], 'steps': [7157.34, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [45.82, 0]}
+[array([-2.96815415e-05,  3.17366175e+00,  6.19415820e-01,  1.18481780e-04,
+        4.98046875e-02])]
+{'regions': [3.72, 0], 'path-length': [14.98, 0], 'path-imp': [0.68, 0], 'path-change': [0.68, 0], 'iterations': [7762.52, 0], 'changes': [54.84, 0], 'steps': [7762.52, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [50.78, 0]}
+[array([-5.26954915e-04,  1.57714596e-03,  5.29879197e-01,  1.15768729e-04,
+        1.02294922e-01])]
+{'regions': [3.88, 0], 'path-length': [13.98, 0], 'path-imp': [-0.46, 0], 'path-change': [-0.46, 0], 'iterations': [8066.5, 0], 'changes': [56.1, 0], 'steps': [8066.5, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [51.64, 0]}
+[array([9.89612425e-04, 1.80623855e+00, 4.47482178e-01, 5.62321847e-04,
+       1.59667969e-01])]
+{'regions': [4.1, 0], 'path-length': [13.28, 0], 'path-imp': [-0.56, 0], 'path-change': [-0.56, 0], 'iterations': [8371.06, 0], 'changes': [55.62, 0], 'steps': [8371.06, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [52.84, 0]}
+[array([-1.30318746e-04,  8.46718154e-04,  4.32626437e-01,  8.17402440e-05,
+        6.68945312e-02])]
+{'regions': [6.18, 0], 'path-length': [11.28, 0], 'path-imp': [-2.74, 0], 'path-change': [-2.74, 0], 'iterations': [8377.66, 0], 'changes': [56.58, 0], 'steps': [8377.66, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [39.46, 0]}
+[array([-4.19158372e-04,  6.30019440e-04,  3.79866822e-01,  8.75871745e-05,
+        6.98242188e-02])]
+{'regions': [6.28, 0], 'path-length': [11.66, 0], 'path-imp': [-2.8, 0], 'path-change': [-2.8, 0], 'iterations': [8076.12, 0], 'changes': [56.62, 0], 'steps': [8076.12, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [33.9, 0]}
+[array([-8.19497509e-05,  8.13417050e-02,  4.14740264e-01,  1.56079764e-04,
+        9.81445312e-02])]
+{'regions': [7.3, 0], 'path-length': [13.64, 0], 'path-imp': [-2.74, 0], 'path-change': [-2.74, 0], 'iterations': [6584.68, 0], 'changes': [61.2, 0], 'steps': [6584.68, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [20.06, 0]}
+[array([-1.86432851e-04,  1.39172216e+00,  2.92791130e-01,  1.56637778e-05,
+        2.44140625e-02])]
+{'regions': [7.74, 0], 'path-length': [14.56, 0], 'path-imp': [-2.3, 0], 'path-change': [-2.3, 0], 'iterations': [5681.12, 0], 'changes': [62.58, 0], 'steps': [5681.12, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [11.7, 0]}
+[array([-7.69139151e-05,  6.03233280e-01,  3.59730981e-01,  5.32537608e-05,
+        2.53906250e-02])]
+{'regions': [7.8, 0], 'path-length': [13.52, 0], 'path-imp': [-2.62, 0], 'path-change': [-2.62, 0], 'iterations': [6282.4, 0], 'changes': [61.12, 0], 'steps': [6282.4, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [13.58, 0]}
+[array([-5.19760652e-05,  6.27869464e-04,  2.92051964e-01,  1.87245676e-05,
+        3.61328125e-02])]
+{'regions': [9.6, 0], 'path-length': [12.84, 0], 'path-imp': [-3.36, 0], 'path-change': [-3.36, 0], 'iterations': [5979.04, 0], 'changes': [63.76, 0], 'steps': [5979.04, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [10.54, 0]}
+[array([1.25599909e-04, 2.85961269e-04, 2.89960746e-01, 1.71617397e-05,
+       2.92968750e-02])]
+{'regions': [9.16, 0], 'path-length': [12.82, 0], 'path-imp': [-3.24, 0], 'path-change': [-3.24, 0], 'iterations': [6278.76, 0], 'changes': [62.64, 0], 'steps': [6278.76, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [12.66, 0]}
+[array([-2.30447040e-05,  6.98532986e-04,  2.74765268e-01,  1.22682489e-05,
+        2.70996094e-02])]
+{'regions': [9.16, 0], 'path-length': [12.04, 0], 'path-imp': [-3.46, 0], 'path-change': [-3.46, 0], 'iterations': [6582.24, 0], 'changes': [61.48, 0], 'steps': [6582.24, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [14.44, 0]}
+[array([1.33129361e-04, 9.34647650e-01, 2.80184388e-01, 4.84864694e-05,
+       5.76171875e-02])]
+{'regions': [8.84, 0], 'path-length': [11.56, 0], 'path-imp': [-3.6, 0], 'path-change': [-3.6, 0], 'iterations': [6876.74, 0], 'changes': [61.4, 0], 'steps': [6876.74, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [21.4, 0]}
+[array([-1.18892349e-04,  8.09025368e+00,  3.11184516e-01,  3.16310634e-05,
+        2.68554688e-02])]
+{'regions': [9.02, 0], 'path-length': [10.92, 0], 'path-imp': [-3.96, 0], 'path-change': [-3.96, 0], 'iterations': [7175.3, 0], 'changes': [60.64, 0], 'steps': [7175.3, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [22.54, 0]}
+[array([-1.61445190e-04,  2.75845050e-04,  3.62375822e-01,  3.73403801e-05,
+        5.24902344e-02])]
+{'regions': [9.52, 0], 'path-length': [10.28, 0], 'path-imp': [-4.42, 0], 'path-change': [-4.42, 0], 'iterations': [7462.7, 0], 'changes': [60.14, 0], 'steps': [7462.7, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [24.98, 0]}
+[array([1.61032687e-04, 7.08666386e-04, 3.97494188e-01, 2.16242793e-05,
+       3.90625000e-02])]
+{'regions': [9.84, 0], 'path-length': [9.84, 0], 'path-imp': [-4.56, 0], 'path-change': [-4.56, 0], 'iterations': [7465.86, 0], 'changes': [61.0, 0], 'steps': [7465.86, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [29.64, 0]}
+[array([-3.61072598e-05,  6.04095873e-04,  3.37756220e-01,  1.29142876e-05,
+        2.41699219e-02])]
+{'regions': [9.72, 0], 'path-length': [10.98, 0], 'path-imp': [-3.48, 0], 'path-change': [-3.48, 0], 'iterations': [6864.9, 0], 'changes': [60.44, 0], 'steps': [6864.9, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [27.52, 0]}
+[array([-2.40269932e-04,  5.32225973e-04,  3.77111843e-01,  1.95384943e-05,
+        4.66308594e-02])]
+{'regions': [8.64, 0], 'path-length': [12.82, 0], 'path-imp': [-1.66, 0], 'path-change': [-1.66, 0], 'iterations': [5969.76, 0], 'changes': [62.6, 0], 'steps': [5969.76, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [35.84, 0]}
+[array([2.66706455e-04, 6.89180416e+00, 4.18341160e-01, 1.27882967e-05,
+       1.39160156e-02])]
+{'regions': [8.7, 0], 'path-length': [13.48, 0], 'path-imp': [-0.16, 0], 'path-change': [-0.16, 0], 'iterations': [5677.2, 0], 'changes': [63.46, 0], 'steps': [5677.2, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [39.94, 0]}
+[array([1.64350815e-04, 2.73000080e-04, 3.96555034e-01, 1.43028448e-05,
+       3.68652344e-02])]
+{'regions': [7.84, 0], 'path-length': [15.44, 0], 'path-imp': [0.9, 0], 'path-change': [0.9, 0], 'iterations': [4783.78, 0], 'changes': [64.72, 0], 'steps': [4783.78, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [37.0, 0]}
+[array([-2.93827761e-04,  1.85478154e+00,  4.43949856e-01,  4.42637119e-05,
+        3.29589844e-02])]
+{'regions': [7.66, 0], 'path-length': [15.96, 0], 'path-imp': [1.0, 0], 'path-change': [1.0, 0], 'iterations': [4780.78, 0], 'changes': [65.92, 0], 'steps': [4780.78, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [35.8, 0]}
+[array([1.95433153e-04, 6.44478911e-04, 4.16987924e-01, 2.75252067e-05,
+       6.76269531e-02])]
+{'regions': [7.02, 0], 'path-length': [16.52, 0], 'path-imp': [1.26, 0], 'path-change': [1.26, 0], 'iterations': [4485.86, 0], 'changes': [66.7, 0], 'steps': [4485.86, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [35.86, 0]}
+[array([5.42723545e-04, 2.69166680e+00, 4.27167390e-01, 1.68141545e-05,
+       2.53906250e-02])]
+{'regions': [5.82, 0], 'path-length': [19.06, 0], 'path-imp': [1.58, 0], 'path-change': [1.58, 0], 'iterations': [4467.82, 0], 'changes': [67.1, 0], 'steps': [4467.82, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [38.28, 0]}
+[array([-7.46615115e-05,  6.80371371e+00,  5.01086963e-01,  1.32492815e-05,
+        3.80859375e-02])]
+{'regions': [5.66, 0], 'path-length': [17.06, 0], 'path-imp': [0.94, 0], 'path-change': [0.94, 0], 'iterations': [5374.74, 0], 'changes': [63.78, 0], 'steps': [5374.74, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [41.44, 0]}
+[array([5.49776596e-05, 1.56546227e-03, 5.60137551e-01, 1.84521124e-05,
+       4.41894531e-02])]
+{'regions': [5.38, 0], 'path-length': [16.28, 0], 'path-imp': [0.72, 0], 'path-change': [0.72, 0], 'iterations': [5676.94, 0], 'changes': [62.1, 0], 'steps': [5676.94, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [41.32, 0]}
+[array([1.77996699e-05, 9.74181254e-04, 5.24896774e-01, 2.51387294e-05,
+       8.37402344e-02])]
+{'regions': [5.4, 0], 'path-length': [16.58, 0], 'path-imp': [0.48, 0], 'path-change': [0.48, 0], 'iterations': [5666.0, 0], 'changes': [61.52, 0], 'steps': [5666.0, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [36.58, 0]}
+[array([2.81973858e-04, 2.62099651e-04, 5.06931417e-01, 2.43735910e-05,
+       8.91113281e-02])]
+{'regions': [4.78, 0], 'path-length': [16.58, 0], 'path-imp': [0.66, 0], 'path-change': [0.66, 0], 'iterations': [5959.74, 0], 'changes': [59.68, 0], 'steps': [5959.74, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [38.26, 0]}
+[array([-9.20830062e-05,  8.34722422e-01,  5.48364446e-01,  1.03606105e-05,
+        2.41699219e-02])]
+{'regions': [4.64, 0], 'path-length': [17.78, 0], 'path-imp': [2.6, 0], 'path-change': [2.6, 0], 'iterations': [5657.44, 0], 'changes': [60.5, 0], 'steps': [5657.44, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [46.5, 0]}
+[array([7.65725854e-05, 1.45797589e-04, 5.62790856e-01, 1.63744347e-05,
+       7.71484375e-02])]
+{'regions': [3.86, 0], 'path-length': [20.92, 0], 'path-imp': [3.78, 0], 'path-change': [3.78, 0], 'iterations': [4440.3, 0], 'changes': [64.1, 0], 'steps': [4440.3, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [38.28, 0]}
+[array([4.73950873e-04, 1.21041443e+00, 5.85762497e-01, 4.41948323e-05,
+       1.45263672e-01])]
+{'regions': [4.0, 0], 'path-length': [21.48, 0], 'path-imp': [4.46, 0], 'path-change': [4.46, 0], 'iterations': [4139.06, 0], 'changes': [64.96, 0], 'steps': [4139.06, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [42.16, 0]}
+[array([-1.87790953e-04,  2.90667852e-04,  6.23517893e-01,  3.60804983e-05,
+        1.08398438e-01])]
+{'regions': [4.26, 0], 'path-length': [21.66, 0], 'path-imp': [4.52, 0], 'path-change': [4.52, 0], 'iterations': [3842.5, 0], 'changes': [65.2, 0], 'steps': [3842.5, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [40.72, 0]}
+[array([1.43380603e-04, 3.49992418e-03, 6.37948755e-01, 4.11991019e-05,
+       1.68945312e-01])]
+{'regions': [4.16, 0], 'path-length': [19.46, 0], 'path-imp': [3.76, 0], 'path-change': [3.76, 0], 'iterations': [4448.98, 0], 'changes': [62.52, 0], 'steps': [4448.98, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [42.46, 0]}
+[array([5.69389435e-04, 6.40629001e-01, 6.20662514e-01, 6.32786421e-05,
+       2.27539062e-01])]
+{'regions': [4.26, 0], 'path-length': [17.84, 0], 'path-imp': [2.98, 0], 'path-change': [2.98, 0], 'iterations': [5053.94, 0], 'changes': [60.26, 0], 'steps': [5053.94, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [41.88, 0]}
+[array([-9.28295194e-05,  6.03093737e-04,  6.04298681e-01,  2.07768874e-05,
+        1.25976562e-01])]
+{'regions': [4.64, 0], 'path-length': [17.56, 0], 'path-imp': [3.16, 0], 'path-change': [3.16, 0], 'iterations': [5357.78, 0], 'changes': [60.2, 0], 'steps': [5357.78, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [44.06, 0]}
+[array([-3.39679245e-05,  9.76371577e-02,  5.98008465e-01,  1.22502921e-05,
+        1.08642578e-01])]
+{'regions': [4.58, 0], 'path-length': [18.02, 0], 'path-imp': [3.2, 0], 'path-change': [3.2, 0], 'iterations': [5059.98, 0], 'changes': [61.58, 0], 'steps': [5059.98, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [50.5, 0]}
+[array([-1.19905104e-04,  2.98819843e-04,  5.91663659e-01,  1.41313932e-05,
+        1.21826172e-01])]
+{'regions': [4.32, 0], 'path-length': [19.04, 0], 'path-imp': [3.26, 0], 'path-change': [3.26, 0], 'iterations': [5051.82, 0], 'changes': [61.24, 0], 'steps': [5051.82, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [51.06, 0]}
+[array([8.24543531e-05, 3.20646767e-01, 6.28764622e-01, 1.39070701e-05,
+       1.29882812e-01])]
+{'regions': [3.96, 0], 'path-length': [22.8, 0], 'path-imp': [5.22, 0], 'path-change': [5.22, 0], 'iterations': [3836.88, 0], 'changes': [64.34, 0], 'steps': [3836.88, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [49.82, 0]}
+[array([-5.14870044e-06,  8.48243656e-02,  6.32648718e-01,  6.42254584e-05,
+        6.25976562e-01])]
+{'regions': [3.78, 0], 'path-length': [22.9, 0], 'path-imp': [4.64, 0], 'path-change': [4.64, 0], 'iterations': [3537.7, 0], 'changes': [65.98, 0], 'steps': [3537.7, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [50.54, 0]}
+[array([4.34997492e-04, 1.23868345e+01, 5.60364421e-01, 5.71981525e-06,
+       2.92968750e-02])]
+{'regions': [3.72, 0], 'path-length': [21.2, 0], 'path-imp': [4.66, 0], 'path-change': [4.66, 0], 'iterations': [4442.26, 0], 'changes': [62.46, 0], 'steps': [4442.26, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [52.26, 0]}
+[array([1.35367154e-05, 3.29734456e-04, 6.35939714e-01, 9.72358261e-06,
+       1.33300781e-01])]
+{'regions': [3.66, 0], 'path-length': [19.74, 0], 'path-imp': [4.1, 0], 'path-change': [4.1, 0], 'iterations': [5344.74, 0], 'changes': [59.42, 0], 'steps': [5344.74, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [51.6, 0]}
+[array([-8.16091779e-05,  5.73617668e-04,  6.34353425e-01,  1.05270752e-05,
+        1.65039062e-01])]
+{'regions': [3.56, 0], 'path-length': [19.54, 0], 'path-imp': [4.54, 0], 'path-change': [4.54, 0], 'iterations': [5645.3, 0], 'changes': [58.32, 0], 'steps': [5645.3, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [53.14, 0]}
+[array([-4.38916031e-05,  3.66381946e-04,  6.33516051e-01,  4.08061170e-06,
+        9.05761719e-02])]
+{'regions': [3.62, 0], 'path-length': [18.5, 0], 'path-imp': [4.12, 0], 'path-change': [4.12, 0], 'iterations': [5650.68, 0], 'changes': [60.26, 0], 'steps': [5650.68, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [58.42, 0]}
+[array([1.16778538e-05, 4.77880414e-01, 6.24254365e-01, 6.21519298e-06,
+       1.45751953e-01])]
+{'regions': [3.46, 0], 'path-length': [17.52, 0], 'path-imp': [2.74, 0], 'path-change': [2.74, 0], 'iterations': [6257.04, 0], 'changes': [58.94, 0], 'steps': [6257.04, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [56.74, 0]}
+[array([-1.91427069e-04,  8.83433172e-02,  6.46846954e-01,  7.82331307e-06,
+        1.90429688e-01])]
+{'regions': [3.4, 0], 'path-length': [15.82, 0], 'path-imp': [1.62, 0], 'path-change': [1.62, 0], 'iterations': [6859.84, 0], 'changes': [57.56, 0], 'steps': [6859.84, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [57.12, 0]}
+[array([-1.83584634e-05,  3.99890449e-04,  6.54500525e-01,  6.64842483e-06,
+        3.17138672e-01])]
+{'regions': [3.22, 0], 'path-length': [16.3, 0], 'path-imp': [1.48, 0], 'path-change': [1.48, 0], 'iterations': [6560.7, 0], 'changes': [58.3, 0], 'steps': [6560.7, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [53.28, 0]}
+[array([-9.56335571e-05,  3.88344925e-01,  6.59775577e-01,  4.57120197e-06,
+        2.30957031e-01])]
+{'regions': [3.08, 0], 'path-length': [19.44, 0], 'path-imp': [2.44, 0], 'path-change': [2.44, 0], 'iterations': [4753.88, 0], 'changes': [63.7, 0], 'steps': [4753.88, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [46.94, 0]}
+[array([2.02817318e-05, 3.93354612e-04, 6.55466478e-01, 2.72708608e-06,
+       1.59179688e-01])]
+{'regions': [2.82, 0], 'path-length': [19.68, 0], 'path-imp': [2.14, 0], 'path-change': [2.14, 0], 'iterations': [4448.58, 0], 'changes': [63.28, 0], 'steps': [4448.58, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [43.84, 0]}
+[array([9.92041896e-05, 4.82961928e-04, 6.59667086e-01, 1.73411469e-06,
+       1.66992188e-01])]
+{'regions': [2.98, 0], 'path-length': [20.34, 0], 'path-imp': [3.68, 0], 'path-change': [3.68, 0], 'iterations': [4143.08, 0], 'changes': [64.42, 0], 'steps': [4143.08, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [49.48, 0]}
+[array([6.85011037e-05, 1.06751905e+00, 6.61147967e-01, 2.05616354e-06,
+       3.94042969e-01])]
+{'regions': [3.0, 0], 'path-length': [19.18, 0], 'path-imp': [3.58, 0], 'path-change': [3.58, 0], 'iterations': [4743.84, 0], 'changes': [62.52, 0], 'steps': [4743.84, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [49.88, 0]}
+[array([1.19282631e-05, 9.70607299e-01, 6.65332295e-01, 4.38475722e-07,
+       1.21337891e-01])]
+{'regions': [3.08, 0], 'path-length': [19.24, 0], 'path-imp': [3.98, 0], 'path-change': [3.98, 0], 'iterations': [4740.66, 0], 'changes': [62.64, 0], 'steps': [4740.66, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [56.58, 0]}
+[array([2.69169686e-06, 1.22632780e-01, 6.64248679e-01, 3.51199809e-07,
+       2.38525391e-01])]
+{'regions': [3.24, 0], 'path-length': [17.14, 0], 'path-imp': [3.6, 0], 'path-change': [3.6, 0], 'iterations': [5947.84, 0], 'changes': [59.76, 0], 'steps': [5947.84, 0], 'max_iterations': [15288.0, 0], 'max_changes': [78.0, 0], 'reward': [63.2, 0]}
+[array([-6.64382242e-06,  4.34003001e-04,  6.64290391e-01,  4.07551501e-08,
+        9.35058594e-02])]
