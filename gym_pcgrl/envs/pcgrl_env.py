@@ -31,6 +31,7 @@ class PcgrlEnv(gym.Env):
         constant in gym_pcgrl.envs.reps.__init__.py
     """
     def __init__(self, prob="binary", rep="narrow", n_agents = 2):
+        print('env agents', n_agents)
         self._prob = PROBLEMS[prob](n_agents)
         self._rep = REPRESENTATIONS[rep](n_agents)
         self.n_agents = n_agents
@@ -92,6 +93,8 @@ class PcgrlEnv(gym.Env):
         self._prob.reset(self._rep_stats)
         self._heatmap = np.zeros((self._prob._height, self._prob._width))
         self.rewards = [[],[]]
+
+        self.agent_order = [i for i in range(self.n_agents)]
         random.shuffle(self.agent_order)
 
         observations = []
@@ -131,6 +134,8 @@ class PcgrlEnv(gym.Env):
         representation and the used problem
     """
     def adjust_param(self, **kwargs):
+        if 'agents' in kwargs:
+            self.n_agents = kwargs['agents']
         if 'negative_switch' in kwargs:
             self.negative_switch = kwargs['negative_switch']
         if 'change_percentage' in kwargs:
