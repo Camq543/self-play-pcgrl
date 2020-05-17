@@ -31,7 +31,6 @@ class PcgrlEnv(gym.Env):
         constant in gym_pcgrl.envs.reps.__init__.py
     """
     def __init__(self, prob="binary", rep="narrow", n_agents = 2):
-        print('env agents', n_agents)
         self._prob = PROBLEMS[prob](n_agents)
         self._rep = REPRESENTATIONS[rep](n_agents)
         self.n_agents = n_agents
