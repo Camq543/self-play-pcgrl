@@ -48,12 +48,13 @@ def build(game, representation, model_path, n_agents, make_gif, image_name, **kw
     # print(obs.shape)
 
     if not self_play:
-        model, optimizer, _,_ = load_models(device, model_path, n_agents, obs.shape[-1],crop_size,n_actions)
+        models, optimizers, _,_ = load_models(device, model_path, n_agents, obs.shape[-1],crop_size,n_actions)
 
         obs = reshape_obs(obs)
         # print(obs.shape)
 
         frames = []
+
 
         done = False
         while not done:
@@ -61,6 +62,7 @@ def build(game, representation, model_path, n_agents, make_gif, image_name, **kw
                 frames.append(env.render(mode='rgb_array'))
             env.render()
 
+            actions = []
             for i in range(n_agents):
                 pi, _ = models[i](obs_to_torch(obs[i]))
                 a = pi.sample()
@@ -107,13 +109,13 @@ def build(game, representation, model_path, n_agents, make_gif, image_name, **kw
 
 
 ################################## MAIN ########################################
-game = 'binary'
-representation = 'narrow'
-self_play = True
+game = 'zelda'
+representation = 'turtle'
+self_play = False
 make_gif = True
 kwargs = {
             'change_percentage': 0.4,
-            'verbose': True,
+            'verbose': False,
             'negative_switch': False,
             'render': False,
             'restrict_map':False
