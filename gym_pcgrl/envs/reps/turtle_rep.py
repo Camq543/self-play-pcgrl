@@ -45,6 +45,8 @@ class TurtleRepresentation(Representation):
     """
     def adjust_param(self, width, height, **kwargs):
         super().adjust_param(**kwargs)
+        if 'agents' in kwargs:
+            self.n_agents = kwargs['agents']
         self._warp = kwargs.get('warp', self._warp)
         if 'cropped_size' in kwargs:
             map_size = kwargs['cropped_size']
@@ -197,6 +199,7 @@ class TurtleRepresentation(Representation):
         img: the modified level image
     """
     def render(self, lvl_image, tile_size, border_size):
+        print(self.n_agents)
         x_graphics = Image.new("RGBA", (tile_size,tile_size), (0,0,0,0))
         color_list = [(255,0,0,255),(0,0,255,255),(0,255,0,255)]
         for i in range(self.n_agents):

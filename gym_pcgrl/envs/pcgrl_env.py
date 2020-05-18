@@ -92,6 +92,8 @@ class PcgrlEnv(gym.Env):
         self._prob.reset(self._rep_stats)
         self._heatmap = np.zeros((self._prob._height, self._prob._width))
         self.rewards = [[],[]]
+
+        self.agent_order = [i for i in range(self.n_agents)]
         random.shuffle(self.agent_order)
 
         observations = []
@@ -131,6 +133,8 @@ class PcgrlEnv(gym.Env):
         representation and the used problem
     """
     def adjust_param(self, **kwargs):
+        if 'agents' in kwargs:
+            self.n_agents = kwargs['agents']
         if 'negative_switch' in kwargs:
             self.negative_switch = kwargs['negative_switch']
         if 'change_percentage' in kwargs:
